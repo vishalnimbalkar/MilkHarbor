@@ -18,7 +18,7 @@ import { FooterComponent } from './footer/footer.component';
     AdminSignupComponent,
     FarmerSignupComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,13 +7,14 @@ import { PendingApprovalsComponent } from './pending-approvals/pending-approvals
 import { FarmerListComponent } from './farmer-list/farmer-list.component';
 import { MilkCollectionComponent } from './milk-collection/milk-collection.component';
 import { MilkDetailsComponent } from './milk-details/milk-details.component';
+import { PaymentComponent } from './payment/payment.component';
 
 const routes: Routes = [
   {
     path:'',component:AccountComponent,
     children: [
       {
-        path:'profile',component:ProfileComponent
+        path:"profile",component:ProfileComponent
       },
       {
         path:'invite-farmers',component:InviteFarmersComponent
@@ -29,6 +30,9 @@ const routes: Routes = [
       },
       {
         path:'milk-details',component:MilkDetailsComponent
+      },
+      {
+        path:'payment',component:PaymentComponent
       }
     ]
   }

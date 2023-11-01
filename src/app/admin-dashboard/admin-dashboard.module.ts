@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminDashboardRoutingModule } from './admin-dashboard-routing.module';
@@ -9,6 +9,9 @@ import { FarmerListComponent } from './farmer-list/farmer-list.component';
 import { MilkCollectionComponent } from './milk-collection/milk-collection.component';
 import { MilkDetailsComponent } from './milk-details/milk-details.component';
 import { InviteFarmersComponent } from './invite-farmers/invite-farmers.component';
+import { Router } from '@angular/router';
+import { PaymentComponent } from './payment/payment.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -20,10 +23,12 @@ import { InviteFarmersComponent } from './invite-farmers/invite-farmers.componen
     MilkCollectionComponent,
     MilkDetailsComponent,
     InviteFarmersComponent,
+    PaymentComponent,
   ],
   imports: [
     CommonModule,
-    AdminDashboardRoutingModule
+    AdminDashboardRoutingModule,
+    RouterModule
   ]
 })
-export class AdminDashboardModule { }
+export class AdminDashboardModule {}

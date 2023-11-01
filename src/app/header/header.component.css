@@ -12,6 +12,7 @@ nav {
 }
 
 .navbar-brand {
+    margin-left: -10px;
     font-weight: 600;
     font-size: 35px;
     line-height: 44px;

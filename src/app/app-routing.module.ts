@@ -24,8 +24,11 @@ const routes: Routes = [
   {
     path: 'admin-dashboard',
     loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)
+  },
+  {
+    path: 'farmer-dashboard',
+    loadChildren: () => import('./farmer-dashboard/farmer-dashboard.module').then(m => m.FarmerDashboardModule)
   }
-  
 ];
 
 @NgModule({

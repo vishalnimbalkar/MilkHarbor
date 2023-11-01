@@ -13,28 +13,28 @@ export class AccountComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
+    this.router.navigate(['/admin-dashboard/profile'])
   }
 
-  onProfile(){
-    this.router.navigate(['profile']);
-    console.log('jfeineon')
-  }
-  onInviteFarmers(){
-    this.router.navigate(['/invite-farmers']);
-  }
-  onPendingApprovals(){
-    this.router.navigate(['/pending-approvals']);
-  }
-  onFarmerList(){
-    this.router.navigate(['/farmer-list']);
-  }
-  onMilkCollection(){
-    this.router.navigate(['/milk-collection']);
-  }
-  onMilkDetails(){
-    this.router.navigate(['/milk-details']);
-  }
+  // isActive!:boolean;
+  // onActive(){
+  //   this.isActive=false
+  // }
+  // onInviteFarmers(){
+  //   this.router.navigate(['/invite-farmers']);
+  // }
+  // onPendingApprovals(){
+  //   this.router.navigate(['/pending-approvals']);
+  // }
+  // onFarmerList(){
+  //   this.router.navigate(['/farmer-list']);
+  // }
+  // onMilkCollection(){
+  //   this.router.navigate(['/milk-collection']);
+  // }
+  // onMilkDetails(){
+  //   this.router.navigate(['/milk-details']);
+  // }
   onLogout(){
 
   }

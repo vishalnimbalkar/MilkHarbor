@@ -20,7 +20,12 @@ const routes: Routes = [
   },
   {
     path:'farmer-signup', component:FarmerSignupComponent
+  },
+  {
+    path: 'admin-dashboard',
+    loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)
   }
+  
 ];
 
 @NgModule({

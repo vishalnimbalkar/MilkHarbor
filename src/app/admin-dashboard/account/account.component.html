@@ -1,0 +1,27 @@
+<div class="dashboard">
+<div class="sidebar">
+    <p class="heading">MilkHarbor</p>
+    <div class="sidebar-item" routerLink='profile'>
+        <p>Profile</p>
+    </div>
+    <div class="sidebar-item" routerLink='invite-farmers'>
+        <p>Invite Farmers</p>
+    </div>
+    <div class="sidebar-item" routerLink='pending-approvals'>
+        <p>Pending Approvals</p>
+    </div>
+    <div class="sidebar-item" routerLink='farmer-list'>
+        <p>Farmers List</p>
+    </div>
+     <div class="sidebar-item" routerLink='milk-collection'>
+        <p>Milk Collection</p>
+    </div>
+     <div class="sidebar-item" routerLink='milk-details'>
+        <p>Collected Milk Details</p>
+    </div> 
+    <div class="sidebar-item" (click)="onLogout()">
+        <p>Logout</p>
+    </div>
+</div>
+<router-outlet></router-outlet>
+</div>

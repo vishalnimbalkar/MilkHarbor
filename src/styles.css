@@ -73,9 +73,9 @@ label{
 .loader {
     transform: rotateZ(45deg);
     perspective: 1000px;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
+    border-radius: 100%;
+    width: 88px;
+    height: 88px;
     color: #435184;
     z-index: 1001;
   }
@@ -88,7 +88,7 @@ label{
       left: 0;
       width: inherit;
       height: inherit;
-      border-radius: 50%;
+      border-radius: 100%;
       transform: rotateX(70deg);
       animation: 1s spin linear infinite;
     }

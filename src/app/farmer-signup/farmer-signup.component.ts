@@ -3,6 +3,7 @@ import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AdminServiceService } from '../services/admin-service';
 import { EncryptionService } from '../services/encryption.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-farmer-signup',
@@ -11,24 +12,26 @@ import { EncryptionService } from '../services/encryption.service';
 })
 export class FarmerSignupComponent {
   signupForm!: FormGroup;
-  isPasswordMatch:boolean=false;
+  isPasswordMatch: boolean = false;
+  isLoader: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private adminService:AdminServiceService,
-    private encrypt:EncryptionService){}
-  ngOnInit(){
+    private adminService: AdminServiceService,
+    private encrypt: EncryptionService,
+    private toast: NgToastService) { }
+  ngOnInit() {
 
     this.signupForm = this.fb.group({
-      name:['',Validators.required],
+      name: ['', Validators.required],
       email: ['VishalNimbalkar78@gmail.com', [Validators.required, Validators.email]],
-      m_no:['',Validators.required],
-      password:['',Validators.required],
-      repassword:['',Validators.required],
-      role:['FARMER'],
-      status:['PENDING'],
-      is_active:[false]
+      m_no: ['', Validators.required],
+      password: ['', Validators.required],
+      repassword: ['', Validators.required],
+      role: ['FARMER'],
+      status: ['PENDING'],
+      is_active: [false]
     });
 
     this.signupForm.valueChanges.subscribe(formValue => {
@@ -43,17 +46,22 @@ export class FarmerSignupComponent {
     });
   }
 
-  onSignup(){
+  onSignup() {
+    this.isLoader = true;
     const formData = { ...this.signupForm.value };
     delete formData.repassword;
     // formData.password=this.encrypt.encryptPassword(formData.password);
-    this.adminService.register(this.signupForm.value).subscribe((response:any)=>{
-      if(response==true){
+    this.adminService.register(this.signupForm.value).subscribe((response: any) => {
+      if (response == true) {
+        this.toast.success({ detail: "SUCCESS", summary: 'Account Created Successfully', duration: 5000, position: 'topRight' });
         this.router.navigate(['/login']);
-      }else{
+        this.isLoader = false;
+      } else {
+        this.toast.error({ detail: "Error! please try again!", summary: 'Invalid Credentials', duration: 5000, position: 'topRight' });
         this.router.navigate(['/farmer-signup']);
+        this.isLoader = false;
       }
     })
 
-}
+  }
 }

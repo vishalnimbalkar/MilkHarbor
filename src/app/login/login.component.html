@@ -2,20 +2,25 @@
 <section>
     <!-- <h1>LogIn</h1> -->
     <div class="loginForm">
-        <form id="form1">
+        <form [formGroup]="loginForm">
             <div class="form-group">
                 <label for="email">Username</label><br>
                 <input class="form-control" type="text" id="username" formControlName="username"
-                    placeholder=" &nbsp; Enter Email/Mobile Number" required>
+                    placeholder=" Enter Email/Mobile Number" required
+                    [ngClass]="{'error':(loginForm.controls['username'].touched || loginForm.controls['username'].dirty) && (loginForm.controls['username'].hasError('required'))}">
             </div>
             <div class="form-group">
                 <label for="name">Password</label><br>
-                <input class="form-control" type="password" id="name" formControlName="password"
-                    placeholder=" &nbsp; Enter Password " minlength="8" required>
+                <input class="form-control" type="password" formControlName="password"
+                    placeholder=" Enter Password "  required
+                    [ngClass]="{'error':(loginForm.controls['password'].touched || loginForm.controls['password'].dirty) && (loginForm.controls['password'].hasError('required'))}">
             </div>
             <div class="btn">
-                <button class="signup mt-3">Login</button>
+                <button class="signup mt-3" [ngClass]="{'disabled':!loginForm.valid}" [disabled]="!loginForm.valid" (click)="onLogin()">Login</button>
             </div>
         </form>
     </div>
 </section>
+<div class="load" *ngIf="isLoader">
+    <span class="loader"></span>
+</div>

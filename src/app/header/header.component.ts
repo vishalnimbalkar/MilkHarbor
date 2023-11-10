@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  onSignup(){
+    sessionStorage.setItem("true",'true');
+  }
 }

@@ -1,10 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AdminServiceService } from '../services/admin-service';
+import { EncryptionService } from '../services/encryption.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
+  loginForm!: FormGroup;
+  isLoader:boolean=false;
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    private adminService:AdminServiceService,
+    private encrypt:EncryptionService){}
+
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username:['',Validators.required],
+      password:['',Validators.required]
+    });
+  }
+
+  onLogin(){
+    this.isLoader=true;
+    const formData = { ...this.loginForm.value };
+    // formData.password=this.encrypt.encryptPassword(formData.password);
+    this.adminService.login(formData).subscribe((response:any)=>{
+      if(response!=false && response!=null){
+        this.isLoader=false;
+        if(response.role=="ADMIN"){
+          this.router.navigate(['/admin-dashboard']);
+        }
+        else if(response.role=="FARMER"){
+          this.router.navigate(['/farmer-dashboard']);
+        }
+      }
+      else{
+        this.router.navigate(['/login']);
+        this.isLoader=false;
+      }
+    })
+  }
 
 }

@@ -1,13 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AdminServiceService } from 'src/app/services/admin-service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
-  onProfile(){
+  user: any;
+  constructor(private adminService: AdminServiceService) { }
+
+  ngOnInit(): void {
+    const email: any = sessionStorage.getItem("email");
+    const m_no: any = sessionStorage.getItem("m_no");
+    if (email) {
+      this.getUser(email);
+    } else {
+      this.getUser(m_no);
+    }
+  }
+
+  getUser(username: string) {
+    this.adminService.getUser(username).subscribe((response: any) => {
+      this.user = response;
+    })
+  }
+
+  onEdit(){
     
   }
 }

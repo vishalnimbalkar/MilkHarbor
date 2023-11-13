@@ -143,3 +143,8 @@ label{
       box-shadow: .2em -.2em 0 0 currentcolor;
     }
   }
+
+  input.large {
+    width: 18px;
+    height: 18px;
+  }

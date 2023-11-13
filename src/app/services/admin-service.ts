@@ -21,4 +21,20 @@ export class AdminServiceService {
     return this.http.post<any>(this.baseUrl + 'login',payload);
   }
 
+  //get User
+  getUser(username:string){
+    return this.http.get(this.baseUrl+"getUser/"+username);
+  }
+
+  //invite farmers
+  inviteFarmers(payload:string[]){
+    return this.http.post(this.baseUrl+"inviteFarmers",payload)
+  }
+
+  //get pending farmers
+  getPendingFarmers(){
+  return this.http.get(this.baseUrl+"getPendingFarmers");
+  }
+
+
 }

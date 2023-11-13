@@ -2,6 +2,18 @@
     <div class="left">
         <div class="img">
             <i class="bi bi-person-circle"></i>
+            <span>{{user.name}}</span>
+        </div>
+        <hr>
+        <div class="details">
+            <i class="bi bi-pencil-square" (click)="onEdit()"></i>
+            <ul>
+                <li>Name : {{user.name}}</li>
+                <br>
+                <li>Email : {{user.email}}</li>
+                <br>
+                <li>Mobile Number : {{user.m_no}}</li>
+            </ul>
         </div>
     </div>
     <div class="right">

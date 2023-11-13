@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
     // formData.password=this.encrypt.encryptPassword(formData.password);
     this.adminService.login(formData).subscribe((response: any) => {
       if (response != false && response != null) {
+        sessionStorage.setItem('email',response.email);
+        sessionStorage.setItem('mno',response.m_no);
         this.toast.success({ detail: "SUCCESS", summary: 'Login Successfully', duration: 5000, position: 'topRight' });
         this.isLoader = false;
         if (response.role == "ADMIN") {

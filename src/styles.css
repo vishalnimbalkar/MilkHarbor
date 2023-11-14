@@ -8,6 +8,10 @@
     color: #435184;
 }
 
+.rotate{
+  transform: rotate(180deg);
+}
+
 .signup {
     width: 180px;
     height: 45px;

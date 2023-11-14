@@ -12,7 +12,7 @@ import { InviteFarmersComponent } from './invite-farmers/invite-farmers.componen
 import { Router } from '@angular/router';
 import { PaymentComponent } from './payment/payment.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -30,7 +30,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     AdminDashboardRoutingModule,
     RouterModule,
-    FormsModule 
+    FormsModule,
+    ReactiveFormsModule 
   ]
 })
 export class AdminDashboardModule {}

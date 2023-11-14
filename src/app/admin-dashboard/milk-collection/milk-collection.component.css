@@ -1,0 +1,69 @@
+.milkCollection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 40%;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    padding: 20px;
+}
+form{
+    width: 100%;
+    position: relative;
+}
+
+input{
+    width: 100%;
+}
+.bi-chevron-down{
+    font-size: 20px;
+    position: absolute;
+    top: 27px;
+    right: 15px;
+}
+
+.dropdown-list{
+    padding: 0;
+    overflow-y: scroll;
+    max-height: 212px;
+    font-size: 18px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    position: absolute;
+    width: 100%;
+    background-color: #FFF;
+}
+
+.dropdown-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+    background-color: white;
+    width: 8px;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: #3992E1;
+}
+.dropdown-list li{
+    height: 35px;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding-left: 10px;
+    border-bottom: 1px solid grey;
+}
+
+label {
+    display: inline-block;
+}

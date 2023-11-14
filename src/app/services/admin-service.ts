@@ -36,5 +36,28 @@ export class AdminServiceService {
   return this.http.get(this.baseUrl+"getPendingFarmers");
   }
 
+  //approve farmers
+  onApprove(payload:any){
+    return this.http.post(this.baseUrl+"approve",payload);
+  }
+  
+  //decline farmers
+  onDecline(payload:any){
+    return this.http.post(this.baseUrl+"decline",payload);
+  }
+
+  //get Farmer list
+  getFarmersList(){
+    return this.http.get(this.baseUrl+"getFarmers");
+  }
+
+  //active 
+  onActive(payload:any){
+    return this.http.put(this.baseUrl+"active",payload);
+  } 
+  // inactive
+  onInActive(payload:any){
+    return this.http.put(this.baseUrl+"inactive",payload);
+  }
 
 }

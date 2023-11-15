@@ -8,6 +8,11 @@
     color: #435184;
 }
 
+.make-center{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .rotate{
   transform: rotate(180deg);
 }

@@ -4,21 +4,61 @@
     </div>
     <div class="form">
         <form [formGroup]="milkForm">
-            <label for="f_id">Select Farmer</label>
-            <input type="text" id="f_id" (click)="toggleDropdown()" [(ngModel)]="selectedOption" class="form-control"
-                formControlName="f_id">
-
+            <div class="form-group">
+                <label for="f_id">Select Farmer</label>
+                <input autocomplete="off" type="text" id="f_id" (click)="toggleDropdown()" [(ngModel)]="selectedOption"
+                    class="form-control" placeholder="Select Farmer" formControlName="f_id" required
+                    [ngClass]="{'error':(milkForm.controls['f_id'].touched || milkForm.controls['f_id'].dirty) && (milkForm.controls['f_id'].hasError('required'))}">
+            </div>
             <i class="bi bi-chevron-down" [ngClass]="{'rotate':isDropdownOpen}" (click)="toggleDropdown()"></i>
 
             <ul class="dropdown-list" *ngIf="isDropdownOpen">
-                <li *ngFor="let farmer of FarmersList">{{ farmer.name }}</li>
+                <li *ngFor="let farmer of FarmersList" (click)="onFarmer(farmer.id,farmer.name)">{{ farmer.name }}</li>
             </ul>
 
-            <label style="margin-top: 10px;">Select Milk Type</label><br>
-            <select name="" id="">
-                <option value="cow">Cow</option>
-                <option value="buffalo">buffalo</option>
-            </select>
+            <div class="form-group">
+                <label style="margin-top: 10px;">Select Milk Type  &nbsp;&nbsp;</label><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="milk_type" id="milk_type" value="cow" formControlName="milk_type" required
+                        [ngClass]="{'error':(milkForm.controls['milk_type'].touched || milkForm.controls['milk_type'].dirty) && (milkForm.controls['milk_type'].hasError('required'))}">
+                    <label class="form-check-label" for="milk_type">Cow</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="milk_type" id="milk_type" value="Buffalo" formControlName="milk_type" required
+                    [ngClass]="{'error':(milkForm.controls['milk_type'].touched || milkForm.controls['milk_type'].dirty) && (milkForm.controls['milk_type'].hasError('required'))}">
+                    <label class="form-check-label" for="milk_type">Buffalo</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="milk_qnt">Milk Quantity</label>
+                <input type="number" id="milk_qnt" class="form-control" formControlName="milk_qnt"
+                    placeholder="Enter Milk Quantity" required
+                    [ngClass]="{'error':(milkForm.controls['milk_qnt'].touched || milkForm.controls['milk_qnt'].dirty) && (milkForm.controls['milk_qnt'].hasError('required'))}">
+            </div>
+            <div class="form-group">
+                <label for="milk_fat">Milk Fat</label>
+                <input type="number" id="milk_fat" class="form-control" formControlName="milk_fat"
+                    placeholder="Enter Milk Fat in %" required
+                    [ngClass]="{'error':(milkForm.controls['milk_fat'].touched || milkForm.controls['milk_fat'].dirty) && (milkForm.controls['milk_fat'].hasError('required'))}">
+            </div>
+            <div class="form-group">
+                <label for="milk_snf">Milk SNF</label>
+                <input type="number" id="milk_snf" class="form-control" formControlName="milk_snf"
+                    placeholder="Enter Milk SNF in %" required
+                    [ngClass]="{'error':(milkForm.controls['milk_snf'].touched || milkForm.controls['milk_snf'].dirty) && (milkForm.controls['milk_snf'].hasError('required'))}">
+            </div>
+            <div class="form-group info">
+                <label for="">Rate per liter : 35rs</label> 
+                <label for="">Total bill : 300rs</label> 
+            </div>
+            <div class="form-group make-center">
+                <button class="login" style="height: 40px;" [ngClass]="{'disabled':!milkForm.valid}" [disabled]="!milkForm.valid" (click)="onSubmit()">Submit</button>
+            </div>
         </form>
     </div>
+</div>
+<div class="load" *ngIf="isLoader">
+    <span class="loader"></span>
 </div>

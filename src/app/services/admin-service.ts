@@ -60,4 +60,9 @@ export class AdminServiceService {
     return this.http.put(this.baseUrl+"inactive",payload);
   }
 
+  //milk collection
+  onMilkCollection(payload:any){
+    return this.http.post(this.baseUrl+"milkCollection",payload);
+  }
+
 }

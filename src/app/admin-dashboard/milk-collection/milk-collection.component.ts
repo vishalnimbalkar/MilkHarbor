@@ -31,10 +31,9 @@ export class MilkCollectionComponent implements OnInit{
 
     this.milkForm=this.fb.group({
       f_id:['',Validators.required],
-      milk_type:['',Validators.required],
       milk_qnt:['',Validators.required],
       milk_fat:['',Validators.required],
-      milk_snf:['',Validators.required]
+      milk_lac_deg:['',Validators.required]
     })
   }
 
@@ -59,10 +58,9 @@ export class MilkCollectionComponent implements OnInit{
     this.datePipe.transform(this.date_time, 'yyyy-MM-dd HH:mm:ss')
     const mc={
       f_id:parseInt(this.selectedId),
-      milk_type:this.milkForm.get('milk_type')?.value,
       milk_qnt:parseInt(this.milkForm.get('milk_qnt')?.value),
       milk_fat:parseFloat(this.milkForm.get('milk_fat')?.value),
-      milk_snf:parseFloat(this.milkForm.get('milk_snf')?.value),
+      milk_lac_deg:parseFloat(this.milkForm.get('milk_lac_deg')?.value),
       price_per_liter:this.price_per_liter,
       total:this.total,
       date_time: this.datePipe.transform(this.date_time, 'yyyy-MM-dd HH:mm:ss')

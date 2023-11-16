@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { AdminServiceService } from 'src/app/services/admin-service';
 
 @Component({
@@ -11,7 +12,8 @@ export class AccountComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private adminService: AdminServiceService) { }
+    private adminService: AdminServiceService,
+    private toast: NgToastService) { }
 
   ngOnInit(): void {
     this.router.navigate(['/admin-dashboard/profile'])
@@ -38,6 +40,7 @@ export class AccountComponent implements OnInit {
   //   this.router.navigate(['/milk-details']);
   // }
   onLogout() {
-
+    this.router.navigate(['/login'])
+    this.toast.success({ detail: "SUCCESS", summary: 'Logout successfully', duration: 5000, position: 'topRight' });
   }
 }

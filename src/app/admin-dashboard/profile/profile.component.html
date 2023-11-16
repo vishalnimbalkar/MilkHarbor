@@ -8,20 +8,28 @@
         <div class="details">
             <i class="bi bi-pencil-square" (click)="onEdit()"></i>
             <ul>
-                <li>Name : {{user.name}}</li>
+                <li><span>Name : </span>{{user.name}}</li>
                 <br>
-                <li>Email : {{user.email}}</li>
+                <li><span>Email : </span>{{user.email}}</li>
                 <br>
-                <li>Mobile Number : {{user.m_no}}</li>
+                <li><span>Mobile Number : </span>{{user.m_no}}</li>
             </ul>
         </div>
     </div>
     <div class="right">
         <div class="top">
-
+            <div class="price">
+                <span>Set milk price per liter for today</span>
+                <input type="number" placeholder="Enter price" [(ngModel)]="today_price">
+                <button class="signup" (click)="onSet()">Set</button>
+            </div>
         </div>
         <div class="bottom">
-            
+            <div class="history">
+                <span style="font-size: 20px; font-weight: 600;">Today Price : {{price | currency:"INR"}}</span>
+                <span>Yesterday Price : {{35 | currency:"INR"}}</span>
+                <span>Two days ago Price : {{34 | currency:"INR"}}</span>
+            </div>
         </div>
     </div>
 </div>

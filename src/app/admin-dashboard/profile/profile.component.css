@@ -43,7 +43,7 @@
 .top{
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: center;
     flex-direction: column;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     background-color: #FFF;
@@ -55,7 +55,7 @@
 .bottom{
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: center;
     flex-direction: column;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     background-color: #FFF;
@@ -73,8 +73,11 @@
   padding-left: 0!important;
 }
 
+ul span{
+    font-weight: 500;
+}
 ul li{
-    font-size: 25px;
+    font-size: 20px;
     list-style: none;
     font-weight: 600;
 }
@@ -88,4 +91,43 @@ hr{
     cursor: pointer;
     font-weight: 700;
     margin-left: 300px;
+}
+
+.price{
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.price span{
+margin: 10px;
+font-size: 20px;
+}
+
+.price input{
+    height: 35px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.price button{
+    height: 35px;
+    width: 40%;
+    margin: 10px;
+}
+
+.history{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.history span{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

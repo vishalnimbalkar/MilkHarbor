@@ -9,9 +9,15 @@ import { AdminServiceService } from 'src/app/services/admin-service';
 export class ProfileComponent implements OnInit {
 
   user: any;
+  today_price!:string;
+  price!:number;
   constructor(private adminService: AdminServiceService) { }
 
   ngOnInit(): void {
+    const price=sessionStorage.getItem('todays_price')
+    if(price){
+      this.price=parseInt(price);
+    }
     const email: any = sessionStorage.getItem("email");
     const m_no: any = sessionStorage.getItem("m_no");
     if (email) {
@@ -27,6 +33,11 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  onSet(){
+    sessionStorage.setItem("todays_price",this.today_price)
+    this.price=parseInt(this.today_price);
+    this.today_price=''
+  }
   onEdit(){
     
   }

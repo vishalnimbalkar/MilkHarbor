@@ -19,7 +19,7 @@ const routes: Routes = [
     path:'admin-signup', component:AdminSignupComponent
   },
   {
-    path:'farmer-signup/:f_id', component:FarmerSignupComponent
+    path:'farmer-signup', component:FarmerSignupComponent
   },
   {
     path: 'admin-dashboard',

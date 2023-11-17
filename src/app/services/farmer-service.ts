@@ -14,8 +14,8 @@ export class FarmerServiceService {
     return this.http.put(this.baseUrl+"register",payload);
   }
 
-  //get farmers by id
-onBackCall(id:any){
-  return this.http.get(this.baseUrl+"onBackCall/"+id);
+//get farmer milk detials
+getMilkDetails(f_id:any){
+  return this.http.get(this.baseUrl+"getMilkDetails/"+f_id)
 }
 }

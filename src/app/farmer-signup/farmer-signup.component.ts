@@ -21,21 +21,19 @@ export class FarmerSignupComponent {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private farmerService: FarmerServiceService,
+    private adminService: AdminServiceService,
     private encrypt: EncryptionService,
     private toast: NgToastService) { }
   ngOnInit() {
-
-    const id = this.route.snapshot.params['f_id'];
-    this.onBackCall(id);
-
     this.signupForm = this.fb.group({
-      id:[id],
       name: ['', Validators.required],
       m_no: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
       repassword: ['', Validators.required],
-      status: ['PENDING']
+      status: ['PENDING'],
+      role: ['FARMER'],
+      is_active: [false]
     });
 
     this.signupForm.valueChanges.subscribe(formValue => {
@@ -56,7 +54,7 @@ export class FarmerSignupComponent {
     const formData = { ...this.signupForm.value };
     delete formData.repassword;
     // formData.password=this.encrypt.encryptPassword(formData.password);
-    this.farmerService.signup(formData).subscribe((response: any) => {
+    this.adminService.register(formData).subscribe((response: any) => {
       if (response == true) {
         this.toast.success({ detail: "SUCCESS", summary: 'Account Created Successfully', duration: 5000, position: 'topRight' });
         this.router.navigate(['/login']);
@@ -69,9 +67,4 @@ export class FarmerSignupComponent {
     })
   }
 
-  onBackCall(id:any){
-    this.farmerService.onBackCall(id).subscribe((response:any)=>{
-      this.email=response.email;
-    })
-  }
 }

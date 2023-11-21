@@ -2,14 +2,49 @@
     <div class="left">
         <div class="img">
             <i class="bi bi-person-circle"></i>
+            <span>{{user.name}}</span>
+        </div>
+        <hr>
+        <div class="details">
+            <i class="bi bi-pencil-square" (click)="onEdit()"></i>
+            <ul>
+                <li><span>Name : </span>{{user.name}}</li>
+                <br>
+                <li><span>Email : </span>{{user.email}}</li>
+                <br>
+                <li><span>Mobile Number : </span>{{user.m_no}}</li>
+            </ul>
         </div>
     </div>
     <div class="right">
         <div class="top">
-
+            <h3>Bank Account</h3>
+            <span>Bank Name : Bank Of Maharastra</span>
+            <Span>Account Holder Name : Vishal Laxman Nimbalkar</Span>
+            <Span>Account Number : 60344404697</Span>
+            <Span>IFSC Code : MAHB0001619</Span>
+            <span></span>
         </div>
         <div class="bottom">
-            
+            <h3>Add Bank Account</h3>
+            <form [formGroup]="bankForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Bank Name" formControlName="b_name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Account Holder Name" formControlName="acc_h_name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Account Number" formControlName="acc_no">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="IFSC Code" formControlName="ifsc">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="signup">
+                </div>
+            </form>
+           
         </div>
     </div>
 </div>

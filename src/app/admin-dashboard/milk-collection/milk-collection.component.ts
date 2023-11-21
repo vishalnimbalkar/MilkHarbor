@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { AdminServiceService } from 'src/app/services/admin-service';
+import { MilkCollectionServiceService } from 'src/app/services/milk-collection-service';
 
 @Component({
   selector: 'app-milk-collection',
@@ -22,6 +23,7 @@ export class MilkCollectionComponent implements OnInit{
   date_time!: Date;
   
   constructor(private adminService:AdminServiceService,
+              private milkCollectionService:MilkCollectionServiceService,
               private fb: FormBuilder,
               private toast: NgToastService,
               private datePipe: DatePipe){}
@@ -65,7 +67,7 @@ export class MilkCollectionComponent implements OnInit{
       total:this.total,
       date_time: this.datePipe.transform(this.date_time, 'yyyy-MM-dd HH:mm:ss')
     }
-    this.adminService.onMilkCollection(mc).subscribe((response:any)=>{
+    this.milkCollectionService.onMilkCollection(mc).subscribe((response:any)=>{
       if (response == true) {
         this.toast.success({ detail: "SUCCESS", summary: 'Collection added successfully', duration: 5000, position: 'topRight' });
         this.isLoader = false;

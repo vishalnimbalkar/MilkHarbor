@@ -6,7 +6,7 @@
         </div>
         <hr>
         <div class="details">
-            <i class="bi bi-pencil-square" (click)="onEdit()"></i>
+            <i class="bi bi-pencil-square" (click)="onEdit('profile')"></i>
             <ul>
                 <li><span>Name : </span>{{user.name}}</li>
                 <br>
@@ -19,32 +19,56 @@
     <div class="right">
         <div class="top">
             <h3>Bank Account</h3>
-            <span>Bank Name : Bank Of Maharastra</span>
-            <Span>Account Holder Name : Vishal Laxman Nimbalkar</Span>
-            <Span>Account Number : 60344404697</Span>
-            <Span>IFSC Code : MAHB0001619</Span>
-            <span></span>
+            <i class="bi bi-pencil-square" (click)="onEdit('bank')"></i>
+            <span>Bank Name : <b>Bank Of Maharastra</b> </span>
+            <Span>Account Holder Name : <b>Vishal Laxman Nimbalkar</b></Span>
+            <Span>Account Number : <b>60344404697</b></Span>
+            <Span>IFSC Code : <b>MAHB0001619</b></Span>
         </div>
         <div class="bottom">
-            <h3>Add Bank Account</h3>
-            <form [formGroup]="bankForm">
+            <h3 *ngIf="isBank">Add Bank Account</h3>
+            <form [formGroup]="bankForm" *ngIf="isBank">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Bank Name" formControlName="b_name">
+                    <input type="text" class="form-control" placeholder="Bank Name" formControlName="b_name"
+                        [ngClass]="{'error':(bankForm.controls['b_name'].touched || bankForm.controls['b_name'].dirty) && (bankForm.controls['b_name'].hasError('required'))}">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Account Holder Name" formControlName="acc_h_name">
+                    <input type="text" class="form-control" placeholder="Account Holder Name"
+                        formControlName="acc_h_name"
+                        [ngClass]="{'error':(bankForm.controls['acc_h_name'].touched || bankForm.controls['acc_h_name'].dirty) && (bankForm.controls['acc_h_name'].hasError('required'))}">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Account Number" formControlName="acc_no">
+                    <input type="text" class="form-control" placeholder="Account Number" formControlName="acc_no"
+                        [ngClass]="{'error':(bankForm.controls['acc_no'].touched || bankForm.controls['acc_no'].dirty) && (bankForm.controls['acc_no'].hasError('required'))}">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="IFSC Code" formControlName="ifsc">
+                    <input type="text" class="form-control" placeholder="IFSC Code" formControlName="ifsc"
+                        [ngClass]="{'error':(bankForm.controls['ifsc'].touched || bankForm.controls['ifsc'].dirty) && (bankForm.controls['ifsc'].hasError('required'))}">
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="signup">
+                <div class="make-center">
+                    <input type="submit" class="signup" [ngClass]="{'disabled':!bankForm.valid}"
+                        [disabled]="!bankForm.valid" (click)="onSubmit()">
                 </div>
             </form>
-           
+            <h3 *ngIf="isProfile">Edit Profile</h3>
+            <form [formGroup]="profileForm" *ngIf="isProfile">
+                <div class="form-group">
+                    <input type="text" class="form-control" formControlName="name"
+                        [ngClass]="{'error':(profileForm.controls['name'].touched || profileForm.controls['name'].dirty) && (profileForm.controls['name'].hasError('required'))}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" formControlName="email"
+                        [ngClass]="{'error':(profileForm.controls['email'].touched || profileForm.controls['email'].dirty) && (profileForm.controls['email'].hasError('required'))}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" formControlName="m_no"
+                        [ngClass]="{'error':(profileForm.controls['m_no'].touched || profileForm.controls['m_no'].dirty) && (profileForm.controls['m_no'].hasError('required'))}">
+                </div>
+                <div class="make-center">
+                    <input type="submit" class="signup" [ngClass]="{'disabled':!bankForm.valid}"
+                        [disabled]="!bankForm.valid" (click)="onSubmit()">
+                </div>
+            </form>
         </div>
     </div>
 </div>

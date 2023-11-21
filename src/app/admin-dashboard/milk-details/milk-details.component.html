@@ -7,12 +7,12 @@
             <div class="row1">
                 <span>{{detail.date_time}}</span>
                 <span>
-                    <i class="bi bi-pencil-square" (click)="onEdit()"></i>
-                    <i class="bi bi-trash" (click)="onDelete()"></i>
+                    <i class="bi bi-pencil-square" (click)="onEdit(detail)"></i>
+                    <i class="bi bi-trash" (click)="onDelete(detail.f_id)"></i>
                 </span>
             </div>
             <div class="row1">
-                <span>Farmer Name : Vishal Nimbalkar</span>
+                <span>Farmer Id : {{detail.f_id}}</span>
             </div>
             <div class="row1">
                 <span>Quantity : {{detail.milk_qnt}}</span>
@@ -68,4 +68,7 @@
             </form>
         </div>
     </div>
+</div>
+<div class="load" *ngIf="isLoader">
+    <span class="loader"></span>
 </div>

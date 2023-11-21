@@ -54,7 +54,7 @@
 .bottom{
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     flex-direction: column;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     background-color: #FFF;
@@ -62,6 +62,7 @@
     width: 400px;
     height: 380px;
     margin-top: 20px;
+    padding: 20px;
 }
 
 .details ul{
@@ -90,4 +91,15 @@ hr{
     cursor: pointer;
     font-weight: 700;
     margin-left: 300px;
+}
+
+form{
+    width: 100%;
+}
+.form-group{
+    margin: 20px;
+}
+
+.top i{
+    position: absolute;
 }

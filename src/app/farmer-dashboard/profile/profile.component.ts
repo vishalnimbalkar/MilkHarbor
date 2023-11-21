@@ -11,8 +11,25 @@ export class ProfileComponent implements OnInit{
 
   user: any;
   bankForm!:FormGroup;
+  profileForm!:FormGroup;
+  isBank:boolean=false;
+  isProfile:boolean=false;
 
   ngOnInit(): void {
+
+    this.profileForm=this.fb.group({
+      name:['',Validators.required],
+      email:['',Validators.required],
+      m_no:['',Validators.required]
+    });
+
+    this.bankForm=this.fb.group({
+      b_name:['',Validators.required],
+      acc_no:['',Validators.required],
+      acc_h_name:['',Validators.required],
+      ifsc:['',Validators.required],
+    });
+
     const email: any = sessionStorage.getItem("email");
     const m_no: any = sessionStorage.getItem("m_no");
     if (email) {
@@ -20,9 +37,12 @@ export class ProfileComponent implements OnInit{
     } else {
       this.getUser(m_no);
     }
+
+
   }
 
-  constructor(private adminService: AdminServiceService) { }
+  constructor(private adminService: AdminServiceService,
+              private fb:FormBuilder) { }
 
   getUser(username: string) {
     this.adminService.getUser(username).subscribe((response: any) => {
@@ -30,10 +50,22 @@ export class ProfileComponent implements OnInit{
     })
   }
 
-  onEdit(){
-    
+  onEdit(data:string){
+    if(data=='profile'){
+      this.isProfile=true;
+      this.isBank=false;
+      console.log(data)
+    }
+    if(data=='bank'){
+      console.log(data)
+      this.isProfile=false;
+      this.isBank=true;
+    }
   }
 
+  onSubmit(){
+
+  }
 
 
 }

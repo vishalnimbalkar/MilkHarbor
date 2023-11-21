@@ -6,7 +6,10 @@
     height: 100vh;
     position: relative;
 }
-
+.details{
+    overflow-y: scroll;
+    max-height: 76vh;
+}
 .detail{
     display: flex;
     justify-content: space-between;

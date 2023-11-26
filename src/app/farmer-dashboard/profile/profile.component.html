@@ -26,6 +26,9 @@
             <Span>IFSC Code : <b>MAHB0001619</b></Span>
         </div>
         <div class="bottom">
+            <div class="make-center" *ngIf="!isBank">
+                <button class="signup">Add Bank Account +</button>
+            </div>
             <h3 *ngIf="isBank">Add Bank Account</h3>
             <form [formGroup]="bankForm" *ngIf="isBank">
                 <div class="form-group">

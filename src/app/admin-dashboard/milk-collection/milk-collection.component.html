@@ -1,4 +1,23 @@
-<div class="milkCollection">
+efdsf
+<table>
+    <tr *ngFor="let row of arr;index as i">{{i}}&nbsp;
+       <td *ngFor="let value of row; index as j" class="" style="border: 2px solid black;">{{ value | number:'1.2-2'}}&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+  </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="milkCollection">
     <div class="title text-center m-3">
         <h1>Milk Collection</h1>
     </div>
@@ -35,8 +54,8 @@
                     [ngClass]="{'error':(milkForm.controls['milk_lac_deg'].touched || milkForm.controls['milk_lac_deg'].dirty) && (milkForm.controls['milk_lac_deg'].hasError('required'))}">
             </div>
             <div class="form-group info">
-                <label for="">Rate per liter : 35rs</label> 
-                <label for="">Total bill : 300rs</label> 
+                <label for="">Rate per liter : {{price_per_liter}}</label> 
+                <label for="">Total bill : {{total}}</label> 
             </div>
             <div class="form-group make-center">
                 <button class="login" style="height: 40px;" [ngClass]="{'disabled':!milkForm.valid}" [disabled]="!milkForm.valid" (click)="onSubmit()">Submit</button>
@@ -46,4 +65,4 @@
 </div>
 <div class="load" *ngIf="isLoader">
     <span class="loader"></span>
-</div>
+</div> -->

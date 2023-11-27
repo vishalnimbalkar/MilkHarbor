@@ -1,0 +1,101 @@
+h2{
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.ratechart{
+    display: flex;
+    flex-direction: column;
+}
+.rate{
+    display: flex;
+    flex-direction: column;
+}
+
+.steps{
+    display: flex;
+    width: 40%;
+    height: 200px;
+    margin: 5px;
+}
+
+.step{
+    width: 50%;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    font-size: 20px;
+    justify-content: space-around;
+    border: 1px solid grey;
+}
+.bi-plus-circle{
+cursor: pointer;
+}
+.amount{
+    display: flex;
+    font-size: 20px;
+}
+
+.amount input{
+    height: 30px;
+    padding-left: 10px;
+}
+
+/* popup */
+.popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.box{
+    height: 250px;
+    width: 400px;
+    background-color: #FFF;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    padding: 20px;
+}
+
+.stepDetails{
+    margin: 20px;
+    padding-left: 20px;
+}
+
+.stepDetails input{
+    margin: 10px;
+    padding-left: 10px;
+    height: 30px;
+}
+
+.btns{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.header2{
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    font-size: 20px;
+    justify-content: space-around;
+    border: 1px solid grey;
+}
+
+.bi-x{
+    position: absolute;
+    right: 8px;
+    font-size: 25px;
+    top: 5px;
+    cursor: pointer;
+}

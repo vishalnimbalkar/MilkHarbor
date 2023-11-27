@@ -8,6 +8,7 @@ import { FarmerListComponent } from './farmer-list/farmer-list.component';
 import { MilkCollectionComponent } from './milk-collection/milk-collection.component';
 import { MilkDetailsComponent } from './milk-details/milk-details.component';
 import { PaymentComponent } from './payment/payment.component';
+import { RateChartComponent } from './rate-chart/rate-chart.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
     children: [
       {
         path:"profile",component:ProfileComponent
+      },
+      {
+        path:"rate-chart",component:RateChartComponent
       },
       {
         path:'invite-farmers',component:InviteFarmersComponent

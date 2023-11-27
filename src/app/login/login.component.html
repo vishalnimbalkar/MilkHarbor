@@ -12,8 +12,8 @@
             <div class="form-group">
                 <label for="name">Password</label><br>
                 <input class="form-control" type="password" formControlName="password"
-                    placeholder=" Enter Password "  required
-                    [ngClass]="{'error':(loginForm.controls['password'].touched || loginForm.controls['password'].dirty) && (loginForm.controls['password'].hasError('required'))}">
+                    placeholder=" Enter Password "  required minlength="8"
+                    [ngClass]="{'error':(loginForm.controls['password'].touched || loginForm.controls['password'].dirty) && (loginForm.controls['password'].hasError('required')) &&(loginForm.controls['password'].hasError('pattern')) && (loginForm.controls['password'].hasError('minLength')) }">
             </div>
             <div class="btn">
                 <button class="signup mt-3" [ngClass]="{'disabled':!loginForm.valid}" [disabled]="!loginForm.valid" (click)="onLogin()">Login</button>

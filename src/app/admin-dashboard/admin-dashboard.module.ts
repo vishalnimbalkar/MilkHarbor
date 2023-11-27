@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { PaymentComponent } from './payment/payment.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RateChartComponent } from './rate-chart/rate-chart.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MilkDetailsComponent,
     InviteFarmersComponent,
     PaymentComponent,
+    RateChartComponent,
   ],
   imports: [
     CommonModule,

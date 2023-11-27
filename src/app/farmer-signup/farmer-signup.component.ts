@@ -29,7 +29,7 @@ export class FarmerSignupComponent {
       name: ['', Validators.required],
       m_no: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.:;<=>?[\]^{|}~]).{8,}$/)]],
       repassword: ['', Validators.required],
       status: ['PENDING'],
       role: ['FARMER'],

@@ -21,6 +21,10 @@ export class MilkCollectionComponent implements OnInit {
   price_per_liter: number = 0;
   total: number = 0;
   date_time!: Date;
+  minFat:number=0;
+  maxFat:number=0;
+  minSnf:number=0;
+  maxSnf:number=0;
 
   constructor(private adminService: AdminServiceService,
     private milkCollectionService: MilkCollectionServiceService,
@@ -29,7 +33,6 @@ export class MilkCollectionComponent implements OnInit {
     private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.calculatemilkPrice();
     this.getFarmersList();
     this.milkForm = this.fb.group({
       f_id: ['', Validators.required],
@@ -38,27 +41,37 @@ export class MilkCollectionComponent implements OnInit {
       milk_lac_deg: ['', Validators.required]
     })
 
-    //     this.milkForm.valueChanges.subscribe(formValue => {
-    //       const fat=formValue.milk_fat;
-    //       const lac=formValue.milk_lac_deg;
-
-    //       const snf= (0.25 * lac) + (0.22 * fat) + 0.72;
-    //       this.price_per_liter=(0.22 * fat) + (0.36 * snf) + 0.32;
-    //       this.total=formValue.milk_qnt*this.price_per_liter;
-
-    // console.log('Lac:', lac);
-    // console.log('fat:', fat);
-    // console.log('SNF:', snf);
-    // console.log('Price per Liter:', this.price_per_liter);
-    // console.log('Total:', this.total);
-
-    //       Milk price per liter = (0.22 x Fat%) + (0.36 x SNF%) + 0.32
-
-    // SNF = (0.25 x Lac/deg) + (0.22 x Fat%) + 0.72
-    // }); 
-
-
-
+    if(sessionStorage.getItem('rateChart')){
+      let rateChart = sessionStorage.getItem('rateChart');
+      if(sessionStorage.getItem('fatStep') && sessionStorage.getItem('snfStep')){
+        let ss = sessionStorage.getItem('fatStep');
+        let ff = sessionStorage.getItem('snfStep');
+        if(ss && ff){
+          let storedArray = JSON.parse(ss);
+          let storedArray2 = JSON.parse(ff);
+          this.fatStep=storedArray;
+          this.snfStep=storedArray2;
+        }
+      }
+      if(rateChart && this.snfStep && this.fatStep){
+        let storedArray = JSON.parse(rateChart);
+        this.minFat = Math.min(...this.fatStep.map((obj: any) => obj.step));
+        this.maxFat = Math.max(...this.fatStep.map((obj: any) => obj.step));
+        this.minSnf = Math.min(...this.snfStep.map((obj: any) => obj.step));
+        this.maxSnf = Math.max(...this.snfStep.map((obj: any) => obj.step));
+        this.snfRange=[]
+        this.fatRange=[]
+          for (let i = this.minSnf; i <= this.maxSnf; i += 0.10) {
+            this.snfRange.push(i);
+          }
+          for (let i = this.minFat; i <= this.maxFat; i += 0.10) {
+            this.fatRange.push(i);
+          }
+        this.arr=storedArray;
+      }
+    }
+    console.log(this.arr)
+    this.calCulatePrice(20,3.5,8.5)
   }
 
 
@@ -101,74 +114,30 @@ export class MilkCollectionComponent implements OnInit {
       }
     })
   }
-  steps_fat: any = [
-    {
-      step: 3,
-      amt: 0.10
-    },
-    {
-      step: 3.5,
-      amt: 0.50
-    }
-  ]
-  steps_snf: any = [
-    {
-      step: 8,
-      amt: 0.10
-    },
-    {
-      step: 8.5,
-      amt: 0.50
-    },{
-      step:9,
-      amt:0
-    }
-  ]
-
-  baseprice: number = 20;
-  arr!: number[][];
-
-  calculatemilkPrice() {
-    const minFat = Math.min(...this.steps_fat.map((obj: any) => obj.step));
-    const maxFat = Math.max(...this.steps_fat.map((obj: any) => obj.step));
-    const minSnf = Math.min(...this.steps_snf.map((obj: any) => obj.step));
-    const maxSnf = Math.max(...this.steps_snf.map((obj: any) => obj.step));
-
-    this.arr = [];
-    for (let i = minFat; i <= maxFat + 0.1; i += 0.1) {
-      const row: number[] = [];
-      for (let j = minSnf; j <= maxSnf; j += 0.1) {
-        let fatAmt = 0;
-        let snfAmt = 0;
-        for (let k = minFat; k <= i; k += 0.1) {
-          if (k != minFat) {
-            for (let amountstep = 0; amountstep < this.steps_fat.length - 1; amountstep++) {
-              const currentFat = this.steps_fat[amountstep];
-              const nextFat = this.steps_fat[amountstep + 1];
-              if (k <= nextFat.step + 0.10) {
-                fatAmt += currentFat.amt;
-                break;
-              }
-            }
-          }
-        }
-        for (let m = minSnf; m <= j; m += 0.1) {
-          if (m != minSnf) {
-            for (let amountstep = 0; amountstep < this.steps_snf.length - 1; amountstep++) {
-              const currentSnf = this.steps_snf[amountstep];
-              const nextSnf = this.steps_snf[amountstep + 1];
-              if (m <= nextSnf.step) {
-                snfAmt += currentSnf.amt;
-                break;
-              }
-            }
-          }
-        }
-        const newValue = this.baseprice + fatAmt + snfAmt;
-        row.push(newValue);
-      }
-      this.arr.push(row);
-    }
+  
+  arr!:number[][];
+  fatStep!:string[];
+  snfStep!:string[];
+  
+  fatRange:number[]=[]
+  snfRange:number[]=[]
+  fatIndex:number=0;
+  snfIndex:number=-1;
+  calCulatePrice(basePrice:number,fat:number,snf:number){
+    const minFat = Math.min(...this.fatStep.map((obj: any) => obj.step));
+    const maxFat = Math.max(...this.fatStep.map((obj: any) => obj.step));
+    const minSnf = Math.min(...this.snfStep.map((obj: any) => obj.step));
+    const maxSnf = Math.max(...this.snfStep.map((obj: any) => obj.step));
+    console.log(this.fatStep)
+  for (let i = minFat; i <= fat; i += 0.10) {
+    this.fatIndex+=1;
+    console.log(i)
+  }
+  for (let i = minSnf; i <= snf; i += 0.10) {
+    this.snfIndex+=1;
+  }
+  const rate =this.arr[this.fatIndex][this.snfIndex] 
+  console.log(rate)
   }
 
 }  

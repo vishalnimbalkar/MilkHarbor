@@ -35,4 +35,8 @@ export class MilkCollectionServiceService {
     return this.http.delete(this.baseUrl+"delete/"+id);
   }
 
+  //genrate milk rate chart
+  generateMilkRateChart(payload:any,payload2:any){
+    return this.http.post(this.baseUrl+"genrateMilkRateChart",payload,payload2);
+  }
 }

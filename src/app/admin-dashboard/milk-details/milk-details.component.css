@@ -147,3 +147,10 @@ margin-bottom: 5px;
     position: absolute;
     right: 0;
 }
+
+.bi-file-earmark-plus{
+    position: absolute;
+    font-size: 40px;
+    right: 31px;
+    top: 17px;
+}

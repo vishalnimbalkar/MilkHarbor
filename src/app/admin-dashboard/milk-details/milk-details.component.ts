@@ -110,4 +110,8 @@ export class MilkDetailsComponent implements OnInit {
   onClose() {
     this.isEdit = false;
   }
+
+  onReport(){
+    
+  }
 }

@@ -30,4 +30,7 @@ export class SupplyMilkDetailsComponent implements OnInit{
     })
   }
  
+  onReport(){
+    
+  }
 }

@@ -52,3 +52,10 @@
     align-items: center;
     width: 100%;
 }
+
+.bi-file-earmark-plus{
+    position: absolute;
+    font-size: 40px;
+    right: 31px;
+    top: 17px;
+}

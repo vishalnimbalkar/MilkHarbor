@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { AdminServiceService } from 'src/app/services/admin-service';
+import { FarmerServiceService } from 'src/app/services/farmer-service';
 import { MilkCollectionServiceService } from 'src/app/services/milk-collection-service';
 
 @Component({
@@ -26,6 +27,7 @@ export class MilkDetailsComponent implements OnInit {
 
   constructor(private datePipe: DatePipe,
     private adminService: AdminServiceService,
+    private farmerService:FarmerServiceService,
     private fb: FormBuilder,
     private toast: NgToastService,
     private milkCollectionService: MilkCollectionServiceService) { }

@@ -5,7 +5,7 @@
             <span>{{user.name}}</span>
         </div>
         <hr>
-        <div class="details">
+        <div class="details" *ngIf="!isProfile">
             <i class="bi bi-pencil-square" (click)="onEdit('profile')"></i>
             <ul>
                 <li><span>Name : </span>{{user.name}}</li>
@@ -15,6 +15,22 @@
                 <li><span>Mobile Number : </span>{{user.m_no}}</li>
             </ul>
         </div>
+        <h3 *ngIf="isProfile" style="margin-bottom: -10px;">Edit Profile</h3>
+        <form [formGroup]="profileForm" *ngIf="isProfile">
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="email">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="m_no">
+            </div>
+            <div class="make-center">
+                <button class="login" style="width: 120px; height:40 px;">Cancel</button>&nbsp;&nbsp;&nbsp;
+                <input type="submit" style="width: 120px; height:40 px;" class="signup" (click)="onSubmit()">
+            </div>
+        </form>
     </div>
     <div class="right">
         <div class="top">
@@ -53,25 +69,7 @@
                         [disabled]="!bankForm.valid" (click)="onSubmit()">
                 </div>
             </form>
-            <h3 *ngIf="isProfile">Edit Profile</h3>
-            <form [formGroup]="profileForm" *ngIf="isProfile">
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="name"
-                        [ngClass]="{'error':(profileForm.controls['name'].touched || profileForm.controls['name'].dirty) && (profileForm.controls['name'].hasError('required'))}">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="email"
-                        [ngClass]="{'error':(profileForm.controls['email'].touched || profileForm.controls['email'].dirty) && (profileForm.controls['email'].hasError('required'))}">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" formControlName="m_no"
-                        [ngClass]="{'error':(profileForm.controls['m_no'].touched || profileForm.controls['m_no'].dirty) && (profileForm.controls['m_no'].hasError('required'))}">
-                </div>
-                <div class="make-center">
-                    <input type="submit" class="signup" [ngClass]="{'disabled':!bankForm.valid}"
-                        [disabled]="!bankForm.valid" (click)="onSubmit()">
-                </div>
-            </form>
+           
         </div>
     </div>
 </div>

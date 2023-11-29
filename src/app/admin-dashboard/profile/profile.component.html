@@ -18,17 +18,18 @@
     </div>
     <div class="right">
         <div class="top">
+            <h2 style="margin-top: -100px;">Notifications</h2>
             <div class="price">
-                <span>Set milk price per liter for today</span>
-                <input type="number" placeholder="Enter price" [(ngModel)]="today_price">
-                <button class="signup" (click)="onSet()">Set</button>
+                <span>Number Of Farmers : <b>{{farmerCount}}</b></span>
+                <span>Pending Approvals : <b>{{pendingApprovals}}</b></span>
             </div>
         </div>
         <div class="bottom">
-            <div class="history">
-                <span style="font-size: 20px; font-weight: 600;">Today Price : {{price | currency:"INR"}}</span>
-                <span>Yesterday Price : {{35 | currency:"INR"}}</span>
-                <span>Two days ago Price : {{34 | currency:"INR"}}</span>
+            <h2 style="margin-top: -70px;">Todays Details</h2>
+            <div class="price">
+                <span>Base Price :<b> {{baseprice | currency:'INR'}}</b></span>
+                <span>Milk Collection Count : <b>{{milkCollCount}} </b></span>
+                <span>Total Milk Collected in Liters : <b> {{totalMilk}} liters </b></span>
             </div>
         </div>
     </div>

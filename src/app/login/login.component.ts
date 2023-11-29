@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
       if (response != false && response != null) {
         sessionStorage.setItem('email',response.email);
         sessionStorage.setItem('mno',response.m_no);
+        sessionStorage.setItem('id',response.id)
         this.toast.success({ detail: "SUCCESS", summary: 'Login Successfully', duration: 5000, position: 'topRight' });
         this.isLoader = false;
         if (response.role == "ADMIN") {

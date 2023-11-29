@@ -26,7 +26,7 @@
                     [ngClass]="{'error':(milkForm.controls['milk_qnt'].touched || milkForm.controls['milk_qnt'].dirty) && (milkForm.controls['milk_qnt'].hasError('required'))}">
             </div>
             <div class="form-group">
-                <label for="milk_fat">Milk Fat</label>
+                <label for="milk_fat">Milk Fat&nbsp;({{minFat}}&nbsp;-&nbsp;{{maxFat}})</label>
                 <input type="number" id="milk_fat" class="form-control" formControlName="milk_fat"
                     placeholder="Enter Milk Fat in %" required
                     [ngClass]="{'error':(milkForm.controls['milk_fat'].touched || milkForm.controls['milk_fat'].dirty) && (milkForm.controls['milk_fat'].hasError('required'))}">
@@ -36,10 +36,6 @@
                 <input type="number" id="milk_lac_deg" class="form-control" formControlName="milk_lac_deg"
                     placeholder="Enter Milk Lac/Deg in %" required
                     [ngClass]="{'error':(milkForm.controls['milk_lac_deg'].touched || milkForm.controls['milk_lac_deg'].dirty) && (milkForm.controls['milk_lac_deg'].hasError('required'))}">
-            </div>
-            <div class="form-group info">
-                <label for="">Rate per liter : {{price_per_liter}}</label> 
-                <label for="">Total bill : {{total}}</label> 
             </div>
             <div class="form-group make-center">
                 <button class="login" style="height: 40px;" [ngClass]="{'disabled':!milkForm.valid}" [disabled]="!milkForm.valid" (click)="onSubmit()">Submit</button>

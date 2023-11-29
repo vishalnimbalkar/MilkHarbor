@@ -195,6 +195,7 @@ export class RateChartComponent implements OnInit {
 
 
   onSubmitCahrt() {
+    this.isCurrentRateChart=true;
     this.step.push(this.fatStep);
     this.step.push(this.snfStep);
     var arrayString = JSON.stringify(this.arr);
@@ -205,6 +206,9 @@ export class RateChartComponent implements OnInit {
 
     var arrayString3 = JSON.stringify(this.snfStep);
     sessionStorage.setItem("snfStep",arrayString3)
+    
+    var basePrice = JSON.stringify(this.baseprice);
+    sessionStorage.setItem("baseprice",basePrice)
     this.isRateChart=false;
     this.toast.success({ detail: "SUCCESS", summary: 'Submit Rate Chart Successfully', duration: 5000, position: 'topRight' });
   }

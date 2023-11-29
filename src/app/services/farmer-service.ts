@@ -18,4 +18,14 @@ export class FarmerServiceService {
 getMilkDetails(f_id:any){
   return this.http.get(this.baseUrl+"getMilkDetails/"+f_id)
 }
+
+// get user by id
+getUser(id:number){
+  return this.http.get(this.baseUrl+"getUser/"+id)
+}
+
+//update profile
+updateProfile(payload:any){
+  return this.http.post(this.baseUrl+"update",payload);
+}
 }

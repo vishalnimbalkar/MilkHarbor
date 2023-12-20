@@ -31,7 +31,7 @@ export class PaymentComponent implements OnInit{
   isDetails:boolean=true;
   isHistory:boolean=false;
   isPopup:boolean=false;
-  total:number=12000;
+  total:number=0;
 
   ngOnInit(): void {
     this.getFarmersList();
@@ -42,6 +42,12 @@ export class PaymentComponent implements OnInit{
   getFarmersList(){
     this.adminService.getFarmersList().subscribe((response:any)=>{
       this.FarmersList = response;
+    })
+  }
+
+  getTotal(id:number){
+    this.adminService.getTotal(id).subscribe((response:any)=>{
+      this.total=response
     })
   }
 
@@ -62,7 +68,8 @@ export class PaymentComponent implements OnInit{
     event.stopPropagation();
   }
 
-  onFarmer(){
+  onFarmer(id:number){
+    this.getTotal(id)
     this.isPopup=true;
   }
 }

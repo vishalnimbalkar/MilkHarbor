@@ -60,6 +60,8 @@ export class AdminServiceService {
     return this.http.put(this.baseUrl+"inactive",payload);
   }
 
-  
+  getTotal(id:number){
+    return this.http.get(this.baseUrl+"getTotal/"+id)
+  }
 
 }

@@ -1,6 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgToastService } from 'ng-angular-popup';
 import { AdminServiceService } from 'src/app/services/admin-service';
+import { FarmerServiceService } from 'src/app/services/farmer-service';
 import { MilkCollectionServiceService } from 'src/app/services/milk-collection-service';
 
 @Component({
@@ -19,13 +22,24 @@ export class ProfileComponent implements OnInit {
   totalMilk:number=0;
   date_time!: Date;
   baseprice!:any;
+
+  profileForm!: FormGroup;
+  isProfile: boolean = false;
   constructor(private adminService: AdminServiceService,private milkDetails:MilkCollectionServiceService
-    , private datePipe: DatePipe) { }
+    , private datePipe: DatePipe, private farmerService:FarmerServiceService,
+    private toast: NgToastService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
     if(sessionStorage.getItem("baseprice")){
       this.baseprice=sessionStorage.getItem("baseprice");
     }
+    this.getDetails()
+    this.getFarmers();
+    this.getPendingApprovals()
+    this.getMilkDetails()
+  }
+
+  getDetails(){
     const email: any = sessionStorage.getItem("email");
     const m_no: any = sessionStorage.getItem("m_no");
     if (email) {
@@ -33,15 +47,15 @@ export class ProfileComponent implements OnInit {
     } else {
       this.getUser(m_no);
     }
-
-    this.getFarmers();
-    this.getPendingApprovals()
-    this.getMilkDetails()
   }
-
   getUser(username: string) {
     this.adminService.getUser(username).subscribe((response: any) => {
       this.user = response;
+      this.profileForm = this.fb.group({
+        name: [this.user.name],
+        email: [this.user.email],
+        m_no: [this.user.m_no]
+      });
     })
   }
 
@@ -75,6 +89,23 @@ export class ProfileComponent implements OnInit {
  }
 
   onEdit(){
-    
+    this.isProfile = true;
+  }
+
+  onCancel(){
+    this.isProfile=false
+  }
+  onSubmit() {
+    this.farmerService.updateProfile(this.profileForm.value,sessionStorage.getItem("id")).subscribe((response:any)=>{
+      if(response==true){
+        this.toast.success({ detail: "SUCCESS", summary: 'Updated successfully', duration: 5000, position: 'topRight' });
+        this.isProfile = false;
+        this.getDetails()
+      } else {
+        this.toast.error({ detail: "Error! please try again!", summary: 'Failed to Update', duration: 5000, position: 'topRight' });
+        this.isProfile = false;
+        this.getDetails()
+      }
+    })
   }
 }

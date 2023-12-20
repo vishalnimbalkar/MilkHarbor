@@ -31,7 +31,7 @@ export class AdminSignupComponent implements OnInit {
       password: ['', [Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.:;<=>?[\]^{|}~]).{8,}$/)]],
       repassword: ['', Validators.required],
       role: ['ADMIN'],
-      status: ['APPROVE'],
+      status: ['APPROVED'],
       is_active: [true]
     });
 

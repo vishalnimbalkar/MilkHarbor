@@ -11,7 +11,7 @@ export class FarmerServiceService {
   baseUrl:string='http://localhost:8080/farmer/'
 
   signup(payload:any){
-    return this.http.put(this.baseUrl+"register",payload);
+    return this.http.post(this.baseUrl+"register",payload);
   }
 
 //get farmer milk detials
@@ -25,7 +25,12 @@ getUser(id:number){
 }
 
 //update profile
-updateProfile(payload:any){
-  return this.http.post(this.baseUrl+"update",payload);
+updateProfile(payload:any,id:any){
+  return this.http.put(this.baseUrl+"update/"+id,payload);
+}
+
+//add bank account
+addBank(payload:any){
+  return this.http.post(this.baseUrl+"addBank",payload);
 }
 }

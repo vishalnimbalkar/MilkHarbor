@@ -116,3 +116,14 @@ hr {
     margin: 10px;
 }
 
+form{
+    width: 100%;
+}
+.form-group{
+    margin: 20px;
+}
+
+.top i{
+    position: absolute;
+}
+

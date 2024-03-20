@@ -46,9 +46,11 @@ export class ProfileComponent implements OnInit {
     this.adminService.getUser(username).subscribe((response: any) => {
       this.user = response;
       this.profileForm = this.fb.group({
+        _id:[this.user._id],
         name: [this.user.name],
-        email: [this.user.email],
-        m_no: [this.user.m_no]
+        m_no: [this.user.m_no],
+        password: [this.user.password],
+        address: [this.user.address],
       });
     })
   }
@@ -70,13 +72,13 @@ export class ProfileComponent implements OnInit {
     this.isProfile=false
   }
   onSubmit() {
-    this.farmerService.updateProfile(this.profileForm.value,sessionStorage.getItem("id")).subscribe((response:any)=>{
+    this.adminService.updateProfile(this.profileForm.value).subscribe((response:any)=>{
       if(response==true){
-        this.toast.success({ detail: "SUCCESS", summary: 'Approved successfully', duration: 5000, position: 'topRight' });
+        this.toast.success({ detail: "SUCCESS", summary: 'Updated successfully', duration: 5000, position: 'topRight' });
         this.isProfile = false;
         this.getDetails()
       } else {
-        this.toast.error({ detail: "Error! please try again!", summary: 'Failed to Approve', duration: 5000, position: 'topRight' });
+        this.toast.error({ detail: "Error! please try again!", summary: 'Failed to Update', duration: 5000, position: 'topRight' });
         this.isProfile = false;
         this.getDetails()
       }

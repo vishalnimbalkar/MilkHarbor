@@ -9,7 +9,7 @@ export class AdminServiceService {
 
   constructor(private http:HttpClient) { }
 
-  baseUrl:string='http://localhost:5000/admin/'
+  baseUrl:string='http://localhost:5000/users/'
 
   //register
   register(payload: any): Observable<any> {
@@ -26,11 +26,17 @@ export class AdminServiceService {
     return this.http.get(this.baseUrl+"getUser/"+username);
   }
 
+  updateProfile(payload:any){
+    return this.http.post(this.baseUrl+"update",payload);
+  }
   //invite farmers
   inviteFarmers(payload:string[]){
     return this.http.post(this.baseUrl+"inviteFarmers",payload)
   }
 
+  checkUsername(username:String){
+    return this.http.get(this.baseUrl+"checkUsername/"+username)
+  }
   //get pending farmers
   getPendingFarmers(){
   return this.http.get(this.baseUrl+"getPendingFarmers");

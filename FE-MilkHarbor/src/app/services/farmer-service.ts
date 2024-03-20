@@ -24,11 +24,6 @@ getUser(id:number){
   return this.http.get(this.baseUrl+"getUser/"+id)
 }
 
-//update profile
-updateProfile(payload:any,id:any){
-  return this.http.put(this.baseUrl+"update/"+id,payload);
-}
-
 //add bank account
 addBank(payload:any){
   return this.http.post(this.baseUrl+"addBank",payload);

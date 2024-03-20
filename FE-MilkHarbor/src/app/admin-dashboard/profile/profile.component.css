@@ -71,7 +71,6 @@
 .details ul {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
     justify-content: center;
     padding-left: 0 !important;
 }
@@ -126,4 +125,5 @@ form{
 .top i{
     position: absolute;
 }
+
 

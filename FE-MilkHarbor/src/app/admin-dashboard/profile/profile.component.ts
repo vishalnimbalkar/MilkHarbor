@@ -40,21 +40,18 @@ export class ProfileComponent implements OnInit {
   }
 
   getDetails(){
-    const email: any = sessionStorage.getItem("email");
     const m_no: any = sessionStorage.getItem("m_no");
-    if (email) {
-      this.getUser(email);
-    } else {
       this.getUser(m_no);
-    }
   }
   getUser(username: string) {
     this.adminService.getUser(username).subscribe((response: any) => {
       this.user = response;
       this.profileForm = this.fb.group({
+        _id:[this.user._id],
         name: [this.user.name],
-        email: [this.user.email],
-        m_no: [this.user.m_no]
+        m_no: [this.user.m_no],
+        password: [this.user.password],
+        address: [this.user.address],
       });
     })
   }
@@ -96,7 +93,7 @@ export class ProfileComponent implements OnInit {
     this.isProfile=false
   }
   onSubmit() {
-    this.farmerService.updateProfile(this.profileForm.value,sessionStorage.getItem("id")).subscribe((response:any)=>{
+    this.adminService.updateProfile(this.profileForm.value).subscribe((response:any)=>{
       if(response==true){
         this.toast.success({ detail: "SUCCESS", summary: 'Updated successfully', duration: 5000, position: 'topRight' });
         this.isProfile = false;

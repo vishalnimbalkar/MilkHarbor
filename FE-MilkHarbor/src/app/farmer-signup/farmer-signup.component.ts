@@ -5,6 +5,7 @@ import { EncryptionService } from '../services/encryption.service';
 import { NgToastService } from 'ng-angular-popup';
 import { FarmerServiceService } from '../services/farmer-service';
 import { AdminServiceService } from '../services/admin-service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-farmer-signup',
@@ -16,6 +17,7 @@ export class FarmerSignupComponent {
   isPasswordMatch: boolean = false;
   isLoader: boolean = false;
   email!:string;
+  isUsername!:boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -27,8 +29,9 @@ export class FarmerSignupComponent {
   ngOnInit() {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
-      m_no: ['', Validators.required],
-      email: ['', Validators.required],
+      m_no: ['', [Validators.required,Validators.minLength(10), Validators.maxLength(10)]],
+      username:['', [Validators.required]],
+      address: ['', Validators.required],
       password: ['', [Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.:;<=>?[\]^{|}~]).{8,}$/)]],
       repassword: ['', Validators.required],
       status: ['PENDING'],
@@ -47,8 +50,26 @@ export class FarmerSignupComponent {
       }
     });
 
+    this.signupForm.valueChanges.subscribe( formValue => {
+      const result= this.checkUsername(formValue.username);
+      console.log(result," ", formValue.username)
+      if(!this.isUsername){
+        this.signupForm.setErrors({ customError: true });
+      }
+    });
+
   }
 
+  checkUsername(username: string){
+   this.adminService.checkUsername(username).subscribe((response: any) => {
+        if(response){
+          this.isUsername= true;
+        }else{
+          this.isUsername= false;
+        }
+      })
+  }
+  
   onSignup() {
     this.isLoader = true;
     const formData = { ...this.signupForm.value };
@@ -67,4 +88,11 @@ export class FarmerSignupComponent {
     })
   }
 
+  onKeyPress(event: any) {
+    const input = String.fromCharCode(event.keyCode);
+    const numericPattern = /^[0-9]+$/;
+    if (!numericPattern.test(input)) {
+      event.preventDefault();
+    }
+  }
 }

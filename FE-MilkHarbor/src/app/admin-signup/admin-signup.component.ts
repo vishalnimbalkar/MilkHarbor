@@ -27,7 +27,7 @@ export class AdminSignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
-      m_no: ['', Validators.required],
+      m_no: ['', [Validators.required,Validators.minLength(10), Validators.maxLength(10)]],
       password: ['', [Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.:;<=>?[\]^{|}~]).{8,}$/)]],
       repassword: ['', Validators.required],
       role: ['ADMIN'],
@@ -63,6 +63,13 @@ export class AdminSignupComponent implements OnInit {
         this.isLoader = false;
       }
     })
+  }
 
+  onKeyPress(event: any) {
+    const input = String.fromCharCode(event.keyCode);
+    const numericPattern = /^[0-9]+$/;
+    if (!numericPattern.test(input)) {
+      event.preventDefault();
+    }
   }
 }

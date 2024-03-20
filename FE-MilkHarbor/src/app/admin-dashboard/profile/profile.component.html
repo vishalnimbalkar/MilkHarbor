@@ -10,9 +10,14 @@
             <ul>
                 <li><span>Name : </span>{{user.name}}</li>
                 <br>
-                <li><span>Email : </span>{{user.email}}</li>
-                <br>
                 <li><span>Mobile Number : </span>{{user.m_no}}</li>
+                <br>
+                <li><span>Password : </span>{{user.password}}</li>
+                <br>
+                <li><span>Address : </span>{{user.address}}</li>
+                <br>
+                <li><span>Created at : </span>{{ user.createdAt | date:'medium' }}</li>
+                <br>
             </ul>
         </div>
         <h3 *ngIf="isProfile" style="margin-bottom: -10px;">Edit Profile</h3>
@@ -21,14 +26,14 @@
                 <input type="text" class="form-control" formControlName="name">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" formControlName="email">
-            </div>
+                <input type="text" class="form-control" formControlName="password">
+            </div> 
             <div class="form-group">
-                <input type="text" class="form-control" formControlName="m_no">
+                <input type="text" class="form-control" formControlName="address">
             </div>
             <div class="make-center">
-                <button class="login" style="width: 120px; height:40 px;" (click)="onCancel()">Cancel</button>&nbsp;&nbsp;&nbsp;
-                <input type="submit" style="width: 120px; height:40 px;" class="signup" (click)="onSubmit()">
+                <button class="login" style="width: 120px; height:40px;" (click)="onCancel()">Cancel</button>&nbsp;&nbsp;&nbsp;
+                <input type="submit" style="width: 120px; height:40px;" class="signup" (click)="onSubmit()">
             </div>
         </form>
     </div>

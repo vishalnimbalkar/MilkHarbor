@@ -34,8 +34,9 @@
             <div class="form-group">
                 <label for="mno">Mobile Number</label><br>
                 <input class="form-control" type="text" id="mno" formControlName="m_no"
-                    placeholder=" Enter Mobile Number " maxlength="10" required
-                    [ngClass]="{'error':(signupForm.controls['m_no'].touched || signupForm.controls['m_no'].dirty) && (signupForm.controls['m_no'].hasError('required'))}">
+                    placeholder=" Enter Mobile Number " maxlength="10" minlength="10" 
+                    required (keypress)="onKeyPress($event)"
+                    [ngClass]="{'error':(signupForm.controls['m_no'].touched || signupForm.controls['m_no'].dirty) && (signupForm.controls['m_no'].hasError('required')) ||(signupForm.controls['m_no'].hasError('minlength'))}">
             </div>
             <div class="form-group">
                 <label for="name">Password</label><br>

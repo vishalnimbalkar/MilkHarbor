@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      m_no: ['', [Validators.required,Validators.minLength(10), Validators.maxLength(10)]],
       password: ['', [Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.:;<=>?[\]^{|}~]).{8,}$/),Validators.minLength(8)]]
     });
   }
@@ -32,10 +32,9 @@ export class LoginComponent implements OnInit {
     const formData = { ...this.loginForm.value };
     // formData.password=this.encrypt.encryptPassword(formData.password);
     this.adminService.login(formData).subscribe((response: any) => {
-      if (response != false && response != null) {
-        sessionStorage.setItem('email',response.email);
-        sessionStorage.setItem('mno',response.m_no);
-        sessionStorage.setItem('id',response.id)
+      if (response != false && response != null && response.is_active) {
+        sessionStorage.setItem('m_no',response.m_no);
+        sessionStorage.setItem('id',response._id)
         this.toast.success({ detail: "SUCCESS", summary: 'Login Successfully', duration: 5000, position: 'topRight' });
         this.isLoader = false;
         if (response.role == "ADMIN") {
@@ -53,4 +52,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  onKeyPress(event: any) {
+    const input = String.fromCharCode(event.keyCode);
+    const numericPattern = /^[0-9]+$/;
+    if (!numericPattern.test(input)) {
+      event.preventDefault();
+    }
+  }
 }

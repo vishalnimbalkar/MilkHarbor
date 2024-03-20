@@ -1,0 +1,179 @@
+h2{
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.ratechart{
+    display: flex;
+    flex-direction: column;
+}
+.rate{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.steps{
+    display: flex;
+    width: 40%;
+    height: 200px;
+    margin: 5px;
+    margin: 30px;
+}
+
+.step{
+    width: 50%;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.step::-webkit-scrollbar {
+    width: 8px;
+}
+
+.step::-webkit-scrollbar-track {
+    background-color: white;
+    width: 8px;
+}
+
+.step::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: #3992E1;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    font-size: 20px;
+    justify-content: space-around;
+    border: 1px solid grey;
+}
+.bi-plus-circle{
+cursor: pointer;
+}
+.amount{
+    display: flex;
+    font-size: 20px;
+}
+
+.amount input{
+    height: 30px;
+    padding-left: 10px;
+}
+
+/* popup */
+.popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.box{
+    height: 250px;
+    width: 400px;
+    background-color: #FFF;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    padding: 20px;
+}
+
+.stepDetails{
+    margin: 20px;
+    padding-left: 20px;
+}
+
+.stepDetails input{
+    margin: 10px;
+    padding-left: 10px;
+    height: 30px;
+}
+
+.btns{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.header2{
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    font-size: 20px;
+    justify-content: space-around;
+    border: 1px solid grey;
+}
+
+.bi-x{
+    position: absolute;
+    right: 8px;
+    font-size: 25px;
+    top: 5px;
+    cursor: pointer;
+}
+.chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: auto;
+    width: 100%;
+    height: 100vh;
+    margin-left: 12%;
+}
+table{
+    background-color: #FFF;
+}
+td,tr{
+    text-align: center;
+}
+  .chart::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .chart::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  
+  .chart::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: #3992E1;
+  }
+  
+
+.make-center{
+    /* position: absolute;
+    top: 180px;
+    right: 300px; */
+}
+.chart button{
+    margin: 10px;
+}
+
+.btns{
+    display: flex;
+}
+
+.history{
+    width: 96%;
+    height: 100px;
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid grey;
+}
+
+.history p{
+    font-size: 20px;
+    cursor: pointer;
+}

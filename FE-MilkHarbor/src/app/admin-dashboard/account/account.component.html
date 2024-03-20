@@ -1,0 +1,38 @@
+<div class="dashboard">
+    <div class="sidebar">
+        <div class="logo">
+            <img src="../../assets/logo.png" alt="" style="height: 100px;">
+            <p class="heading">MilkHarbor</p>
+        </div>
+        <div class="sidebar-item" routerLink="profile" routerLinkActive="active">
+            <p>Admin Profile</p>
+        </div> 
+        <div class="sidebar-item" routerLink="rate-chart" routerLinkActive="active">
+            <p>Rate Chart</p>
+        </div>
+        <div class="sidebar-item" routerLink='invite-farmers' routerLinkActive="active">
+            <p>Invite Farmers</p>
+        </div>
+        <div class="sidebar-item" routerLink='pending-approvals' routerLinkActive="active">
+            <p>Pending Approvals</p>
+        </div>
+        <div class="sidebar-item" routerLink='farmer-list' routerLinkActive="active">
+            <p>Farmers List</p>
+        </div>
+        <div class="sidebar-item" routerLink='milk-collection' routerLinkActive="active">
+            <p>Milk Collection</p>
+        </div>
+        <div class="sidebar-item" routerLink='milk-details' routerLinkActive="active">
+            <p>Collected Milk Details</p>
+        </div>
+        <div class="sidebar-item" routerLink='payment' routerLinkActive="active">
+            <p>Payment</p>
+        </div>
+        <div class="sidebar-item" (click)="onLogout()">
+            <p>Logout</p>
+        </div>
+    </div>
+    <div class="body">
+        <router-outlet></router-outlet>
+    </div>
+</div>

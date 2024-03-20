@@ -1,0 +1,61 @@
+.milk-details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+.details{
+    overflow-y: scroll;
+    max-height: 76vh;
+}
+.detail{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 350px;
+    height: 120px;
+    border-radius: 10px;
+    border: 1px solid #F7F7F7;
+    background: #cfcfeb;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 0px 9px 0px;
+    padding: 1%;
+    margin: 8px;
+    position: relative;
+    padding: 20px;
+}
+
+.detail::-webkit-scrollbar {
+    width: 8px;
+}
+
+.detail::-webkit-scrollbar-track {
+    background-color: white;
+    width: 8px;
+}
+
+.detail::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: #3992E1;
+}
+.row1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.row2{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+}
+
+.bi-file-earmark-plus{
+    position: absolute;
+    font-size: 40px;
+    right: 31px;
+    top: 17px;
+}

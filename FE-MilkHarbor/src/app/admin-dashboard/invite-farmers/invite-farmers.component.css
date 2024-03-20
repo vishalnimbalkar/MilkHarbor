@@ -1,0 +1,77 @@
+.invite-farmers{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    height: 80vh;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+
+}
+
+.box2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    height: 60vh;
+}
+
+.box2 input{
+    height: 45px;
+    width: 75%;
+    padding: 10px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.farmers{
+    overflow-y: scroll;
+    width: 37.8%;
+    max-height: 325px;
+    position: absolute;
+    top: 200px;
+    padding: 0!important;
+    font-size: 18px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.farmers::-webkit-scrollbar {
+    width: 8px;
+}
+
+.farmers::-webkit-scrollbar-track {
+    background-color: white;
+    width: 8px;
+}
+
+.farmers::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: #3992E1;
+}
+.farmers li{
+    height: 45px;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding-left: 10px;
+    border-bottom: 1px solid grey;
+}
+
+.farmers li:hover{
+    background-color: rgb(210, 204, 204);
+}
+
+.bi-dash-circle{
+    position: absolute;
+    right: 15px;
+    color: red;
+    cursor: pointer;
+}

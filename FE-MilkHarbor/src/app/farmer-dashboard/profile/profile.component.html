@@ -1,0 +1,72 @@
+<div class="profile">
+    <div class="left">
+        <div class="img">
+            <i class="bi bi-person-circle"></i>
+            <span>{{user.name}}</span>
+        </div>
+        <hr>
+        <div class="details" *ngIf="!isProfile">
+            <i class="bi bi-pencil-square" (click)="onEdit('profile')"></i>
+            <ul>
+                <li><span>Name : </span>{{user.name}}</li>
+                <br>
+                <li><span>Email : </span>{{user.email}}</li>
+                <br>
+                <li><span>Mobile Number : </span>{{user.m_no}}</li>
+            </ul>
+        </div>
+        <h3 *ngIf="isProfile" style="margin-bottom: -10px;">Edit Profile</h3>
+        <form [formGroup]="profileForm" *ngIf="isProfile">
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="email">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="m_no">
+            </div>
+            <div class="make-center">
+                <button class="login" style="width: 120px; height:40 px;" (click)="onCancel()">Cancel</button>&nbsp;&nbsp;&nbsp;
+                <input type="submit" style="width: 120px; height:40 px;" class="signup" (click)="onSubmit()">
+            </div>
+        </form>
+    </div>
+    <div class="right">
+        <div class="top">
+            <h3>Bank Account</h3>
+            <!-- <i class="bi bi-pencil-square" (click)="onEdit('bank')"></i> -->
+            <!-- <span>Bank Name : <b>Bank Of Maharastra</b> </span>
+            <Span>Account Holder Name : <b>Vishal Laxman Nimbalkar</b></Span>
+            <Span>Account Number : <b>60344404697</b></Span>
+            <Span>IFSC Code : <b>MAHB0001619</b></Span> -->
+        </div>
+        <div class="bottom">
+            <button class="make-center signup" (click)="onEdit('bank')" *ngIf="!isBank">Add Bank Account +</button>
+            <h3 *ngIf="isBank">Add Bank Account</h3>
+            <form [formGroup]="bankForm" *ngIf="isBank">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Bank Name" formControlName="b_name"
+                        [ngClass]="{'error':(bankForm.controls['b_name'].touched || bankForm.controls['b_name'].dirty) && (bankForm.controls['b_name'].hasError('required'))}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Account Holder Name"
+                        formControlName="acc_h_name"
+                        [ngClass]="{'error':(bankForm.controls['acc_h_name'].touched || bankForm.controls['acc_h_name'].dirty) && (bankForm.controls['acc_h_name'].hasError('required'))}">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" placeholder="Account Number" formControlName="acc_no"
+                        [ngClass]="{'error':(bankForm.controls['acc_no'].touched || bankForm.controls['acc_no'].dirty) && (bankForm.controls['acc_no'].hasError('required'))}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="IFSC Code" formControlName="ifsc"
+                        [ngClass]="{'error':(bankForm.controls['ifsc'].touched || bankForm.controls['ifsc'].dirty) && (bankForm.controls['ifsc'].hasError('required'))}">
+                </div>
+                <div class="make-center">
+                    <input type="submit" class="signup" [ngClass]="{'disabled':!bankForm.valid}"
+                        [disabled]="!bankForm.valid" (click)="onSubmitBank()">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

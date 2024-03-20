@@ -1,0 +1,40 @@
+<div class="pendingFarmers">
+    <div class="title text-center m-3">
+        <h1>Pending Farmers Approvals</h1>
+    </div>
+    <div class="searchbar">
+    <input type="search" placeholder="Serch Farmer" style="width: 350px; border-radius: 5px;">
+        <div class="all">
+            <label for="all">ALL</label>&nbsp;&nbsp;
+            <input type="checkbox" id="all" class="large" [value]="-1" [(ngModel)]="selectAll"
+            (change)="onChangePendingFarmers($event)">
+        </div>
+    </div>
+    <div class="farmers row">
+        <div class="pending col-md-3" *ngFor="let pendingFarmers of PendingFarmers">
+            <div class="img">
+                <i class="bi bi-person-circle"></i>
+            </div>
+            <div class="info">
+                <h3>{{pendingFarmers.name}}</h3>
+                <h6>{{pendingFarmers.email}}</h6>
+                <h6>{{pendingFarmers.m_no}}</h6>
+            </div>
+            <div class="checkBox">
+                <input type="checkbox" class="large" [checked]="pendingFarmers.isActive" [value]="pendingFarmers.id"
+                (change)="onChangePendingFarmers($event)">
+            </div>
+        </div>
+    </div>
+    <div class="btns" *ngIf="getSize()>0">
+        <div>
+            <button class="login me-5" (click)="onDecline()">Decline</button>
+        </div>
+        <div>
+            <button class="signup"  (click)="onApprove()">Approve</button>
+        </div>
+    </div>
+</div>
+<div class="load" *ngIf="isLoading">
+    <span class="loader"></span>
+</div>

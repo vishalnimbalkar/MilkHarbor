@@ -1,0 +1,43 @@
+<div class="pendingFarmers">
+    <div class="title text-center m-3">
+        <h1>Payment Details</h1>
+    </div>
+    <div class="searchbar">
+        <input type="search" placeholder="Serch Farmer" style="width: 350px; border-radius: 5px;">
+    </div>
+    <div class="farmers row">
+        <div class="pending col-md-3" *ngFor="let farmer of FarmersList" (click)="onFarmer(farmer.id)">
+            <div class="img">
+                <i class="bi bi-person-circle"></i>
+            </div>
+            <div class="info">
+                <h3>{{farmer.name}}({{farmer.id}})</h3>
+                <h6>{{farmer.email}}</h6>
+                <h6>{{farmer.m_no}}</h6>
+            </div>
+        </div>
+    </div>
+    <div class="payment-info" (click)="onClose2()" *ngIf="isPopup">
+        <div class="popup" (click)="onClose($event)">
+            <div class="row1">
+                <span [ngClass]="{'active1':isDetails}" (click)="onDetails()">Payment Details</span>
+                <span [ngClass]="{'active1':isHistory}" (click)="onHistory()">Payment History</span>
+            </div>
+            <div class="details" *ngIf="isDetails">
+                <span class="total">Total Bill : {{total | currency:'INR'}} </span><br>
+                <input type="text" placeholder="Enter Amount">
+                <button class="btn btn-success">Pay</button>
+            </div>
+            <div class="history" *ngIf="isHistory">
+                <div class="info" *ngFor="let history of History">
+                    <span>{{history.date_time}}</span>
+                    <span>{{history.amount | currency:'INR'}}</span>
+                    <span>Remaining : {{0 | currency:'INR'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="load" *ngIf="isLoading">
+    <span class="loader"></span>
+</div>

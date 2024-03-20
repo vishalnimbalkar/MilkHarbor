@@ -1,0 +1,84 @@
+<div class="ratechart">
+    <h2>Rate Chart</h2>
+    <div class="rate">
+        <div class="amount">
+            <label for="">Starting amount :</label>&nbsp;&nbsp;&nbsp;
+            <input type="number" placeholder="Enter amount" [(ngModel)]="baseprice">
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="header">
+                    <span>Fat Step</span>
+                    <i class="bi bi-plus-circle" (click)="onStep('fat')"></i>
+                </div>
+                <div class="header2" *ngFor="let steps of fatStep; index as i">
+                    <span>{{steps.step | number:'1.2-2'}}</span>
+                    <span>{{steps.amount | number:'1.2-2'}}</span>
+                    <i class="bi bi-x" (click)="onRemoveFat(i)"></i>
+                </div>
+            </div>
+            <div class="step">
+                <div class="header">
+                    <span>Snf Step</span>
+                    <i class="bi bi-plus-circle" (click)="onStep('snf')"></i>
+                </div>
+                <div class="header2" *ngFor="let steps of snfStep; index as i">
+                    <span>{{steps.step | number:'1.2'}}</span>
+                    <span>{{steps.amount | number:'1.2'}}</span>
+                    <i class="bi bi-x" (click)="onRemoveSnf(i)"></i>
+                </div>
+            </div>
+        </div>
+        <div class="make-center">
+            <button class="signup" (click)="onGenerate()" [ngClass]="{'disabled':baseprice==undefined}" [disabled]="baseprice==undefined">Gernate</button>
+        </div>
+    </div>
+    <div class="history" *ngIf="isCurrentRateChart">
+        <p (click)="viewRateChart()"> View current rate chart</p>
+    </div>
+</div>
+
+<div class="popup" *ngIf="isPopup" (click)="onClose()">
+    <div class="box" (click)="onClose2($event)">
+        <h2 *ngIf="isFatStep">Fat Step</h2>
+        <h2 *ngIf="isSnfStep">Snf Step</h2>
+
+        <form [formGroup]="stepForm">
+            <div class="stepDetails">
+                Step : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" placeholder="0.0"
+                    formControlName="step"><br>
+                Amount : <input type="number" placeholder="0.0" formControlName="amount">
+            </div>
+            <div class="btns">
+                <button class="login" style="width: 100px; height: 30px; font-size: 18px;"
+                    (click)="onCancel()">Cancel</button>
+                <button class="signup" style="width: 100px; height: 30px; font-size: 18px;" (click)="onOk()"
+                    [ngClass]="{'disabled':!stepForm.valid}" [disabled]="!stepForm.valid">Ok</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="popup" *ngIf="isRateChart" (click)="onCancelCahrt()">
+    <div  class="chart" (click)="onCancelCahrt2($event)">
+        <table>
+            <tbody>
+                <tr >
+                    <td style="border: 3px solid black; font-weight: 600;">Fat/Snf</td>
+                    <td *ngFor="let snf of snfRange" style="border: 3px solid black; font-weight: 600;">{{snf | number:'1.1' }}</td>
+                </tr>
+                <tr *ngFor="let row of arr; index as i">
+                    <td style="border: 3px solid black;  font-weight: 600;">{{ fatRange[i] | number:'1.1' }}</td>
+                    <td *ngFor="let value of row; index as j" style="border: 2px solid black;">
+                        {{ value | number:'1.1' }}&nbsp;&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btns">
+            <button class="login" (click)="onCancelCahrt()" *ngIf="!isViewRateChart">Cancel</button>
+            <button class="signup" (click)="onSubmitCahrt()" *ngIf="!isViewRateChart">Submit</button>
+            <button class="signup" (click)="onCancelCahrt()" *ngIf="isViewRateChart">Close</button>
+        </div>
+    </div>
+</div>

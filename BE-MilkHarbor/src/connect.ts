@@ -6,6 +6,7 @@ const url = 'mongodb://127.0.0.1:27017/milkharborDB'; // Replace 'mydatabase' wi
 // Connect to MongoDB
 export async function main() {
 mongoose.connect(url)
+
   .then(() => {
     console.log('Connected to MongoDB');
     // Perform actions that depend on the connection here

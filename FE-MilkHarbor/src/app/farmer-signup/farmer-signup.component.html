@@ -2,12 +2,19 @@
 <section>
     <div class="info">
         <h1>Farmer Signup</h1>
-        <p>The Farmer Registration page is designed for individuals involved in milk production to join the MilkHarbor Milk Collection System. <br> Farmers are an integral part of the system, contributing essential data related to milk quantities and quality. <br> To register, farmers need to provide accurate details.
+        <p>The Farmer Registration page is designed for individuals involved in milk production to join the MilkHarbor Milk Collection System. <br> To register, farmers need to provide accurate details.
         <br><br>
-        Password Instruction
+        <p> Password Instruction</p>
         <ol>
             <li>Ensure your password is a minimum of 8 characters.</li>
             <li>Include at least one special character (e.g., "&#64;", #, $). </li>
+            <li>Include at least one numeric digit (0-9). </li>
+            <li>Use a mix of uppercase and lowercase letters.</li>
+        </ol>
+        <br><br>
+        <p> Username Instruction</p>
+        <ol>
+            <li>Ensure your username is a minimum of 8 characters.</li>
             <li>Include at least one numeric digit (0-9). </li>
             <li>Use a mix of uppercase and lowercase letters.</li>
         </ol>
@@ -23,11 +30,6 @@
                     placeholder=" Enter Full Name " minlength="1" required
                     [ngClass]="{'error':(signupForm.controls['name'].touched || signupForm.controls['name'].dirty) && (signupForm.controls['name'].hasError('required'))}">
             </div>
-            <!-- <div class="form-group">
-                <label for="email">Email Address</label><br>
-                <input class="form-control" type="email" id="email" [value]="email" formControlName="email" required placeholder=" Enter Email "
-                [ngClass]="{'error':(signupForm.controls['email'].touched || signupForm.controls['email'].dirty) && (signupForm.controls['email'].hasError('required'))}">
-            </div> -->
             <div class="form-group">
                 <label for="mno">Mobile Number</label><br>
                 <input class="form-control" type="text" id="mno" formControlName="m_no"
@@ -35,11 +37,16 @@
                     required (keypress)="onKeyPress($event)"
                     [ngClass]="{'error':(signupForm.controls['m_no'].touched || signupForm.controls['m_no'].dirty) && (signupForm.controls['m_no'].hasError('required')) ||(signupForm.controls['m_no'].hasError('minlength'))}">
             </div>
-            <div class="form-group">
-                <label for="mno">Create Username</label><br>
+            <div class="form-group" style="position: relative;">
+                <label for="mno">Create Username</label>
+                <div *ngIf="signupForm.get('username')!.value!='' && signupForm.get('username')!.value.length>=8" class="username-msg">
+                    <div *ngIf="isUsername" style="color: green;">Valid <Span><i class="bi bi-check-circle"></i></Span></div>
+                    <div *ngIf="isUsername==false" style="color: red;">Invalid <Span><i class="bi bi-x-circle"></i></Span></div>
+                </div>
+                <br>
                 <input class="form-control" type="text" id="username" formControlName="username"
-                    placeholder=" Create Username " required 
-                    [ngClass]="{'error':(signupForm.controls['username'].touched || signupForm.controls['username'].dirty) && (signupForm.controls['username'].hasError('required')), 'success':(!isUsername)}">
+                    placeholder=" Create Username " required minlength="8"
+                    [ngClass]="{'error':(signupForm.controls['username'].touched || signupForm.controls['username'].dirty) && (signupForm.controls['username'].hasError('required')) || (signupForm.controls['m_no'].hasError('minlength')) || isUsername==false, 'success':isUsername}">
             </div>
             <div class="form-group">
                 <label for="name">Password</label><br>

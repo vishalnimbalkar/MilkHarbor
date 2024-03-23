@@ -1,4 +1,2 @@
 export const HTTP_BAD_REQUEST=400;
-export const accountSid=400;
-export const authToken=400;
-export const from_number=400;
+export const API_KEY='vjdlRWKLk9ObhtcFNnoTZGJg7EXAwHiz4q3UyM6I2CaxVu8Bprs6nGhTf7NvCLOVBdDqyW4weU0S2kj9';

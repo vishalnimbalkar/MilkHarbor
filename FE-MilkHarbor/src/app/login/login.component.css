@@ -56,4 +56,12 @@ input{
     padding-left: 10px;
 }
 
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 70px;
+    color: #435184;
+    margin-top: -12px;
+}
 

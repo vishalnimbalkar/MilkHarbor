@@ -35,7 +35,7 @@ export class AdminServiceService {
   }
 
   checkUsername(username:String){
-    return this.http.get(this.baseUrl+"checkUsername/"+username)
+    return this.http.post(this.baseUrl+"checkUsername",{username})
   }
   //get pending farmers
   getPendingFarmers(){

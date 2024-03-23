@@ -16,8 +16,8 @@ export class FarmerSignupComponent {
   signupForm!: FormGroup;
   isPasswordMatch: boolean = false;
   isLoader: boolean = false;
-  email!:string;
-  isUsername!:boolean;
+  email!: string;
+  isUsername!: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -29,10 +29,10 @@ export class FarmerSignupComponent {
   ngOnInit() {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
-      m_no: ['', [Validators.required,Validators.minLength(10), Validators.maxLength(10)]],
-      username:['', [Validators.required]],
+      m_no: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      username: ['', [Validators.required, Validators.minLength(8)]],
       address: ['', Validators.required],
-      password: ['', [Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.:;<=>?[\]^{|}~]).{8,}$/)]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.:;<=>?[\]^{|}~]).{8,}$/)]],
       repassword: ['', Validators.required],
       status: ['PENDING'],
       role: ['FARMER'],
@@ -50,26 +50,30 @@ export class FarmerSignupComponent {
       }
     });
 
-    this.signupForm.valueChanges.subscribe( formValue => {
-      const result= this.checkUsername(formValue.username);
-      console.log(result," ", formValue.username)
-      if(!this.isUsername){
-        this.signupForm.setErrors({ customError: true });
+    this.signupForm.valueChanges.subscribe(formValue => {
+  
+      if(formValue.username.length>=8){
+      if(formValue.username!=""){
+        this.adminService.checkUsername(formValue.username).subscribe((response) => {
+          if (response==true) {
+            this.isUsername= true;
+          } else if (response==false){
+            console.log(response)
+            this.isUsername= false;
+            this.signupForm.setErrors({ customError: true });
+          }
+        }),(error:any)=>{
+          console.log(error.status)
+        }
+      }else{
+        this.isUsername=false;
       }
+    }
     });
 
   }
 
-  checkUsername(username: string){
-   this.adminService.checkUsername(username).subscribe((response: any) => {
-        if(response){
-          this.isUsername= true;
-        }else{
-          this.isUsername= false;
-        }
-      })
-  }
-  
+
   onSignup() {
     this.isLoader = true;
     const formData = { ...this.signupForm.value };

@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import asynceHandler from 'express-async-handler'
 import { User, userModel } from '../models/user.model'
-import { ObjectId } from 'mongodb';
+import { HTTP_BAD_REQUEST, API_KEY } from '../constants/http'
 
-import { HTTP_BAD_REQUEST, accountSid, authToken, from_number } from '../constants/http'
+
 const router = Router()
 const data = {
     name: "vishal",
@@ -93,32 +93,18 @@ router.post('/update', asynceHandler(
   
 router.post("/inviteFarmers", asynceHandler(
     async (req, res) => {
-        // const invites: String[] = req.body
-        // console.log(req.body)
-        // invites.forEach((ele:any)=>{
-        //     client.messages.create({
-        //         body: 'Done',
-        //         from: from_number,
-        //         to: '+91'+ele
-        //     })
-        //     .then((message:any)=>{
-        //       console.log(message.sid)
-        //     })
-        // })
         res.send(true)
     }
 ))
 
-router.get('/checkUsername/:username', asynceHandler(
+router.post('/checkUsername', asynceHandler(
     async (req, res)=>{
         const {username}=req.body
-        console.log(req.body)
         const user = await userModel.findOne({ username });
-        console.log(user)
         if(user){
-            res.status(200).send(true)
+            res.status(200).send(false)
         }else{
-            res.status(400).send(false)
+            res.send(true)
         }
     }
 ))

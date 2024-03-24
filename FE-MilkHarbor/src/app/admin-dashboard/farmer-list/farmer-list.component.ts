@@ -29,11 +29,13 @@ export class FarmerListComponent implements OnInit{
  //add value in keyValueMap
  addValue(id: string) {
   this.keyValueMap[id] = "APPROVED";
+  console.log(this.keyValueMap)
 }
 
 //delete value in keyValueMap
 deleteValue(id: string) {
   delete this.keyValueMap[id];
+  console.log(this.keyValueMap)
 }
 
 //get size of keyValueMap
@@ -45,14 +47,15 @@ onFarmer(event: any) {
   const id = event.target.value;
   const checked = event.target.checked;
 
+  console.log(this.FarmersList)
   this.FarmersList = this.FarmersList.map((d: any) => {
 
-    if (d.id == id) {
+    if (d._id == id) {
       d.isActive = checked;
       this.selectAll = false;
 
       if (d.isActive) {
-        this.addValue(d.id);
+        this.addValue(d._id);
       } else {
         this.deleteValue(id);
       }
@@ -63,7 +66,7 @@ onFarmer(event: any) {
     //logic for selectAll and also add all data
     if (id == -1 && event.target.checked == true) {
       d.isActive = this.selectAll;
-      this.addValue(d.id);
+      this.addValue(d._id);
     }
 
     //logic for deselectAll and also clear all data

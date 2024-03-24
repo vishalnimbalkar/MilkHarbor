@@ -16,12 +16,13 @@
                 <i class="bi bi-person-circle"></i>
             </div>
             <div class="info">
-                <h3>{{pendingFarmers.name}}</h3>
-                <h6>{{pendingFarmers.email}}</h6>
+                <h3>{{pendingFarmers.username}} &nbsp;&nbsp;</h3>
+                <h6>{{pendingFarmers.name}}</h6>
                 <h6>{{pendingFarmers.m_no}}</h6>
+                <h6>{{pendingFarmers.createdAt | date:'medium' }}</h6>
             </div>
             <div class="checkBox">
-                <input type="checkbox" class="large" [checked]="pendingFarmers.isActive" [value]="pendingFarmers.id"
+                <input type="checkbox" class="large" [checked]="pendingFarmers.isActive" [value]="pendingFarmers._id"
                 (change)="onChangePendingFarmers($event)">
             </div>
         </div>

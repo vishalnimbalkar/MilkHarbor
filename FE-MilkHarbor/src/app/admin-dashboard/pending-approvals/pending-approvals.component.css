@@ -50,7 +50,8 @@
 }
 
 .info {
-    width: 230px !important
+    width: 230px !important;
+    margin-left:10px;
 }
 
 .info h3 {
@@ -65,6 +66,7 @@
     font-size: 14px;
     font-weight: 400;
     line-height: normal;
+    margin-bottom: 0 !important;
 }
 
 .checkBox {

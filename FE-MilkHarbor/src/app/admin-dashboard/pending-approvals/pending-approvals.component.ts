@@ -48,12 +48,12 @@ onChangePendingFarmers(event: any) {
 
   this.PendingFarmers = this.PendingFarmers.map((d: any) => {
 
-    if (d.id == id) {
+    if (d._id == id) {
       d.isActive = checked;
       this.selectAll = false;
 
       if (d.isActive) {
-        this.addValue(d.id);
+        this.addValue(d._id);
       } else {
         this.deleteValue(id);
       }
@@ -64,7 +64,7 @@ onChangePendingFarmers(event: any) {
     //logic for selectAll and also add all data
     if (id == -1 && event.target.checked == true) {
       d.isActive = this.selectAll;
-      this.addValue(d.id);
+      this.addValue(d._id);
     }
 
     //logic for deselectAll and also clear all data

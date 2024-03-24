@@ -8,7 +8,7 @@ export class MilkCollectionServiceService {
 
   constructor(private http:HttpClient) { }
 
-  baseUrl:string='http://localhost:8080/milkCollection/'
+  baseUrl:string='http://localhost:5000/mc/'
 
   //milk collection
   onMilkCollection(payload:any){

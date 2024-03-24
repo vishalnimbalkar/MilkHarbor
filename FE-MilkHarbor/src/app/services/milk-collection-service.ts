@@ -31,8 +31,8 @@ export class MilkCollectionServiceService {
   }
 
   //delete milk detials
-  deleteMilkDetails(id:any){
-    return this.http.delete(this.baseUrl+"delete/"+id);
+  deleteMilkDetails(_id:string){
+    return this.http.post(this.baseUrl+"delete",{_id});
   }
 
   //genrate milk rate chart

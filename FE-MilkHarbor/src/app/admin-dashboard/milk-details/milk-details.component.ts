@@ -16,14 +16,13 @@ export class MilkDetailsComponent implements OnInit {
   date_time = new Date();
   editMilkForm!: FormGroup;
   isDropdownOpen: boolean = false;
-  selectedOption: string = 'Vishal Nimbalkar';
-  selectedId!: string;
-  FarmersList: any;
+  FarmersList: any[]=[];
   isLoader: boolean = false;
   price_per_liter!: number;
   total!: number;
   milkDetails: any[] = []
   isEdit: boolean = false;
+
 
   constructor(private datePipe: DatePipe,
     private adminService: AdminServiceService,
@@ -37,43 +36,10 @@ export class MilkDetailsComponent implements OnInit {
     this.getFarmersList();
   }
 
-  onEdit(detail: any) {
-    this.isEdit = true;
-    this.editMilkForm = this.fb.group({
-      f_id: [this.selectedId, Validators.required],
-      milk_qnt: [detail.milk_qnt, Validators.required],
-      milk_fat: [detail.milk_fat, Validators.required],
-      milk_lac_deg: [detail.milk_lac_deg, Validators.required]
-    })
-  }
 
-  //   {
-  //     "m_id": 30,
-  //     "milk_qnt": 5,
-  //     "milk_fat": 5.0,
-  //     "milk_lac_deg": 0.0,
-  //     "f_id": 0,
-  //     "price_per_liter": 0.0,
-  //     "total": 0.0,
-  //     "date_time": null
-  // }
-
-  onSubmit() {
+  onDelete(_id:string) {
     this.isLoader = true
-    this.milkCollectionService.updateMilkDetails(this.editMilkForm.value).subscribe((response: any) => {
-      if (response == true) {
-        this.toast.success({ detail: "SUCCESS", summary: 'Details Updated Succesfully', duration: 5000, position: 'topRight' });
-        this.isLoader = false
-      } else {
-        this.toast.error({ detail: "Error! please try again!", summary: 'Failed', duration: 5000, position: 'topRight' });
-        this.isLoader = false
-      }
-    })
-  }
-
-  onDelete(id:number) {
-    this.isLoader = true
-    this.milkCollectionService.deleteMilkDetails(id).subscribe((response:any)=>{
+    this.milkCollectionService.deleteMilkDetails(_id).subscribe((response:any)=>{
       if (response == true) {
         this.toast.success({ detail: "SUCCESS", summary: 'Delete Succesfully', duration: 5000, position: 'topRight' });
         this.isLoader = false
@@ -99,13 +65,6 @@ export class MilkDetailsComponent implements OnInit {
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
-
-  onFarmer(id: string, name: string) {
-    this.selectedOption = name;
-    this.selectedId = id;
-    this.isDropdownOpen = false;
-  }
-
 
   onClose() {
     this.isEdit = false;

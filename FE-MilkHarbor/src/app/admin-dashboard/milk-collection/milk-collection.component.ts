@@ -121,7 +121,9 @@ export class MilkCollectionComponent implements OnInit {
     
     const mc = {
       f_id:this.selectedId,
+      username:this.selectedOption,
       milk_qnt: qnt,
+      milk_lac_deg: lac_deg,
       milk_fat: fat,
       milk_snf: milk_snf,
       price_per_liter: price,
@@ -171,7 +173,7 @@ export class MilkCollectionComponent implements OnInit {
   //   return price;
   // }
 
-  calculatePrice(fat: number, snf: number) {
+   calculatePrice(fat: number, snf: number) {
     const minFat = Math.min(...this.fatStep.map((obj: any) => obj.step));
     const minSnf = Math.min(...this.snfStep.map((obj: any) => obj.step));
 
@@ -187,8 +189,6 @@ export class MilkCollectionComponent implements OnInit {
     console.log("price : " + price);
     return price;
 }
-
-
 
 }
 

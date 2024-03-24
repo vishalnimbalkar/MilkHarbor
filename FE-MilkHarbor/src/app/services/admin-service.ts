@@ -24,6 +24,9 @@ export class AdminServiceService {
   //get User
   getUser(username:string){
     return this.http.get(this.baseUrl+"getUser/"+username);
+  } 
+  getUserId(_id:string){
+    return this.http.get(this.baseUrl+"getUser/"+_id);
   }
 
   updateProfile(payload:any){

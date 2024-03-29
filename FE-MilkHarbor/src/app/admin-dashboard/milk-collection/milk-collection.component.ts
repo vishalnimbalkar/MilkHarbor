@@ -33,8 +33,6 @@ export class MilkCollectionComponent implements OnInit {
     private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-
-
     this.getFarmersList();
     this.milkForm = this.fb.group({
       f_id: ['', Validators.required],
@@ -125,6 +123,7 @@ export class MilkCollectionComponent implements OnInit {
       milk_qnt: qnt,
       milk_lac_deg: lac_deg,
       milk_fat: fat,
+      status:"PENDING",
       milk_snf: milk_snf,
       price_per_liter: price,
       total: this.total

@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
   this.milkDetails.getMilkCollectionDetails().subscribe((response:any)=>{
     const specificDateMilkDetails = response.filter(
       (milk:any) =>
-        this.datePipe.transform(milk.date_time, 'yyyy-MM-dd') === currentDate
+        this.datePipe.transform(milk.createdAt, 'yyyy-MM-dd') === currentDate
     );
     console.log(specificDateMilkDetails)
     this.milkCollCount=specificDateMilkDetails.length;

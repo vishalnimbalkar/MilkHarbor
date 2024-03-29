@@ -6,13 +6,13 @@
         <input type="search" placeholder="Serch Farmer" style="width: 350px; border-radius: 5px;">
     </div>
     <div class="farmers row">
-        <div class="pending col-md-3" *ngFor="let farmer of FarmersList" (click)="onFarmer(farmer.id)">
+        <div class="pending col-md-3" *ngFor="let farmer of FarmersList" (click)="onFarmer(farmer)">
             <div class="img">
                 <i class="bi bi-person-circle"></i>
             </div>
             <div class="info">
-                <h3>{{farmer.name}}({{farmer.id}})</h3>
-                <h6>{{farmer.email}}</h6>
+                <h3>{{farmer.username}}</h3>
+                <h6>{{farmer.name}}</h6>
                 <h6>{{farmer.m_no}}</h6>
             </div>
         </div>
@@ -24,9 +24,18 @@
                 <span [ngClass]="{'active1':isHistory}" (click)="onHistory()">Payment History</span>
             </div>
             <div class="details" *ngIf="isDetails">
-                <span class="total">Total Bill : {{total | currency:'INR'}} </span><br>
-                <input type="text" placeholder="Enter Amount">
-                <button class="btn btn-success">Pay</button>
+                <span >Farmer Name : <span class="total">{{farmer.name}} </span></span><br>
+                <span >Username : <span class="total">{{farmer.username}} </span></span><br>
+                <span>Mobile Number :<span class="total"> {{farmer.m_no}} </span></span><br>
+                <span>Supply Milk Total :<span class="total">{{supplyTotal | currency:'INR'}}</span> </span><br>
+                <span>Advance Total : <span class="total">{{advanceTotal | currency:'INR'}} </span></span><br>
+                <span>Total Bill :
+                    <span class="total" *ngIf="supplyTotal-advanceTotal>0">{{supplyTotal-advanceTotal | currency:'INR'}} </span>
+                    <span class="total" *ngIf="supplyTotal-advanceTotal<=0">{{0 | currency:'INR'}} </span>
+                </span>
+                <div class="make-center w-100 mt-3">
+                    <button *ngIf="supplyTotal!=0" class="login" (click)="onPay(supplyTotal)">Pay</button>
+                </div>
             </div>
             <div class="history" *ngIf="isHistory">
                 <div class="info" *ngFor="let history of History">

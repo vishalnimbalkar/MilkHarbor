@@ -1,47 +1,49 @@
-import {Router} from 'express'
+import { Router } from 'express'
 import asynceHandler from 'express-async-handler'
 import { MilkCollection, milkCollectionModel } from '../models/milk_collection.model'
 import { HTTP_BAD_REQUEST } from '../constants/http';
 import * as ExcelJS from 'exceljs';
-const mcRouter= Router()
+import * as json2csv from 'json2csv';
+const mcRouter = Router()
 
 
 mcRouter.post("/collect", asynceHandler(
     async (req, res) => {
-    try {
-        // Extracting required fields from the request body
-        const { f_id, username, milk_qnt,milk_lac_deg, milk_fat, milk_snf, price_per_liter, total } = req.body;
-    
-        // Create a new MilkCollection document
-        const newMc: MilkCollection = {
-            milk_coll_id: '', // Generate or assign a unique ID here if needed
-            f_id,
-            username,
-            milk_qnt,
-            milk_lac_deg,
-            milk_fat,
-            milk_snf,
-            price_per_liter,
-            total
-        };
-
-        // Save the new MilkCollection document to the database
-        await milkCollectionModel.create(newMc);
-
-        // Send success response
-        res.status(200).send(true);
-    } catch (error) {
-        console.error("Error:", error);
-        // Send error response
-        res.status(500).json({ error: "Internal server error" });
-    }
-}));
-
-
-mcRouter.get("/get",asynceHandler(
-    async (req, res)=>{
         try {
-            const milkCollections=await milkCollectionModel.find();
+            // Extracting required fields from the request body
+            const { f_id, username, milk_qnt, status, milk_lac_deg, milk_fat, milk_snf, price_per_liter, total } = req.body;
+
+            // Create a new MilkCollection document
+            const newMc: MilkCollection = {
+                milk_coll_id: '', // Generate or assign a unique ID here if needed
+                f_id,
+                username,
+                status,
+                milk_qnt,
+                milk_lac_deg,
+                milk_fat,
+                milk_snf,
+                price_per_liter,
+                total
+            };
+
+            // Save the new MilkCollection document to the database
+            await milkCollectionModel.create(newMc);
+
+            // Send success response
+            res.status(200).send(true);
+        } catch (error) {
+            console.error("Error:", error);
+            // Send error response
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }));
+
+
+mcRouter.get("/get", asynceHandler(
+    async (req, res) => {
+        try {
+            const milkCollections = await milkCollectionModel.find();
             // Send success response
             res.status(200).send(milkCollections);
         } catch (error) {
@@ -52,15 +54,45 @@ mcRouter.get("/get",asynceHandler(
     }
 ))
 
-mcRouter.post("/delete", asynceHandler(
-    async (req, res)=>{
+// get total payment for farmer
+mcRouter.post('/getById', asynceHandler(
+    async (req, res) => {
         try {
-            const {_id} = req.body;
+            const { f_id } = req.body;
+            const data=await milkCollectionModel.find({f_id, status:"PENDING"})
+                res.status(200).json(data); 
+           
+        } catch (error) {
+            console.error("Error:", error);
+            // Send error response
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+));
+
+
+
+mcRouter.post('/updateAll', asynceHandler(
+    async (req, res)=>{
+        const {f_id}=req.body
+        const updateResult= await milkCollectionModel.updateMany({f_id:f_id}, {status:"DONE"} )
+        if (updateResult.modifiedCount >= 1) {
+            res.send(true); // Send success message
+        } else {
+            res.status(HTTP_BAD_REQUEST).send(false); // Send failure message
+        }
+        
+    }
+))
+
+mcRouter.post("/delete", asynceHandler(
+    async (req, res) => {
+        try {
+            const { _id } = req.body;
             // Extracting required fields from the request body
             const deleteResult = await milkCollectionModel.deleteOne(
                 { _id: _id }
             );
-
             // Check for successful update (modifiedCount should be 1)
             if (deleteResult.deletedCount === 1) {
                 res.send(true); // Send success message
@@ -75,42 +107,43 @@ mcRouter.post("/delete", asynceHandler(
     }
 ))
 
-mcRouter.get('/download-excel', async (req, res) => {
+mcRouter.get('/report', async (req, res) => {
     try {
-      // Fetch data from MongoDB
-      const data = await milkCollectionModel.find({});
-  
-      // Create a new Excel workbook and worksheet
-      const workbook = new ExcelJS.Workbook();
-      const worksheet = workbook.addWorksheet('Sheet1');
-  
-      // Extract headers from the first document
-      const headers = Object.keys(data[0]);
-  
-      // Set headers in the worksheet
-      worksheet.addRow(headers);
-  
-      // Add data rows to the worksheet
-      data.forEach((item: any) => {
-        const row: any = [];
-        headers.forEach((header) => {
-          row.push(item[header]);
-        });
-        worksheet.addRow(row);
-      });
-  
-      // Set response headers to trigger file download
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', 'attachment; filename=example.xlsx');
-  
-      // Send the Excel file to the client
-      await workbook.xlsx.write(res);
-      res.end();
+        // Fetch data from MongoDB
+        const data = await milkCollectionModel.find({});
+        if(data){
+            res.status(200).send(data);
+        }else{
+            res.status(400).send(false)
+        }
     } catch (error) {
-      console.error('Error:', error);
-      res.status(500).send('Internal Server Error');
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
     }
-  });
-  
+});
 
 export default mcRouter;
+
+// logic to download csv file from nodejs
+// mcRouter.get('/report', async (req, res) => {
+//     try {
+//         let collectionData:any[]= [];
+
+//         // Fetch data from MongoDB
+//         const data = await milkCollectionModel.find({});
+
+//         data.forEach(ele => {
+//             let { username, milk_fat, milk_qnt, milk_lac_deg, milk_snf, price_per_liter, total } = ele;
+//             collectionData.push({ username, milk_fat, milk_qnt, milk_lac_deg, milk_snf, price_per_liter, total });
+//         });
+
+//         const csvData = json2csv.parse(collectionData);
+
+//         res.setHeader('Content-Type', 'text/csv');
+//         res.setHeader('Content-Disposition', 'attachment; filename=MilkCollectionReport.csv');
+//         res.status(200).end(csvData);
+//     } catch (error) {
+//         console.error('Error:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });

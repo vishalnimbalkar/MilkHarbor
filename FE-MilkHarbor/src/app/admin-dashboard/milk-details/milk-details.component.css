@@ -8,7 +8,22 @@
 }
 .details{
     overflow-y: scroll;
-    max-height: 76vh;
+    max-height: 550px;
+    width: 99%;
+}
+
+.details::-webkit-scrollbar {
+    width: 8px;
+}
+
+.details::-webkit-scrollbar-track {
+    background-color: white;
+    width: 8px;
+}
+
+.details::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: #3992E1;
 }
 .detail{
     display: flex;

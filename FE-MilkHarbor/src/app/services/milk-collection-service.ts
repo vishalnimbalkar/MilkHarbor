@@ -22,7 +22,7 @@ export class MilkCollectionServiceService {
   
   //get milk Collection details for one farmer
   getSupplyMilkDetails(id:any){
-    return this.http.get(this.baseUrl+"get/"+id);
+    return this.http.post(this.baseUrl+"getById",{f_id:id});
   }
 
   //update supply milk information
@@ -30,11 +30,17 @@ export class MilkCollectionServiceService {
     return this.http.put(this.baseUrl+"update",payload);
   }
 
+  updateAll(id:string){
+    return this.http.post(this.baseUrl+"updateAll",{f_id:id});
+  }
   //delete milk detials
   deleteMilkDetails(_id:string){
     return this.http.post(this.baseUrl+"delete",{_id});
   }
 
+  generateReport(){
+    return this.http.get(this.baseUrl+'report', { responseType: 'blob' })
+  }
   //genrate milk rate chart
   generateMilkRateChart(payload:any,payload2:any){
     return this.http.post(this.baseUrl+"genrateMilkRateChart",payload,payload2);

@@ -9,6 +9,7 @@ import { MilkCollectionComponent } from './milk-collection/milk-collection.compo
 import { MilkDetailsComponent } from './milk-details/milk-details.component';
 import { PaymentComponent } from './payment/payment.component';
 import { RateChartComponent } from './rate-chart/rate-chart.component';
+import { AdvanceComponent } from './advance/advance.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,9 @@ const routes: Routes = [
       },
       {
         path:'payment',component:PaymentComponent
+      },
+      {
+        path:'advance',component:AdvanceComponent
       }
     ]
   }

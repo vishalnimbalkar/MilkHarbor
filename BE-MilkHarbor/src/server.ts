@@ -3,6 +3,8 @@ import cors from 'cors'
 import userRouter from './routers/user.router'
 import {main} from './connect'
 import mcRouter from './routers/milkcollection.router';
+import aRouter from './routers/advance.router';
+import paymentRouter from './routers/payment.router';
 
 main().catch(err => console.error(err));
 const app = express();
@@ -19,3 +21,5 @@ app.listen(port, () => {
 
 app.use("/users", userRouter)
 app.use("/mc", mcRouter)
+app.use("/advance", aRouter)
+app.use("/payment", paymentRouter)

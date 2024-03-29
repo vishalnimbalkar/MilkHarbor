@@ -1,0 +1,75 @@
+<div class="main">
+    <div class="heading">
+        <h1>Advance advances</h1>
+        <button class="signup" (click)="onAdd()">Add Advance +</button>
+    </div>
+    <div class="advances row">
+        <div class="advance col-md-3" *ngFor="let advance of AdvanceList">
+            <div class="row1">
+                <span> {{ advance.createdAt | date:'medium' }}</span>
+                <span>
+                    <i class="bi bi-trash" (click)="onDelete(advance._id)"></i>
+                </span>
+            </div>
+            <div class="row1">
+                <span>Farmer : {{advance.username}}</span>
+                <span>Status : {{advance.status | titlecase}}</span>
+
+            </div>
+            <div class="row1">
+                <span>Type : {{advance.type}}</span>
+                <span>Amount : {{advance.amount | currency:'INR'}}</span>
+            </div>
+            <div class="row1">
+                <span>Description : {{advance.descp | slice:0:25}}</span>
+            </div> 
+        </div>
+    </div>
+    <div class="add" *ngIf="isEdit">
+        <div class="form">
+            <form [formGroup]="addAdvance">
+                <div class="close">
+                    <i class="bi bi-x-lg" (click)="onClose()"></i>
+                </div>
+                <h3 class="text-center">Add Advance</h3>
+                <div class="form-group">
+                    <label for="f_id">Select Farmer</label>&nbsp;<i class="bi bi-asterisk"></i>
+                    <input autocomplete="off" type="text" id="username" (click)="toggleDropdown()" [(ngModel)]="selectedOption"
+                        class="form-control" placeholder="Select Farmer" formControlName="username" required>
+                </div>
+                <i class="bi bi-chevron-down" [ngClass]="{'rotate':isDropdownOpen}" (click)="toggleDropdown()"></i>
+    
+                <ul class="dropdown-list" *ngIf="isDropdownOpen">
+                    <li *ngFor="let farmer of FarmersList" (click)="onFarmer(farmer.username)">{{ farmer.username }}</li>
+                </ul>
+
+                <div class="form-group">
+                    <label for="amount">Amount</label>&nbsp;<i class="bi bi-asterisk"></i>
+                    <input type="number" id="amount" class="form-control" formControlName="amount"
+                        placeholder="Enter Amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Type</label>&nbsp;<i class="bi bi-asterisk"></i><br>
+                    <div class="form-check form-check-inline ms-5">
+                        <input class="form-check-input" type="radio" id="cash" value="cash" name="type" formControlName="type">
+                        <label class="form-check-label" for="cash">Cash</label>
+                    </div>
+                    <div class="form-check form-check-inline ms-5">
+                        <input class="form-check-input" type="radio" id="food" value="food" name="type" formControlName="type">
+                        <label class="form-check-label" for="food">Cow Food</label>
+                    </div>
+                </div>
+                
+                <div class="form-floating">
+                <span></span>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" formControlName="descp" maxlength="25"></textarea>
+                    <label for="floatingTextarea2">Description &nbsp;<i class="bi bi-asterisk"></i></label>
+                </div>
+                <div class="form-group d-flex justify-content-center" >
+                   <button class="signup" [ngClass]="{'disabled':!addAdvance.valid}" [disabled]="!addAdvance.valid" (click)="onSubmit()">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

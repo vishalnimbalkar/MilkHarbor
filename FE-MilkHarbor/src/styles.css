@@ -159,3 +159,8 @@ label{
     width: 18px;
     height: 18px;
   }
+
+  .bi-asterisk{
+    color: red;
+    font-size: 6px;
+  }

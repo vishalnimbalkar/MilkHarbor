@@ -3,6 +3,7 @@ import {Schema, model} from 'mongoose'
 export interface MilkCollection{
     milk_coll_id:String;
     f_id:String;
+    status:String,
     username:String;
     milk_fat:Number;
     milk_qnt:Number;
@@ -19,6 +20,10 @@ export const MilkCollectionSchema= new Schema({
     username:{
         type:String,
         required:true,
+    },
+    status:{
+        type:String,
+        required:true
     },
     milk_fat:{
         type:Number,

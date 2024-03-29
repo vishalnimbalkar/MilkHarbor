@@ -133,7 +133,7 @@ router.get('/getPendingFarmers', asynceHandler(
 
 router.get('/getFarmers', asynceHandler(
     async (req, res) => {
-        const users = await userModel.find({ status: 'APPROVED', role: "FARMER"});
+        const users = await userModel.find({ status: 'APPROVED'});
         if (users) {
             res.status(200).send(users)
         } else {

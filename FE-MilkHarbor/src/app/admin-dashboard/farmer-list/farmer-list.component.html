@@ -26,13 +26,16 @@
                 <h6>{{farmer.m_no}}</h6>
                 <h6>{{farmer.address}}</h6>
             </div>
-            <div class="checkBox">
+            <div class="checkBox" *ngIf="farmer.role=='FARMER'">
                 <input type="checkbox" class="large" [checked]="farmer.isActive" [value]="farmer._id"
                 (change)="onFarmer($event)">
             </div>
-            <div class="status">
+            <div class="status" *ngIf="farmer.role=='FARMER'">
                 <span [ngClass]="{'active':farmer.is_active}" *ngIf="farmer.is_active">ACTIVE</span>
                 <span [ngClass]="{'inactive':!farmer.is_active}" *ngIf="!farmer.is_active">INACTIVE</span>
+            </div>
+            <div class="status" *ngIf="farmer.role=='ADMIN'">
+                <span class="" *ngIf="farmer.is_active">ADMIN</span>
             </div>
         </div>
     </div>

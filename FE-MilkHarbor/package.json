@@ -20,8 +20,12 @@
     "@angular/router": "^16.0.0",
     "crypto-js": "^4.2.0",
     "ng-angular-popup": "^0.5.2",
+    "ngx-csv": "^0.3.2",
+    "ngx-csv-parser": "^2.0.0",
+    "razorpay": "^2.9.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

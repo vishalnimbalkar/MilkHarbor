@@ -87,10 +87,13 @@ aRouter.post("/delete", asynceHandler(
 
 aRouter.post('/updateAll', asynceHandler(
     async (req, res)=>{
+        
         const {username}=req.body
+        const data=await AdvanceModel.find({username, status:"PENDING"});
         const updateResult= await AdvanceModel.updateMany({username}, {status:"DONE"} )
         if (updateResult.modifiedCount >= 1) {
-            res.send(true); // Send success message
+            const updatedIds=data.map(id=>id._id);
+            res.send(updatedIds);
         } else {
             res.status(HTTP_BAD_REQUEST).send(false); // Send failure message
         }

@@ -3,11 +3,10 @@ import {Schema, model} from 'mongoose'
 export interface Payment{
     id:String;
     f_id:String;
-    a_id:String;
+    a_id:String[];
     status:String,
-    milk_coll_id:String;
-    total_price:Number;
-    payment_status:String;
+    milk_coll_id:String[];
+    payment_amount:Number;
 }
 export const PaymentSchema= new Schema({
     f_id:{
@@ -26,14 +25,10 @@ export const PaymentSchema= new Schema({
         type: Schema.Types.ObjectId,
         ref: 'milkcollections' // Reference to another Mongoose model
     }],
-    total_price:{
+    payment_amount:{
         type:Number,
         required:true,
-    }  ,
-    payment_status:{
-        type:String,
-        required:true,
-    }
+    } 
 },{
     toJson:{
         virtuals:true

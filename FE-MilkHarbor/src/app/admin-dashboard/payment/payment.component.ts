@@ -39,7 +39,7 @@ export class PaymentComponent implements OnInit {
   totalBill: number = 0;
   selectedId!: string;
   selectedUsername!: string;
-  farmer!:any
+  farmer!: any
 
   ngOnInit(): void {
     this.getFarmersList();
@@ -74,13 +74,13 @@ export class PaymentComponent implements OnInit {
     event.stopPropagation();
   }
 
-  onFarmer(farmer:any) {
+  onFarmer(farmer: any) {
     this.selectedId = farmer._id
     this.selectedUsername = farmer.username
     this.getMilkCollectionById(farmer._id);
     this.getAdvanceByUname(farmer.username);
     this.isPopup = true;
-    this.farmer=farmer
+    this.farmer = farmer
   }
 
   getMilkCollectionById(id: string) {
@@ -104,23 +104,38 @@ export class PaymentComponent implements OnInit {
   }
 
   onPay(supplyTotal: number) {
+
+    let isSuccess:boolean=false;
+    let milk_coll_ids:string[]=[];
+    let a_ids:string[]=[];
+
     this.milkcollectionService.updateAll(this.selectedId).subscribe((response: any) => {
-      if (response == true) {
-        this.toast.success({ detail: "SUCCESS", summary: 'Payment Succesfully', duration: 5000, position: 'topRight' });
-        this.isPopup = false;
-      } else {
-        this.toast.error({ detail: "Error! please try again!", summary: 'Failed to Update', duration: 5000, position: 'topRight' });
-      }
+      milk_coll_ids=response
+      this.advanceService.updateAll(this.selectedUsername).subscribe((response: any) => {
+        a_ids=response
+
+        const payload = {
+          payment_amount: supplyTotal,
+          f_id:this.selectedId,
+          status:'SUCCESS',
+          a_id:a_ids,
+          milk_coll_id:milk_coll_ids
+        }  
+        this.paymentService.payment(payload).subscribe((response: any) => {
+          if (response) {
+            this.toast.success({ detail: "SUCCESS", summary: 'Payment Succesfully', duration: 5000, position: 'topRight' });
+            this.isPopup = false;
+          } else {
+            this.toast.error({ detail: "Error! please try again!", summary: 'Failed to Update', duration: 5000, position: 'topRight' });
+          }
+        })
+  
+      })
     })
 
-    this.advanceService.updateAll(this.selectedUsername).subscribe((response: any) => {
-      if (response == true) {
-        this.toast.success({ detail: "SUCCESS", summary: 'Payment Succesfully', duration: 5000, position: 'topRight' });
-        this.isPopup = false;
-      } else {
-        this.toast.error({ detail: "Error! please try again!", summary: 'Failed to Update', duration: 5000, position: 'topRight' });
-      }
-    })
+    
+
+      
   }
-  
+
 }

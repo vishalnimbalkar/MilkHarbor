@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RateChartComponent } from './rate-chart/rate-chart.component';
 import { AdvanceComponent } from './advance/advance.component';
+import { PaymentHistoryComponent } from './payment-history/payment-history.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { AdvanceComponent } from './advance/advance.component';
     PaymentComponent,
     RateChartComponent,
     AdvanceComponent,
+    PaymentHistoryComponent,
   ],
   imports: [
     CommonModule,

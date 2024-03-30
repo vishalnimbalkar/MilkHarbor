@@ -71,19 +71,23 @@ mcRouter.post('/getById', asynceHandler(
 ));
 
 
-
-mcRouter.post('/updateAll', asynceHandler(
-    async (req, res)=>{
-        const {f_id}=req.body
-        const updateResult= await milkCollectionModel.updateMany({f_id:f_id}, {status:"DONE"} )
-        if (updateResult.modifiedCount >= 1) {
-            res.send(true); // Send success message
-        } else {
-            res.status(HTTP_BAD_REQUEST).send(false); // Send failure message
-        }
-        
+mcRouter.post('/updateAll', asynceHandler(async (req, res) => {
+    const { f_id } = req.body;
+  
+    const data=await milkCollectionModel.find({f_id:f_id, status:"PENDING"});
+    const updateResult = await milkCollectionModel.updateMany(
+      { f_id: f_id },
+      { $set: { status: "DONE" } },
+      { new: true }
+    );
+    if (updateResult.modifiedCount >= 1) {
+        const updatedIds=data.map(id=>id._id);
+        res.send(updatedIds);
+      }else {
+      res.status(HTTP_BAD_REQUEST).send(false);
     }
-))
+  }));
+  
 
 mcRouter.post("/delete", asynceHandler(
     async (req, res) => {

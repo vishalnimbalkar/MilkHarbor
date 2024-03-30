@@ -10,6 +10,7 @@ import { MilkDetailsComponent } from './milk-details/milk-details.component';
 import { PaymentComponent } from './payment/payment.component';
 import { RateChartComponent } from './rate-chart/rate-chart.component';
 import { AdvanceComponent } from './advance/advance.component';
+import { PaymentHistoryComponent } from './payment-history/payment-history.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,9 @@ const routes: Routes = [
       },
       {
         path:'payment',component:PaymentComponent
+      },
+      {
+        path:'payment-history',component:PaymentHistoryComponent
       },
       {
         path:'advance',component:AdvanceComponent

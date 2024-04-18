@@ -30,6 +30,12 @@
                     placeholder=" Enter Full Name " minlength="1" required
                     [ngClass]="{'error':(signupForm.controls['name'].touched || signupForm.controls['name'].dirty) && (signupForm.controls['name'].hasError('required'))}">
             </div>
+             <div class="form-group">
+                <label for="email">Email Address</label><br>
+                <input class="form-control" type="email" id="email" formControlName="email"
+                    placeholder=" Enter Email Address " required
+                    [ngClass]="{'error':(signupForm.controls['email'].touched || signupForm.controls['email'].dirty) && (signupForm.controls['email'].hasError('required') || signupForm.controls['email'].hasError('email'))}">
+            </div>
             <div class="form-group">
                 <label for="mno">Mobile Number</label><br>
                 <input class="form-control" type="text" id="mno" formControlName="m_no"
@@ -56,7 +62,7 @@
             </div>
             <div class="form-group">
                 <label for="name">Re-enter Password</label><br>
-                <input class="form-control" type="repassword" id="repassword" formControlName="repassword"
+                <input class="form-control" type="password" id="repassword" formControlName="repassword"
                     placeholder=" Re-enter Password "  required
                     [ngClass]="{'error':((signupForm.controls['repassword'].touched || signupForm.controls['repassword'].dirty) && (signupForm.controls['repassword'].hasError('required'))) || isPasswordMatch}">
             </div>
@@ -67,7 +73,7 @@
                     [ngClass]="{'error':(signupForm.controls['address'].touched || signupForm.controls['address'].dirty) && (signupForm.controls['address'].hasError('required'))}">
             </div>
             <div class="btn">
-                <button class="signup mt-3" [ngClass]="{'disabled':!signupForm.valid}" [disabled]="!signupForm.valid" (click)="onSignup()">Signup</button>
+                <button class="signup mt-2" [ngClass]="{'disabled':!signupForm.valid}" [disabled]="!signupForm.valid" (click)="onSignup()">Signup</button>
             </div>
         </form>
     </div>

@@ -2,51 +2,55 @@
     <div class="title text-center m-3">
         <h1>Payment History</h1>
     </div>
-    {{paymentHistory}}
     <div class="searchbar">
         <input type="search" placeholder="Serch Farmer" style="width: 350px; border-radius: 5px;">
     </div>
     <div class="farmers row">
-        <div class="pending col-md-3" *ngFor="let payment of paymentHistory">
-            <div class="img">
-                <i class="bi bi-person-circle"></i>
-            </div>
+        <div class="pending col-md-3" *ngFor="let payment of paymentHistory" (click)="onPayment(payment)">
             <div class="info">
-                <h3>{{payment.f_id}}</h3>
-                <h6>{{payment.payment_amount}}</h6>
-                <h6>{{payment.username}}</h6>
+                <h3>Farmer : {{payment.username}}</h3>
+                <h3>Paid Amount : {{payment.payment_amount | currency:'INR'}}</h3>
+                <h3>{{payment.createdAt | date:'medium' }}</h3>
             </div>
         </div>
     </div>
-    <!-- <div class="payment-info" (click)="onClose2()" *ngIf="isPopup">
+    <div class="payment-info" (click)="onClose2()" *ngIf="isPopup">
         <div class="popup" (click)="onClose($event)">
             <div class="row1">
-                <span [ngClass]="{'active1':isDetails}" (click)="onDetails()">Payment Details</span>
-                <span [ngClass]="{'active1':isHistory}" (click)="onHistory()">Payment History</span>
+                <span class="border" [ngClass]="{'active1':isFarmer}" (click)="onDetails('farmer')">Farmer
+                    Details</span>
+                <span class="border" [ngClass]="{'active1':isMc}" (click)="onDetails('mc')">Collection Details</span>
+                <span class="border" [ngClass]="{'active1':isAdvance}" (click)="onDetails('advance')">Advance
+                    Details</span>
             </div>
-            <div class="details" *ngIf="isDetails">
-                <span >Farmer Name : <span class="total">{{farmer.name}} </span></span><br>
-                <span >Username : <span class="total">{{farmer.username}} </span></span><br>
-                <span>Mobile Number :<span class="total"> {{farmer.m_no}} </span></span><br>
-                <span>Supply Milk Total :<span class="total">{{supplyTotal | currency:'INR'}}</span> </span><br>
-                <span>Advance Total : <span class="total">{{advanceTotal | currency:'INR'}} </span></span><br>
-                <span>Total Bill :
-                    <span class="total" *ngIf="supplyTotal-advanceTotal>0">{{supplyTotal-advanceTotal | currency:'INR'}} </span>
-                    <span class="total" *ngIf="supplyTotal-advanceTotal<=0">{{0 | currency:'INR'}} </span>
-                </span>
-                <div class="make-center w-100 mt-3">
-                    <button *ngIf="supplyTotal!=0" class="login" (click)="onPay(supplyTotal)">Pay</button>
+            <div class="details" *ngIf="isFarmer">
+                <span>Farmer Name : <span class="total">{{farmer.name}} </span></span><br>
+                <span>Username : <span class="total">{{farmer.username}} </span></span><br>
+                <span>Mobile Number : <span class="total">{{farmer.m_no}}</span></span><br>
+                <span>Paid Amount : <span class="total">{{payment.payment_amount | currency:'INR'}}</span></span><br>
+                <span>Status : <span class="total">{{payment.status | titlecase}}</span></span><br>
+                <span>Date : <span class="total">{{payment.createdAt | date:'medium' }}</span></span><br>
+            </div>
+            <div class="details" *ngIf="isMc">
+                <div *ngFor="let mc of milkCollections" class="detail">
+                    <span>
+                        <span class="total">{{mc.createdAt | date:'medium' }} </span> <br>
+                        Quantity : <span class="total">{{mc.milk_qnt}}</span>
+                        Fat : <span class="total">{{mc.milk_fat}}</span>
+                        Lac_Deg: <span class="total">{{mc.milk_lac_deg}}</span>
+                        SNF: <span class="total">{{mc.milk_snf}}</span><br>
+                        Price/Liter: <span class="total">{{mc.price_per_liter | currency:'INR'}}</span>
+                        Total: <span class="total">{{mc.total | currency:'INR'}}</span>
+                    </span>
                 </div>
             </div>
-            <div class="history" *ngIf="isHistory">
-                <div class="info" *ngFor="let history of History">
-                    <span>{{history.date_time}}</span>
-                    <span>{{history.amount | currency:'INR'}}</span>
-                    <span>Remaining : {{0 | currency:'INR'}}</span>
-                </div>
+            <div class="details" *ngIf="isAdvance">
+                <span>Farmer Name : <span class="total">{{farmer.name}} </span></span><br>
+                <span>Username : <span class="total">{{farmer.username}} </span></span><br>
+                <span>Mobile Number : <span class="total">{{farmer.m_no}}</span></span><br>
             </div>
         </div>
-    </div> -->
+    </div>
 </div>
 <!-- <div class="load" *ngIf="isLoading">
     <span class="loader"></span>

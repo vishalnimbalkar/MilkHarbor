@@ -5,12 +5,14 @@ export interface User{
     name:string;
     address:string;
     m_no:string;
+    email:string;
     username:string,
     password:string;
     role:string;
     status:string;
     is_active:boolean;
 }
+
 export const userSchema= new Schema({
     name:{
         type:String,
@@ -21,6 +23,11 @@ export const userSchema= new Schema({
         required:true
     },
     m_no:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    email:{
         type:String,
         required:true,
         unique:true

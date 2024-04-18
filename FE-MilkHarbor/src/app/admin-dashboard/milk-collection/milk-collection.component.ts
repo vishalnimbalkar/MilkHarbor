@@ -15,6 +15,7 @@ export class MilkCollectionComponent implements OnInit {
   milkForm!: FormGroup;
   isDropdownOpen: boolean = false;
   selectedOption!: string;
+  selectedEmail!: string;
   selectedId!: string;
   FarmersList: any;
   isLoader: boolean = false;
@@ -94,8 +95,9 @@ export class MilkCollectionComponent implements OnInit {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  onFarmer(id: string, username: string) {
+  onFarmer(id: string, username: string, email:string) {
     this.selectedOption = username;
+    this.selectedEmail = email;
     this.selectedId = id;
     this.isDropdownOpen = false;
     console.log(this.selectedId)
@@ -120,6 +122,7 @@ export class MilkCollectionComponent implements OnInit {
     const mc = {
       f_id:this.selectedId,
       username:this.selectedOption,
+      email:this.selectedEmail,
       milk_qnt: qnt,
       milk_lac_deg: lac_deg,
       milk_fat: fat,

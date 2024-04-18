@@ -30,13 +30,14 @@ export class FarmerSignupComponent {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
       m_no: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.minLength(8)]],
       address: ['', Validators.required],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.:;<=>?[\]^{|}~]).{8,}$/)]],
       repassword: ['', Validators.required],
       status: ['PENDING'],
       role: ['FARMER'],
-      is_active: [false]
+      is_active: [true]
     });
 
     this.signupForm.valueChanges.subscribe(formValue => {
@@ -51,24 +52,24 @@ export class FarmerSignupComponent {
     });
 
     this.signupForm.valueChanges.subscribe(formValue => {
-  
-      if(formValue.username.length>=8){
-      if(formValue.username!=""){
-        this.adminService.checkUsername(formValue.username).subscribe((response) => {
-          if (response==true) {
-            this.isUsername= true;
-          } else if (response==false){
-            console.log(response)
-            this.isUsername= false;
-            this.signupForm.setErrors({ customError: true });
+
+      if (formValue.username.length >= 8) {
+        if (formValue.username != "") {
+          this.adminService.checkUsername(formValue.username).subscribe((response) => {
+            if (response == true) {
+              this.isUsername = true;
+            } else if (response == false) {
+              console.log(response)
+              this.isUsername = false;
+              this.signupForm.setErrors({ customError: true });
+            }
+          }), (error: any) => {
+            console.log(error.status)
           }
-        }),(error:any)=>{
-          console.log(error.status)
+        } else {
+          this.isUsername = false;
         }
-      }else{
-        this.isUsername=false;
       }
-    }
     });
 
   }
@@ -76,20 +77,23 @@ export class FarmerSignupComponent {
 
   onSignup() {
     this.isLoader = true;
-    const formData = { ...this.signupForm.value };
-    delete formData.repassword;
-    // formData.password=this.encrypt.encryptPassword(formData.password);
-    this.adminService.register(formData).subscribe((response: any) => {
-      if (response == true) {
-        this.toast.success({ detail: "SUCCESS", summary: 'Account Created Successfully', duration: 5000, position: 'topRight' });
-        this.router.navigate(['/login']);
-        this.isLoader = false;
-      } else {
-        this.toast.error({ detail: "Error! please try again!", summary: 'Invalid Credentials', duration: 5000, position: 'topRight' });
-        this.router.navigate(['/farmer-signup']);
-        this.isLoader = false;
-      }
-    })
+    setTimeout(() => {
+      const formData = { ...this.signupForm.value };
+      delete formData.repassword;
+      // formData.password=this.encrypt.encryptPassword(formData.password);
+      this.adminService.register(formData).subscribe((response: any) => {
+        console.log(response)
+        if (response === true) {
+          this.toast.success({ detail: "SUCCESS", summary: 'Account Created Successfully', duration: 5000, position: 'topRight' });
+          this.router.navigate(['/login']);
+          this.isLoader = false;
+        } else {
+          this.toast.error({ detail: "Error! please try again!", summary: "Invalid Credetials", duration: 5000, position: 'topRight' });
+          this.router.navigate(['/farmer-signup']);
+          this.isLoader = false;
+        }
+      })
+    }, 2000);
   }
 
   onKeyPress(event: any) {

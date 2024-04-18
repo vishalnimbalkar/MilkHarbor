@@ -20,10 +20,9 @@
     <div class="payment-info" (click)="onClose2()" *ngIf="isPopup">
         <div class="popup" (click)="onClose($event)">
             <div class="row1">
-                <span [ngClass]="{'active1':isDetails}" (click)="onDetails()">Payment Details</span>
-                <span [ngClass]="{'active1':isHistory}" (click)="onHistory()">Payment History</span>
+                <span>Payment Details</span>
             </div>
-            <div class="details" *ngIf="isDetails">
+            <div class="details">
                 <span >Farmer Name : <span class="total">{{farmer.name}} </span></span><br>
                 <span >Username : <span class="total">{{farmer.username}} </span></span><br>
                 <span>Mobile Number :<span class="total"> {{farmer.m_no}} </span></span><br>
@@ -35,13 +34,6 @@
                 </span>
                 <div class="make-center w-100 mt-3">
                     <button *ngIf="supplyTotal!=0" class="login" (click)="onPay(supplyTotal)">Pay</button>
-                </div>
-            </div>
-            <div class="history" *ngIf="isHistory">
-                <div class="info" *ngFor="let history of History">
-                    <span>{{history.date_time}}</span>
-                    <span>{{history.amount | currency:'INR'}}</span>
-                    <span>Remaining : {{0 | currency:'INR'}}</span>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ import {Schema, model} from 'mongoose'
 export interface Payment{
     id:String;
     f_id:String;
+    username:String;
     a_id:String[];
     status:String,
     milk_coll_id:String[];
@@ -10,6 +11,10 @@ export interface Payment{
 }
 export const PaymentSchema= new Schema({
     f_id:{
+        type:String,
+        required:true
+    },
+    username:{
         type:String,
         required:true
     },

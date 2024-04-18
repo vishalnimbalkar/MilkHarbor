@@ -13,11 +13,12 @@ const paymentRouter = Router()
 paymentRouter.post('/create', asynceHandler(
     async (req, res)=>{
         try {
-            const { payment_amount,status, f_id,a_id, milk_coll_id} = req.body;
+            const { payment_amount,username,status, f_id,a_id, milk_coll_id} = req.body;
             const payment: Payment = {
                 id: '',
                 payment_amount,
                 f_id,
+                username,
                 a_id,
                 milk_coll_id,
                 status

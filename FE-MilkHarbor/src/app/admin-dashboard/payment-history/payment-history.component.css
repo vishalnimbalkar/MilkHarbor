@@ -37,7 +37,7 @@
 
 .pending {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 350px;
     height: 100px;
@@ -52,7 +52,11 @@
 }
 
 .info {
-    width: 230px !important
+    width: 230px !important;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: start;
 }
 
 .info h3 {
@@ -155,7 +159,7 @@
     height: 50px;
     color: #435184;
     cursor: pointer;
-    border-bottom: 1px solid grey;
+    /* border-bottom: 1px solid grey; */
 }
 
 .active1{
@@ -174,11 +178,12 @@
 .details{
     display: flex;
     align-items: start;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
     width: 100%;
-    height: 80%;
-    padding: 50px;
+    height: 85%;
+    padding: 10px;
+    overflow-y: scroll;
 }
 .total{
     font-weight: 600;

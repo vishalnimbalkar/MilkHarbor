@@ -3,7 +3,8 @@
         <h1>Farmers List</h1>
     </div>
     <div class="searchbar">
-        <input type="search" placeholder="Serch Farmer" style="width: 350px; border-radius: 5px;">
+        <input type="text" id="search1" placeholder="Serch Farmer" style="width: 350px; border-radius: 5px;" [(ngModel)]="searchQuery" (input)="filterItems()" autocomplete="off" 
+        [readOnly]="getSize()>0">
         <div class="actions" *ngIf="getSize()>0">
             <button class="action" (click)="onActive()">ACTIVE</button>
             <button class="action" (click)="onInActive()">INACTIVE</button>
@@ -15,8 +16,8 @@
                 (change)="onFarmer($event)">
             </div>
     </div>
-    <div class="farmers row">
-        <div class="pending col-md-3" *ngFor="let farmer of FarmersList">
+    <div class="farmers row" *ngIf="items.length>0">
+        <div class="pending col-md-3" *ngFor="let farmer of items">
             <div class="img">
                 <i class="bi bi-person-circle"></i>
             </div>
@@ -38,6 +39,9 @@
                 <span class="" *ngIf="farmer.is_active">ADMIN</span>
             </div>
         </div>
+    </div>
+    <div class="farmers row" *ngIf="items.length==0">
+        not found
     </div>
 </div>
 <div class="load" *ngIf="isLoading">

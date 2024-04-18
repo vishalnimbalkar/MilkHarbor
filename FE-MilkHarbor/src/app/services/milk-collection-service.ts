@@ -22,7 +22,11 @@ export class MilkCollectionServiceService {
   
   //get milk Collection details for one farmer
   getSupplyMilkDetails(id:any){
-    return this.http.post(this.baseUrl+"getById",{f_id:id});
+    return this.http.post(this.baseUrl+"getByFId",{f_id:id});
+  }
+
+  getById(id:any){
+    return this.http.post(this.baseUrl+"getById",{_id:id});
   }
 
   //update supply milk information

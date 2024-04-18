@@ -22,13 +22,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      m_no: ['', [Validators.required,Validators.minLength(10), Validators.maxLength(10)]],
+      m_no: ['', [Validators.required]],
       password: ['', [Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+,.:;<=>?[\]^{|}~]).{8,}$/),Validators.minLength(8)]]
     });
   }
 
   onLogin() {
     this.isLoader = true;
+    setTimeout(() => {
     const formData = { ...this.loginForm.value };
     // formData.password=this.encrypt.encryptPassword(formData.password);
     this.adminService.login(formData).subscribe((response: any) => {
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
         this.isLoader = false;
       }
     })
+  }, 2000);
   }
 
   onKeyPress(event: any) {

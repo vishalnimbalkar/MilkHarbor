@@ -5,6 +5,7 @@ export interface MilkCollection{
     f_id:String;
     status:String,
     username:String;
+    email:String;
     milk_fat:Number;
     milk_qnt:Number;
     milk_snf:Number;
@@ -18,6 +19,10 @@ export const MilkCollectionSchema= new Schema({
         required:true
     },
     username:{
+        type:String,
+        required:true,
+    },
+    email:{
         type:String,
         required:true,
     },

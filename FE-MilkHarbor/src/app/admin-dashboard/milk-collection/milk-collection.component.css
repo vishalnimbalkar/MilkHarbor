@@ -77,3 +77,7 @@ margin-bottom: 5px;
     align-items: center;
     justify-content: space-around;
 }
+
+.hover:hover{
+    background-color: rgb(173, 173, 173);
+}

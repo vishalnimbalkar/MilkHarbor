@@ -3,8 +3,10 @@
         <h1>Invite Farmers</h1>
         <div class="box2">
             <div class="d-flex">
-                <input type="text" placeholder="Add Farmer" [(ngModel)]="email">
-                <button class="signup" style="border-radius: 5px" (click)="onAdd()">Add +</button>
+                <input type="email" placeholder="Add Farmer" [(ngModel)]="email" [ngClass]="{ 'error': email && !isValidEmail(email) }">
+                <button [disabled]="email && !isValidEmail(email)" class="signup" 
+                [ngClass]="{'disabled':email && !isValidEmail(email)}" style="border-radius: 5px"
+                (click)="onAdd()">Add +</button>
             </div>
             <ul class="farmers">
                 <li *ngFor="let farmersEmail of FarmersEmails; let i = index">
@@ -13,7 +15,7 @@
                 </li>
             </ul>
         </div>
-        <button class="login" (click)="onInvite()" [disabled]="FarmersEmails.length<=0" [ngClass]="{'disabled':FarmersEmails.length<=0}">Invite</button>
+        <button  class="login" (click)="onInvite()" [disabled]="FarmersEmails.length<=0" [ngClass]="{'disabled':FarmersEmails.length<=0}">Invite</button>
     </div>
 </div>
 <div class="load" *ngIf="isLoader">

@@ -7,6 +7,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AdminServiceService {
 
+  sortByDateTime(items:any) {
+    items.sort((a:any, b:any) => {
+      return new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime();
+    });
+  }
   constructor(private http:HttpClient) { }
 
   baseUrl:string='http://localhost:5000/users/'
@@ -26,7 +31,7 @@ export class AdminServiceService {
     return this.http.get(this.baseUrl+"getUser/"+username);
   } 
   getUserId(_id:string){
-    return this.http.get(this.baseUrl+"getUser/"+_id);
+    return this.http.post(this.baseUrl+"getUser",{_id})
   }
 
   updateProfile(payload:any){

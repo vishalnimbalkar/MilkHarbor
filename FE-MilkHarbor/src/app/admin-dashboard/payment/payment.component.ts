@@ -12,27 +12,7 @@ import { PaymentService } from 'src/app/services/payment.service';
 })
 export class PaymentComponent implements OnInit {
   FarmersList: any[] = [];
-  History: any[] = [
-    {
-      amount: 12000,
-      date_time: "15-11-23 12:23"
-    },
-    {
-      amount: 14000,
-      date_time: "14-11-23 12:23"
-    },
-    {
-      amount: 12000,
-      date_time: "13-11-23 12:23"
-    },
-    {
-      amount: 15000,
-      date_time: "12-11-23 12:23"
-    }
-  ];
   isLoading: boolean = false;
-  isDetails: boolean = true;
-  isHistory: boolean = false;
   isPopup: boolean = false;
   supplyTotal: number = 0;
   advanceTotal: number = 0;
@@ -57,14 +37,6 @@ export class PaymentComponent implements OnInit {
     })
   }
 
-  onDetails() {
-    this.isDetails = true;
-    this.isHistory = false;
-  }
-  onHistory() {
-    this.isHistory = true;
-    this.isDetails = false;
-  }
 
   onClose2() {
     this.isPopup = false;
@@ -105,7 +77,6 @@ export class PaymentComponent implements OnInit {
 
   onPay(supplyTotal: number) {
 
-    let isSuccess:boolean=false;
     let milk_coll_ids:string[]=[];
     let a_ids:string[]=[];
 
@@ -117,6 +88,7 @@ export class PaymentComponent implements OnInit {
         const payload = {
           payment_amount: supplyTotal,
           f_id:this.selectedId,
+          username:this.selectedUsername,
           status:'SUCCESS',
           a_id:a_ids,
           milk_coll_id:milk_coll_ids

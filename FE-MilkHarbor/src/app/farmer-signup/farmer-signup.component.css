@@ -55,13 +55,13 @@ section h1{
 
 form{
     margin: 15px;
-    height: 500px;
+    height: 510px;
     width: 400px;
 }
 
 .form-control{
     width: 100%;
-    height: 35px;
+    height: 32px;
     margin: 0px 0 5px 0;
     padding-left: 10px;
     padding-right: 85px;
@@ -74,7 +74,7 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 70px;
+    font-size: 60px;
     color: #435184;
     margin-top: -12px;
 }

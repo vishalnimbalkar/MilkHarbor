@@ -19,9 +19,15 @@ import { NgToastService } from 'ng-angular-popup';
       private toast: NgToastService){}
 
     onAdd() {
-      this.FarmersEmails.push(this.email);
-      this.email = '';
+      if(this.email!==''){
+        this.FarmersEmails.push(this.email);
+        this.email = '';
+      }
     }
+    isValidEmail(email: string): boolean {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+  }
 
     onDelete(i:number){
       this.FarmersEmails.splice(i,1);

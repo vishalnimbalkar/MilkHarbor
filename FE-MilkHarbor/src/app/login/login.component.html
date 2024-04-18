@@ -7,11 +7,10 @@
                 <i class="bi bi-person-circle"></i>
             </div>
             <div class="form-group">
-                <label for="m_no">Mobile Number</label><br>
+                <label for="m_no">Mobile Number / Email / Username</label><br>
                 <input class="form-control" type="text" id="m_no" formControlName="m_no"
-                    placeholder=" Enter Mobile Number" required minlength="10" maxlength="10"
-                    (keypress)="onKeyPress($event)"
-                    [ngClass]="{'error':(loginForm.controls['m_no'].touched || loginForm.controls['m_no'].dirty) && (loginForm.controls['m_no'].hasError('required')) ||(loginForm.controls['m_no'].hasError('minlength'))}">
+                    placeholder=" Enter Mobile Number / Email / Username" required 
+                    [ngClass]="{'error':(loginForm.controls['m_no'].touched || loginForm.controls['m_no'].dirty) && (loginForm.controls['m_no'].hasError('required'))}">
             </div>
             <div class="form-group">
                 <label for="name">Password</label><br>

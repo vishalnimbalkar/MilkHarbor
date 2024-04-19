@@ -28,6 +28,7 @@ export class PaymentHistoryComponent implements OnInit{
     getAll() {
       this.paymentService.getAll().subscribe((response: any) => {
         this.paymentHistory = response;
+        this.paymentHistory.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       });
     }
     

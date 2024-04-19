@@ -41,7 +41,10 @@
         </div>
     </div>
     <div class="farmers row" *ngIf="items.length==0">
-        not found
+        <div class="make-center" style="flex-direction: column;">
+            <img src="../../../assets/notFound.png" alt="">
+            <h2>Farmer Not Found</h2>
+        </div>
     </div>
 </div>
 <div class="load" *ngIf="isLoading">

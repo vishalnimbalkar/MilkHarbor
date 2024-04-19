@@ -5,8 +5,11 @@ import { NgToastService } from 'ng-angular-popup';
 import { AdminServiceService } from 'src/app/services/admin-service';
 import { FarmerServiceService } from 'src/app/services/farmer-service';
 import { MilkCollectionServiceService } from 'src/app/services/milk-collection-service';
-import {ngxCsv} from 'ngx-csv/ngx-csv'
+import { ngxCsv } from 'ngx-csv/ngx-csv'
 import * as XLSX from 'xlsx';
+import * as pdfmake from 'pdfmake/build/pdfmake'
+import * as pdfFonts from 'pdfmake/build/vfs_fonts'
+(pdfmake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-milk-details',
@@ -15,33 +18,42 @@ import * as XLSX from 'xlsx';
 })
 export class MilkDetailsComponent implements OnInit {
 
+
   date_time = new Date();
-  editMilkForm!: FormGroup;
+  reportForm!: FormGroup;
   isDropdownOpen: boolean = false;
-  FarmersList: any[]=[];
+  FarmersList: any[] = [];
   isLoader: boolean = false;
   price_per_liter!: number;
   total!: number;
+  selectedOption!: string;
   milkDetails: any[] = []
+  filteredMilkDetails: any[] = []
   isEdit: boolean = false;
+  startDate: any;
 
 
   constructor(private datePipe: DatePipe,
     private adminService: AdminServiceService,
-    private farmerService:FarmerServiceService,
+    private farmerService: FarmerServiceService,
     private fb: FormBuilder,
     private toast: NgToastService,
     private milkCollectionService: MilkCollectionServiceService) { }
 
   ngOnInit(): void {
+    this.reportForm = this.fb.group({
+      username: ['', Validators.required],
+      start_date: [''],
+      end_date: [''],
+    })
     this.getMilkCollectionDetails();
     this.getFarmersList();
   }
 
 
-  onDelete(_id:string) {
+  onDelete(_id: string) {
     this.isLoader = true
-    this.milkCollectionService.deleteMilkDetails(_id).subscribe((response:any)=>{
+    this.milkCollectionService.deleteMilkDetails(_id).subscribe((response: any) => {
       if (response == true) {
         this.toast.success({ detail: "SUCCESS", summary: 'Delete Succesfully', duration: 5000, position: 'topRight' });
         this.isLoader = false
@@ -62,93 +74,95 @@ export class MilkDetailsComponent implements OnInit {
   getMilkCollectionDetails() {
     this.milkCollectionService.getMilkCollectionDetails().subscribe((response: any) => {
       this.milkDetails = response;
+      this.milkDetails.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     })
+  }
+
+  onPopUp() {
+    this.isEdit = true;
   }
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
+  onFarmer(username: string) {
+    this.selectedOption = username;
+    this.isDropdownOpen = false;
+  }
   onClose() {
     this.isEdit = false;
-  }
-data:any[]=[]
-  onReport(){
-    this.milkCollectionService.generateReport().subscribe(
-      (response: any) => {
-        if (response!='') {
-          this.jsonData = response;
-          this.downloadFile();
-          this.toast.success({ detail: "SUCCESS", summary: 'Report Generated Successfully', duration: 5000, position: 'topRight' });
-          this.getMilkCollectionDetails();
-        } else {
-          this.toast.error({ detail: "Error! Please try again!", summary: 'Failed to Generate Report', duration: 5000, position: 'topRight' });
-        }
-      },
-      (error) => {
-        console.error('Error:', error);
-        this.toast.error({ detail: "Error! Please try again!", summary: 'Failed to Generate Report', duration: 5000, position: 'topRight' });
-      }
-    );
+    this.reportForm.reset();
   }
 
-  jsonData:any[] = [
-    {
-        "username": "system2",
-        "milk_fat": 5,
-        "milk_qnt": 55,
-        "milk_lac_deg": 5,
-        "milk_snf": 8,
-        "price_per_liter": 26.9,
-        "total": 1479.5
-    },
-    {
-        "username": "system2",
-        "milk_fat": 4,
-        "milk_qnt": 44,
-        "milk_lac_deg": 4,
-        "milk_snf": 8,
-        "price_per_liter": 23.5,
-        "total": 1034
-    },
-    {
-        "username": "system2",
-        "milk_fat": 4,
-        "milk_qnt": 9,
-        "milk_lac_deg": 9,
-        "milk_snf": 8,
-        "price_per_liter": 23.5,
-        "total": 211.5
-    },
-    {
-        "username": "vishal78",
-        "milk_fat": 3,
-        "milk_qnt": 99,
-        "milk_lac_deg": 9,
-        "milk_snf": 8,
-        "price_per_liter": 22,
-        "total": 2178
+  generate(data: any[], username: string, startDate: string, endDate: string) {
+
+    const options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true,
+      showTitle: false,
+      title: 'MilkCollectionRecord',
+      useBom: true,
+      noDownload: false,
+      headers: ['Username', 'Email', 'Status', 'Fat', 'Quantity', 'Lactose/Degree', 'SNF', 'Price/liter', 'Total','Date and Time']
+    };
+
+    if(username==='ALL'){
+ // Prepare cleaned data by removing unwanted fields
+ const cleanedData = data.map((milkDetail: any) => {
+  // Create a copy of the object
+  const cleanedMilkDetail = { ...milkDetail };
+
+  // Remove unwanted fields from the copied object
+  delete cleanedMilkDetail._id;
+  delete cleanedMilkDetail.f_id;
+  delete cleanedMilkDetail.updatedAt;
+  delete cleanedMilkDetail.__v;
+
+  return cleanedMilkDetail;
+});
+
+new ngxCsv(cleanedData, "milk_collection_report", options);
+    }else{
+    // Convert input dates to JavaScript Date objects
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+
+      // Filter data based on username and date range
+      const filteredData = data.filter((milkDetail: any) => {
+        const createdAtDate = new Date(milkDetail.createdAt);
+        return milkDetail.username === username &&
+          createdAtDate >= startDateObj &&
+          createdAtDate <= endDateObj;
+      });
+
+      // Prepare cleaned data by removing unwanted fields
+      const cleanedData = filteredData.map((milkDetail: any) => {
+        // Create a copy of the object
+        const cleanedMilkDetail = { ...milkDetail };
+
+        // Remove unwanted fields from the copied object
+        delete cleanedMilkDetail._id;
+        delete cleanedMilkDetail.f_id;
+        delete cleanedMilkDetail.updatedAt;
+        delete cleanedMilkDetail.__v;
+
+        return cleanedMilkDetail;
+      });
+
+      new ngxCsv(cleanedData, "milk_collection_report", options);
     }
-];
-  downloadFile() {
-
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'sheet1');
-    XLSX.writeFile(wb, 'MilkCollectionReport.xlsx');
-
-
-    // let options = { 
-    //   fieldSeparator: ',',
-    //   quoteStrings: '"',
-    //   decimalseparator: '.',
-    //   showLabels: true, 
-    //   showTitle: false,
-    //   title: 'MilkCollectionRecord',
-    //   useBom: true,
-    //   noDownload: false,
-    //   headers: ['username', 'milk_fat', 'milk_qnt', 'milk_lac_deg', 'milk_snf', 'price_per_liter', 'total' ]
-    // };
-   
-    // new ngxCsv(this.data, "MilkCollectionRecord", options);
   }
+
+
+  onReport() {
+    if (this.milkDetails) {
+      this.generate(this.milkDetails, this.selectedOption, this.reportForm.get('start_date')!.value, this.reportForm.get('end_date')!.value)
+      console.log(this.selectedOption)
+      console.log(this.reportForm.get('start_date')!.value)
+      console.log(this.reportForm.get('end_date')!.value)
+    }
+  }
+
 }

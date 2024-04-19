@@ -25,26 +25,26 @@
                 <i class="bi bi-person-circle"></i>
             </div>
             <div class="form-group">
-                <label for="name">Full Name</label><br>
+                <label for="name">Full Name &nbsp;<span class="text-danger">*</span></label><br>
                 <input class="form-control" type="text" id="name" formControlName="name"
                     placeholder=" Enter Full Name " minlength="1" required
                     [ngClass]="{'error':(signupForm.controls['name'].touched || signupForm.controls['name'].dirty) && (signupForm.controls['name'].hasError('required'))}">
             </div>
              <div class="form-group">
-                <label for="email">Email Address</label><br>
+                <label for="email">Email Address &nbsp;<span class="text-danger">*</span></label><br>
                 <input class="form-control" type="email" id="email" formControlName="email"
                     placeholder=" Enter Email Address " required
                     [ngClass]="{'error':(signupForm.controls['email'].touched || signupForm.controls['email'].dirty) && (signupForm.controls['email'].hasError('required') || signupForm.controls['email'].hasError('email'))}">
             </div>
             <div class="form-group">
-                <label for="mno">Mobile Number</label><br>
+                <label for="mno">Mobile Number &nbsp;<span class="text-danger">*</span></label><br>
                 <input class="form-control" type="text" id="mno" formControlName="m_no"
                     placeholder=" Enter Mobile Number " maxlength="10" minlength="10" required
                     required (keypress)="onKeyPress($event)"
                     [ngClass]="{'error':(signupForm.controls['m_no'].touched || signupForm.controls['m_no'].dirty) && (signupForm.controls['m_no'].hasError('required')) ||(signupForm.controls['m_no'].hasError('minlength'))}">
             </div>
             <div class="form-group" style="position: relative;">
-                <label for="mno">Create Username</label>
+                <label for="mno">Create Username &nbsp;<span class="text-danger">*</span></label>
                 <div *ngIf="signupForm.get('username')!.value!='' && signupForm.get('username')!.value.length>=8" class="username-msg">
                     <div *ngIf="isUsername" style="color: green;">Valid <Span><i class="bi bi-check-circle"></i></Span></div>
                     <div *ngIf="isUsername==false" style="color: red;">Invalid <Span><i class="bi bi-x-circle"></i></Span></div>
@@ -55,19 +55,19 @@
                     [ngClass]="{'error':(signupForm.controls['username'].touched || signupForm.controls['username'].dirty) && (signupForm.controls['username'].hasError('required')) || (signupForm.controls['m_no'].hasError('minlength')) || isUsername==false, 'success':isUsername}">
             </div>
             <div class="form-group">
-                <label for="name">Password</label><br>
+                <label for="name">Password &nbsp;<span class="text-danger">*</span></label><br>
                 <input class="form-control" type="password" id="password" formControlName="password"
                     placeholder=" Enter Password " required minlength="8"
                     [ngClass]="{'error':(signupForm.controls['password'].touched || signupForm.controls['password'].dirty) && (signupForm.controls['password'].hasError('required')) || (signupForm.controls['password'].hasError('pattern'))}">
             </div>
             <div class="form-group">
-                <label for="name">Re-enter Password</label><br>
+                <label for="name">Re-enter Password &nbsp;<span class="text-danger">*</span></label><br>
                 <input class="form-control" type="password" id="repassword" formControlName="repassword"
                     placeholder=" Re-enter Password "  required
                     [ngClass]="{'error':((signupForm.controls['repassword'].touched || signupForm.controls['repassword'].dirty) && (signupForm.controls['repassword'].hasError('required'))) || isPasswordMatch}">
             </div>
             <div class="form-group">
-                <label for="name">Address</label><br>
+                <label for="name">Address &nbsp;<span class="text-danger">*</span></label><br>
                 <input class="form-control" type="address" id="address" formControlName="address"
                     placeholder=" Enter Address"  required
                     [ngClass]="{'error':(signupForm.controls['address'].touched || signupForm.controls['address'].dirty) && (signupForm.controls['address'].hasError('required'))}">

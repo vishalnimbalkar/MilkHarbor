@@ -11,19 +11,31 @@ import { AdminServiceService } from 'src/app/services/admin-service';
 export class PendingApprovalsComponent implements OnInit{
 
   PendingFarmers:any[]=[];
+  items:any[]=[];
+  searchQuery: string = ''
   selectAll: boolean = false;
   keyValueMap: { [key: string]: string } = {};
   isLoading:boolean=false;
 
   ngOnInit(): void {
     this.getPendingFarmers();
+    this.adminService.sortByDateTime(this.items)
   }
 
   constructor(private adminService:AdminServiceService,private toast: NgToastService){}
 
+  
+  filterItems() {
+    this.items = this.PendingFarmers.filter(farmer =>
+      farmer.username.toLowerCase().includes(this.searchQuery.toLowerCase()) || farmer.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
+
   getPendingFarmers(){
     this.adminService.getPendingFarmers().subscribe((response:any)=>{
       this.PendingFarmers = response?.map((obj: any) => ({ ...obj, isActive: false }));
+      this.items=this.PendingFarmers;
+      this.items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     })
   }
 

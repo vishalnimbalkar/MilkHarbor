@@ -12,6 +12,7 @@ import { PaymentService } from 'src/app/services/payment.service';
 })
 export class PaymentComponent implements OnInit {
   FarmersList: any[] = [];
+  items: any[] = [];
   isLoading: boolean = false;
   isPopup: boolean = false;
   supplyTotal: number = 0;
@@ -19,6 +20,7 @@ export class PaymentComponent implements OnInit {
   totalBill: number = 0;
   selectedId!: string;
   selectedUsername!: string;
+  searchQuery: string='';
   farmer!: any
 
   ngOnInit(): void {
@@ -31,9 +33,18 @@ export class PaymentComponent implements OnInit {
     private paymentService: PaymentService,
     private advanceService: AdvanceService) { }
 
+    
+  filterItems() {
+    this.items = this.FarmersList.filter(farmer =>
+      farmer.username.toLowerCase().includes(this.searchQuery.toLowerCase()) || farmer.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
+
   getFarmersList() {
     this.adminService.getFarmersList().subscribe((response: any) => {
       this.FarmersList = response;
+      this.items=this.FarmersList
+      this.FarmersList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     })
   }
 

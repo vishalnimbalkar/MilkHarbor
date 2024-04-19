@@ -18,7 +18,6 @@ export class FarmerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFarmersList();
-    this.adminService.sortByDateTime(this.items)
   }
 
   constructor(private adminService: AdminServiceService, private toast: NgToastService) { }

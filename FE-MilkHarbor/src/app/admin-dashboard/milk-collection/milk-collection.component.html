@@ -8,7 +8,7 @@
     <div class="form">
         <form [formGroup]="milkForm">
             <div class="form-group">
-                <label for="f_id">Select Farmer</label>
+                <label for="f_id">Select Farmer &nbsp;<span class="text-danger">*</span></label>
                 <input autocomplete="off" type="text" id="f_id" (click)="toggleDropdown()" [(ngModel)]="selectedOption"
                     class="form-control" placeholder="Select Farmer" formControlName="f_id" required
                     [ngClass]="{'error':(milkForm.controls['f_id'].touched || milkForm.controls['f_id'].dirty) && (milkForm.controls['f_id'].hasError('required'))}">
@@ -20,19 +20,19 @@
             </ul>
 
             <div class="form-group">
-                <label for="milk_qnt">Milk Quantity</label>
+                <label for="milk_qnt">Milk Quantity &nbsp;<span class="text-danger">*</span></label>
                 <input type="number" id="milk_qnt" class="form-control" formControlName="milk_qnt"
                     placeholder="Enter Milk Quantity" required
                     [ngClass]="{'error':(milkForm.controls['milk_qnt'].touched || milkForm.controls['milk_qnt'].dirty) && (milkForm.controls['milk_qnt'].hasError('required'))}">
             </div>
             <div class="form-group">
-                <label for="milk_fat">Milk Fat&nbsp;({{minFat}}&nbsp;-&nbsp;{{maxFat}})</label>
+                <label for="milk_fat">Milk Fat &nbsp;({{minFat}}&nbsp;-&nbsp;{{maxFat}}) &nbsp;<span class="text-danger">*</span></label>
                 <input type="number" id="milk_fat" class="form-control" formControlName="milk_fat"
                     placeholder="Enter Milk Fat in %" required
                     [ngClass]="{'error':(milkForm.controls['milk_fat'].touched || milkForm.controls['milk_fat'].dirty) && (milkForm.controls['milk_fat'].hasError('required'))}">
             </div>
             <div class="form-group">
-                <label for="milk_lac_deg">Milk Lac/Deg</label>
+                <label for="milk_lac_deg">Milk Lac/Deg &nbsp; <span class="text-danger">*</span></label>
                 <input type="number" id="milk_lac_deg" class="form-control" formControlName="milk_lac_deg"
                     placeholder="Enter Milk Lac/Deg in %" required
                     [ngClass]="{'error':(milkForm.controls['milk_lac_deg'].touched || milkForm.controls['milk_lac_deg'].dirty) && (milkForm.controls['milk_lac_deg'].hasError('required'))}">

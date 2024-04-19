@@ -45,6 +45,7 @@ export class AdvanceComponent implements OnInit {
   getAdvanceList() {
     this.advanceService.get().subscribe((response: any) => {
       this.AdvanceList = response
+      this.AdvanceList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     })
   }
   getFarmersList() {

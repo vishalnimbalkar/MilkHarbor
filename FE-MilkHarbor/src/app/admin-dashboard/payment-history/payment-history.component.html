@@ -7,10 +7,15 @@
     </div>
     <div class="farmers row">
         <div class="pending col-md-3" *ngFor="let payment of paymentHistory" (click)="onPayment(payment)">
-            <div class="info">
-                <h3>Farmer : {{payment.username}}</h3>
-                <h3>Paid Amount : {{payment.payment_amount | currency:'INR'}}</h3>
-                <h3>{{payment.createdAt | date:'medium' }}</h3>
+            <div class="row1">
+                <span>{{payment.createdAt | date:'medium' }}</span>
+            </div>
+            <div class="row1">
+                <span>Farmer : {{payment.username}}</span>
+            </div>
+            <div class="row1">
+                <span>Amount : {{payment.payment_amount}}</span>&nbsp;&nbsp;&nbsp;
+                <span>Status : <span [ngStyle]="payment.status!='SUCCESS' ? {'color': 'red'} : {'color': 'green'}" style="color: green;"> {{payment.status}}</span></span>
             </div>
         </div>
     </div>
@@ -35,13 +40,15 @@
                 <div *ngFor="let mc of milkCollections" class="detail">
                     <span>
                         <span class="total">{{mc.createdAt | date:'medium' }} </span> <br>
-                        Quantity : <span class="total">{{mc.milk_qnt}}</span>
-                        Fat : <span class="total">{{mc.milk_fat}}</span>
-                        Lac_Deg: <span class="total">{{mc.milk_lac_deg}}</span>
+                        Quantity : <span class="total">{{mc.milk_qnt}}</span>&nbsp;&nbsp;&nbsp;
+                        Fat : <span class="total">{{mc.milk_fat}}</span>&nbsp;&nbsp;&nbsp;
+                        Lac/Deg: <span class="total">{{mc.milk_lac_deg}}</span>&nbsp;&nbsp;&nbsp;
                         SNF: <span class="total">{{mc.milk_snf}}</span><br>
                         Price/Liter: <span class="total">{{mc.price_per_liter | currency:'INR'}}</span>
+                        &nbsp;&nbsp;&nbsp;
                         Total: <span class="total">{{mc.total | currency:'INR'}}</span>
                     </span>
+                    <hr>
                 </div>
             </div>
             <div class="details" *ngIf="isAdvance">

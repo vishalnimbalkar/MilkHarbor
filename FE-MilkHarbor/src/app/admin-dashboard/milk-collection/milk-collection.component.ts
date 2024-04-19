@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
@@ -30,8 +29,7 @@ export class MilkCollectionComponent implements OnInit {
   constructor(private adminService: AdminServiceService,
     private milkCollectionService: MilkCollectionServiceService,
     private fb: FormBuilder,
-    private toast: NgToastService,
-    private datePipe: DatePipe) { }
+    private toast: NgToastService) { }
 
   ngOnInit(): void {
     this.getFarmersList();
@@ -100,8 +98,6 @@ export class MilkCollectionComponent implements OnInit {
     this.selectedEmail = email;
     this.selectedId = id;
     this.isDropdownOpen = false;
-    console.log(this.selectedId)
-
   }
   onSubmit() {
     const qnt = parseFloat(this.milkForm.get('milk_qnt')?.value);
@@ -131,7 +127,6 @@ export class MilkCollectionComponent implements OnInit {
       price_per_liter: price,
       total: this.total
     }
-    console.log("mc" + mc.price_per_liter, "  total" + mc.total)
     this.milkCollectionService.onMilkCollection(mc).subscribe((response: any) => {
       if (response == true) {
         this.toast.success({ detail: "SUCCESS", summary: 'Collection added successfully', duration: 5000, position: 'topRight' });

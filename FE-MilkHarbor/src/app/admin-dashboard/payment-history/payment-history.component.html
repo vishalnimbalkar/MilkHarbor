@@ -14,8 +14,8 @@
                 <span>Farmer : {{payment.username}}</span>
             </div>
             <div class="row1">
-                <span>Amount : {{payment.payment_amount}}</span>&nbsp;&nbsp;&nbsp;
-                <span>Status : <span [ngStyle]="payment.status!='SUCCESS' ? {'color': 'red'} : {'color': 'green'}" style="color: green;"> {{payment.status}}</span></span>
+                <span>Amount : {{payment.payment_amount  | currency:'INR'}}</span>&nbsp;&nbsp;&nbsp;
+                <span>Status : <span [ngStyle]="payment.status!='SUCCESS' ? {'color': 'red'} : {'color': 'green'}"> {{payment.status | titlecase}}</span></span>
             </div>
         </div>
     </div>

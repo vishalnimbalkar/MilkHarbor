@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { AdminServiceService } from 'src/app/services/admin-service';
 import { FarmerServiceService } from 'src/app/services/farmer-service';
@@ -27,7 +28,7 @@ export class ProfileComponent implements OnInit {
   isProfile: boolean = false;
   constructor(private adminService: AdminServiceService,private milkDetails:MilkCollectionServiceService
     , private datePipe: DatePipe, private farmerService:FarmerServiceService,
-    private toast: NgToastService,private fb:FormBuilder) { }
+    private toast: NgToastService,private fb:FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     if(sessionStorage.getItem("baseprice")){
@@ -104,5 +105,10 @@ export class ProfileComponent implements OnInit {
         this.getDetails()
       }
     })
+  }
+
+  onLogout(){
+    this.router.navigate(['/login'])
+    this.toast.success({ detail: "SUCCESS", summary: 'Logout successfully', duration: 5000, position: 'topRight' });
   }
 }

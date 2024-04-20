@@ -87,6 +87,17 @@ i{
     justify-content: center;
 }
 
+.filter{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 70%;
+    height: 100vh;
+    position: absolute;
+    justify-content: start;
+    top: 53px;
+    right: 93px;
+}
 .form{
     display: flex;
     align-items: center;
@@ -109,6 +120,7 @@ form{
     right: 30px;
 }
 
+
 .dropdown-list{
     padding: 0;
     overflow-y: scroll;
@@ -121,6 +133,7 @@ form{
     background-color: #FFF;
     top: 120px;
     left: 20px;
+    z-index: 1;
 }
 
 .dropdown-list::-webkit-scrollbar {
@@ -166,7 +179,42 @@ margin-bottom: 5px;
 
 .bi-file-earmark-plus{
     position: absolute;
-    font-size: 40px;
+    font-size: 35px;
     right: 31px;
     top: 17px;
+}
+
+.bi-funnel{
+    position: absolute;
+    font-size: 35px;
+    right: 80px;
+    top: 17px;
+}
+
+.search{
+    position: absolute;
+    right: 75px;
+    width: 24%;
+}
+
+.search .dropdown-list{
+    padding: 0;
+    overflow-y: scroll;
+    max-height: 177px;
+    font-size: 18px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    position: absolute;
+    width: 86%;
+    background-color: #FFF;
+    top: 47px;
+    right: 84px;
+    z-index: 1;
+}
+
+.search .bi-chevron-down{
+    font-size: 20px;
+    position: absolute;
+    top: 14px;
+    right: 30px;
 }

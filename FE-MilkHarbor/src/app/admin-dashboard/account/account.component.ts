@@ -39,8 +39,4 @@ export class AccountComponent implements OnInit {
   // onMilkDetails(){
   //   this.router.navigate(['/milk-details']);
   // }
-  onLogout() {
-    this.router.navigate(['/login'])
-    this.toast.success({ detail: "SUCCESS", summary: 'Logout successfully', duration: 5000, position: 'topRight' });
-  }
 }

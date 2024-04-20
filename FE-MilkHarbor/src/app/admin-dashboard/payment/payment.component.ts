@@ -20,7 +20,7 @@ export class PaymentComponent implements OnInit {
   totalBill: number = 0;
   selectedId!: string;
   selectedUsername!: string;
-  searchQuery: string='';
+  searchQuery: string = '';
   farmer!: any
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class PaymentComponent implements OnInit {
     private paymentService: PaymentService,
     private advanceService: AdvanceService) { }
 
-    
+
   filterItems() {
     this.items = this.FarmersList.filter(farmer =>
       farmer.username.toLowerCase().includes(this.searchQuery.toLowerCase()) || farmer.name.toLowerCase().includes(this.searchQuery.toLowerCase())
@@ -43,7 +43,7 @@ export class PaymentComponent implements OnInit {
   getFarmersList() {
     this.adminService.getFarmersList().subscribe((response: any) => {
       this.FarmersList = response;
-      this.items=this.FarmersList
+      this.items = this.FarmersList
       this.FarmersList.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     })
   }
@@ -87,38 +87,38 @@ export class PaymentComponent implements OnInit {
   }
 
   onPay(supplyTotal: number) {
-
-    let milk_coll_ids:string[]=[];
-    let a_ids:string[]=[];
+    this.isLoading = true;
+    setTimeout(() => {
+    let milk_coll_ids: string[] = [];
+    let a_ids: string[] = [];
 
     this.milkcollectionService.updateAll(this.selectedId).subscribe((response: any) => {
-      milk_coll_ids=response
+      milk_coll_ids = response
       this.advanceService.updateAll(this.selectedUsername).subscribe((response: any) => {
-        a_ids=response
+        a_ids = response
 
         const payload = {
           payment_amount: supplyTotal,
-          f_id:this.selectedId,
-          username:this.selectedUsername,
-          status:'SUCCESS',
-          a_id:a_ids,
-          milk_coll_id:milk_coll_ids
-        }  
+          f_id: this.selectedId,
+          username: this.selectedUsername,
+          status: 'SUCCESS',
+          a_id: a_ids,
+          milk_coll_id: milk_coll_ids
+        }
         this.paymentService.payment(payload).subscribe((response: any) => {
           if (response) {
             this.toast.success({ detail: "SUCCESS", summary: 'Payment Succesfully', duration: 5000, position: 'topRight' });
             this.isPopup = false;
+            this.isLoading = false;
           } else {
             this.toast.error({ detail: "Error! please try again!", summary: 'Failed to Update', duration: 5000, position: 'topRight' });
+            this.isLoading = false;
           }
         })
-  
+
       })
     })
-
-    
-
-      
+  }, 2000);
   }
 
 }

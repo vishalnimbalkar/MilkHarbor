@@ -167,3 +167,10 @@ i{
 .bi-trash{
     color: red;
 }
+
+.bi-plus-circle{
+    font-size: 40px;
+    position: absolute;
+    top: 17px;
+    right: 30px;
+}

@@ -43,9 +43,9 @@ export class MilkDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.reportForm = this.fb.group({
       username: ['', Validators.required],
-      start_date: [''],
-      end_date: [''],
-    })
+      start_date: ['', Validators.required],
+      end_date: ['', Validators.required],
+    }) 
     this.getMilkCollectionDetails();
     this.getFarmersList();
   }
@@ -75,11 +75,13 @@ export class MilkDetailsComponent implements OnInit {
     this.milkCollectionService.getMilkCollectionDetails().subscribe((response: any) => {
       this.milkDetails = response;
       this.milkDetails.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      this.filterdMilkData=this.milkDetails
     })
   }
 
   onPopUp() {
     this.isEdit = true;
+    this.isFilter=false
   }
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -92,6 +94,7 @@ export class MilkDetailsComponent implements OnInit {
   onClose() {
     this.isEdit = false;
     this.reportForm.reset();
+    this.isFilter=false
   }
 
   generate(data: any[], username: string, startDate: string, endDate: string) {
@@ -105,29 +108,40 @@ export class MilkDetailsComponent implements OnInit {
       title: 'MilkCollectionRecord',
       useBom: true,
       noDownload: false,
-      headers: ['Username', 'Email', 'Status', 'Fat', 'Quantity', 'Lactose/Degree', 'SNF', 'Price/liter', 'Total','Date and Time']
+      headers: ['Username', 'Email', 'Status', 'Fat', 'Quantity', 'Lactose/Degree', 'SNF', 'Price/liter', 'Total', 'Date and Time']
     };
 
-    if(username==='ALL'){
- // Prepare cleaned data by removing unwanted fields
- const cleanedData = data.map((milkDetail: any) => {
-  // Create a copy of the object
-  const cleanedMilkDetail = { ...milkDetail };
+    if (username === 'ALL') {
+       // Convert input dates to JavaScript Date objects
+       const startDateObj = new Date(startDate);
+       const endDateObj = new Date(endDate);
+ 
+       // Filter data based on username and date range
+       const filteredData = data.filter((milkDetail: any) => {
+         const createdAtDate = new Date(milkDetail.createdAt);
+         return milkDetail.username === username ||
+           createdAtDate >= startDateObj &&
+           createdAtDate <= endDateObj;
+       });
+      // Prepare cleaned data by removing unwanted fields
+      const cleanedData = filteredData.map((milkDetail: any) => {
+        // Create a copy of the object
+        const cleanedMilkDetail = { ...milkDetail };
 
-  // Remove unwanted fields from the copied object
-  delete cleanedMilkDetail._id;
-  delete cleanedMilkDetail.f_id;
-  delete cleanedMilkDetail.updatedAt;
-  delete cleanedMilkDetail.__v;
+        // Remove unwanted fields from the copied object
+        delete cleanedMilkDetail._id;
+        delete cleanedMilkDetail.f_id;
+        delete cleanedMilkDetail.updatedAt;
+        delete cleanedMilkDetail.__v;
 
-  return cleanedMilkDetail;
-});
+        return cleanedMilkDetail;
+      });
 
-new ngxCsv(cleanedData, "milk_collection_report", options);
-    }else{
-    // Convert input dates to JavaScript Date objects
-    const startDateObj = new Date(startDate);
-    const endDateObj = new Date(endDate);
+      new ngxCsv(cleanedData, "milk_collection_report", options);
+    } else {
+      // Convert input dates to JavaScript Date objects
+      const startDateObj = new Date(startDate);
+      const endDateObj = new Date(endDate);
 
       // Filter data based on username and date range
       const filteredData = data.filter((milkDetail: any) => {
@@ -163,6 +177,37 @@ new ngxCsv(cleanedData, "milk_collection_report", options);
       console.log(this.reportForm.get('start_date')!.value)
       console.log(this.reportForm.get('end_date')!.value)
     }
+  }
+
+  isFilter:boolean=false;
+  isDropdownOpen2:boolean=false;
+  selectedFarmer!:string;
+  filterdMilkData:any[]=[]
+
+  toggleDropdown2() {
+    this.isDropdownOpen2 = !this.isDropdownOpen2;
+  }
+  onFilter(){
+    this.isFilter=true
+    this.isEdit = false
+  }
+
+  onFarmer2(username:string){
+    this.selectedFarmer=username
+    this.isDropdownOpen = false;
+    this.filter()
+  }
+
+  filter() {
+    this.filterdMilkData = this.milkDetails.filter(data => {
+      const farmers=data.username === this.selectedFarmer
+      return farmers
+    });
+  }
+
+  onClear(){
+    this.selectedFarmer=''
+    this.filterdMilkData=this.milkDetails
   }
 
 }

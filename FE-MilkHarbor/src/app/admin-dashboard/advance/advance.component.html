@@ -1,7 +1,8 @@
 <div class="main">
     <div class="heading">
         <h1>Advance advances</h1>
-        <button class="signup" (click)="onAdd()">Add Advance +</button>
+        <!-- <button class="signup" (click)="onAdd()">Add Advance +</button> -->
+        <i class="bi bi-plus-circle" (click)="onAdd()"></i>
     </div>
     <div class="advances row">
         <div class="advance col-md-3" *ngFor="let advance of AdvanceList">
@@ -13,7 +14,7 @@
             </div>
             <div class="row1">
                 <span>Farmer : {{advance.username}}</span>
-                <span>Status : {{advance.status | titlecase}}</span>
+                <span>Status : <span [ngStyle]="advance.status!='PENDING' ? {'color': 'green'} : {'color': 'orange'}">{{advance.status | titlecase}}</span></span>
 
             </div>
             <div class="row1">

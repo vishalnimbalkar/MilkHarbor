@@ -69,6 +69,7 @@ form{
     position: absolute;
     width: 100%;
     background-color: #FFF;
+    z-index: 1;
 }
 
 .dropdown-list::-webkit-scrollbar {

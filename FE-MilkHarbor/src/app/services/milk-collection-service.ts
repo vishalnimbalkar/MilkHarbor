@@ -22,7 +22,7 @@ export class MilkCollectionServiceService {
   
   //get milk Collection details for one farmer
   getSupplyMilkDetails(id:any){
-    return this.http.post(this.baseUrl+"getByFId",{f_id:id});
+    return this.http.get(this.baseUrl+"getByFId/"+id);
   }
 
   getById(id:any){
@@ -48,5 +48,9 @@ export class MilkCollectionServiceService {
   //genrate milk rate chart
   generateMilkRateChart(payload:any,payload2:any){
     return this.http.post(this.baseUrl+"genrateMilkRateChart",payload,payload2);
+  }
+
+  getSevenDayData(username:any){
+    return this.http.get(this.baseUrl+"getSevenDayData/"+username)
   }
 }

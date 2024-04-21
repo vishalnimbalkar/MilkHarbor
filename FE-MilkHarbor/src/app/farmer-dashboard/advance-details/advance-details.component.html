@@ -1,0 +1,24 @@
+<div class="main">
+    <div class="heading">
+        <h1>Advance advances</h1>
+    </div>
+    <div class="advances row">
+        <div class="advance col-md-3" *ngFor="let advance of Advancedata">
+            <div class="row1">
+                <span> {{ advance.createdAt | date:'medium' }}</span>
+            </div>
+            <div class="row1">
+                <span>Type : {{advance.type}}</span>
+                <span>Amount : {{advance.amount | currency:'INR'}}</span>
+            </div>
+                <div class="row1">
+                    <span>Status : <span [ngStyle]="advance.status!='PENDING' ? {'color': 'green'} : {'color': 'orange'}">{{advance.status | titlecase}}</span></span>
+    
+                </div>
+            <div class="row1">
+                <span>Description : {{advance.descp | slice:0:25}}</span>
+            </div> 
+        </div>
+    </div>
+</div>
+

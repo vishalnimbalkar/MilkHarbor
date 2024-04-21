@@ -20,6 +20,10 @@ export class PaymentService {
   getAll():Observable<any>{
     return this.http.get(this.baseUrl+"get")
   }
+
+  getByUsername(username:string){
+    return this.http.get(this.baseUrl+"getByUsername/"+username)
+  }
   payNow(amount:number) {
     const RozarpayOptions = {
       description: 'Sample Razorpay demo',

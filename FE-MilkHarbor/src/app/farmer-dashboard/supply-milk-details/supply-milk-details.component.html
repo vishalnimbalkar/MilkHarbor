@@ -1,23 +1,52 @@
 <div class="milk-details">
-    <div class="title text-center m-3">
+    <div class="title text-center m-3 d-flex">
         <h1 >Supply Milk Details</h1>
-        <i class="bi bi-file-earmark-plus" (click)="onReport()"></i>
+        <i class="bi bi-file-earmark-plus" (click)="onPopUp()"></i>
     </div>
     <div class="details row">
         <div class="detail col-md-3" *ngFor="let detail of milkDetails">
             <div class="row1">
-                <span >Quantity : {{detail.milk_qnt}}</span>
-                <span>{{detail.date_time}}</span>
+                <span> {{ detail.createdAt | date:'medium' }}</span>
             </div>
             <div class="row1">
+                <span>Farmer : {{detail.username}}</span>
+                <span>Status : <span [ngStyle]="detail.status!='PENDING' ? {'color': 'green'} : {'color': 'orange'}">{{detail.status | titlecase}}</span></span>
+            </div>
+            <div class="row1">
+                <span>Quantity : {{detail.milk_qnt}}</span>
                 <span>Fat : {{detail.milk_fat}}</span>
                 <span>Lac/Deg : {{detail.milk_lac_deg}}</span>
                 <span>Snf : {{detail.milk_snf}}</span>
             </div>
             <div class="row1">
-                <span>Price Per Liter : {{detail.price_per_liter}}</span>
-                <span>Total Bill: {{detail.total}}</span>
+                <span>Price Per Liter : {{detail.price_per_liter | currency:'INR'}}</span>
+                <span>Total Price: {{detail.total  | currency:'INR'}}</span>
             </div> 
         </div>
     </div>
+    <div class="milkCollection" *ngIf="isEdit">
+        <div class="form">
+            <form [formGroup]="reportForm">
+                <div class="close">
+                    <i class="bi bi-x-lg" (click)="onClose()"></i>
+                </div>
+                <h3 class="text-center">Milk Collection Report</h3>
+              
+                <div class="form-group" >
+                    <label for="username">Start Date &nbsp;<span class="text-danger">*</span></label>&nbsp;&nbsp;&nbsp;
+                    <input type="date" class="form-control" formControlName="start_date">
+                </div>
+                <div class="form-group" >
+                    <label for="username">End Date &nbsp;<span class="text-danger">*</span></label>&nbsp;&nbsp;&nbsp;
+                    <input type="date" class="form-control" formControlName="end_date" >
+                </div>
+                <div class="form-group make-center">
+                    <button class="login" style="height: 40px;" [ngClass]="{'disabled':!reportForm.valid}" [disabled]="!reportForm.valid" (click)="onReport()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="load" *ngIf="isLoader">
+    <span class="loader"></span>
 </div>

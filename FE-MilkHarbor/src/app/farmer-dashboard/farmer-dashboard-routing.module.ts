@@ -4,6 +4,7 @@ import { AccountComponent } from './account/account.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SupplyMilkDetailsComponent } from './supply-milk-details/supply-milk-details.component';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import { AdvanceDetailsComponent } from './advance-details/advance-details.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,9 @@ const routes: Routes = [
       },
       {
         path:'supply-milk-details',component:SupplyMilkDetailsComponent
+      },
+      {
+        path:'advance-details',component:AdvanceDetailsComponent
       },
       {
         path:'payment',component:PaymentDetailsComponent

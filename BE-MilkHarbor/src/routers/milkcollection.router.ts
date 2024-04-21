@@ -37,14 +37,14 @@ mcRouter.post("/collect", asynceHandler(
                 subject: 'Supply Milk Details',
                 text:
                     'Dear ' + username + ', \n' +
-                    'We are writing to confirm the details of the milk supply you provided on today.\n'+ ' Thank you for your continued support in supplying high-quality milk to our dairy. \n' +
+                    'We are writing to confirm the details of the milk supply you provided on today.\n' + ' Thank you for your continued support in supplying high-quality milk to our dairy. \n' +
                     'Here are the details of your recent milk supply: \n' +
                     'Quantity: ' + milk_qnt + ' liters, \n' +
                     'Lactose Degree: ' + milk_lac_deg + '%, \n' +
                     'Fat Content: ' + milk_fat + '%, \n' +
                     'SNF: ' + milk_snf + '%, \n' +
                     'Price per Liter: ₹' + price_per_liter.toFixed(2) + ', \n' +
-                    'Total Cost: ₹' + (milk_qnt * price_per_liter).toFixed(2)+'\n'+
+                    'Total Cost: ₹' + (milk_qnt * price_per_liter).toFixed(2) + '\n' +
                     'Your consistent supply of quality milk is invaluable to us, and we truly appreciate your dedication and hard work. \n' +
                     'If you have any questions or concerns regarding this supply or any other matter, please don\'t hesitate to contact us. We are here to assist you in any way we can. \n' +
                     'Thank you once again for your partnership. We look forward to continuing our collaboration for mutual success. \n' +
@@ -85,6 +85,22 @@ mcRouter.post('/getByFId', asynceHandler(
         try {
             const { f_id } = req.body;
             const data = await milkCollectionModel.find({ f_id, status: "PENDING" })
+            res.status(200).json(data);
+
+        } catch (error) {
+            console.error("Error:", error);
+            // Send error response
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+));
+
+// get supply milk details
+mcRouter.get('/getByFId/:f_id', asynceHandler(
+    async (req, res) => {
+        try {
+            const f_id = req.params.f_id;
+            const data = await milkCollectionModel.find({ f_id })
             res.status(200).json(data);
 
         } catch (error) {
@@ -166,29 +182,26 @@ mcRouter.get('/report', async (req, res) => {
 });
 
 
+mcRouter.get("/getSevenDayData/:username", asynceHandler(
+    async (req, res) => {
+        try {
+            const username=req.params.username;
+            const currentDate = new Date();
+            const sevenDaysAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+            const query = { 
+                username: username,
+                createdAt: { $gte: sevenDaysAgo, $lte: currentDate 
+                } };
+            const milkCollections = await milkCollectionModel.find(query);
+            // Send success response
+            res.status(200).send(milkCollections);
+        } catch (error) {
+            console.error("Error:", error);
+            // Send error response
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+))
 
 export default mcRouter;
-
-// logic to download csv file from nodejs
-// mcRouter.get('/report', async (req, res) => {
-//     try {
-//         let collectionData:any[]= [];
-
-//         // Fetch data from MongoDB
-//         const data = await milkCollectionModel.find({});
-
-//         data.forEach(ele => {
-//             let { username, milk_fat, milk_qnt, milk_lac_deg, milk_snf, price_per_liter, total } = ele;
-//             collectionData.push({ username, milk_fat, milk_qnt, milk_lac_deg, milk_snf, price_per_liter, total });
-//         });
-
-//         const csvData = json2csv.parse(collectionData);
-
-//         res.setHeader('Content-Type', 'text/csv');
-//         res.setHeader('Content-Disposition', 'attachment; filename=MilkCollectionReport.csv');
-//         res.status(200).end(csvData);
-//     } catch (error) {
-//         console.error('Error:', error);
-//         res.status(500).send('Internal Server Error');
-//     }
-// });

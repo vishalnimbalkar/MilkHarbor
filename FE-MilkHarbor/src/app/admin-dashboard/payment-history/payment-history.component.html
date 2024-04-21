@@ -2,9 +2,6 @@
     <div class="title text-center m-3">
         <h1>Payment History</h1>
     </div>
-    <div class="searchbar">
-        <input type="search" placeholder="Serch Farmer" style="width: 350px; border-radius: 5px;">
-    </div>
     <div class="farmers row">
         <div class="pending col-md-3" *ngFor="let payment of paymentHistory" (click)="onPayment(payment)">
             <div class="row1">
@@ -12,6 +9,10 @@
             </div>
             <div class="row1">
                 <span>Farmer : {{payment.username}}</span>
+            </div> 
+            <div class="row1">
+                <span>Milk Collection Count : {{payment.milk_coll_id.length}}</span>&nbsp;&nbsp;
+                <span>Advances Count : {{payment.a_id.length}}</span>
             </div>
             <div class="row1">
                 <span>Amount : {{payment.payment_amount  | currency:'INR'}}</span>&nbsp;&nbsp;&nbsp;

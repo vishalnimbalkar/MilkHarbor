@@ -27,6 +27,10 @@ export class AdvanceService {
   getById(id:any){
     return this.http.post<any>(this.baseUrl+"getById",{_id:id})
   }
+
+  getByUsername(username:string){
+    return this.http.get<any>(this.baseUrl+"getByUsername/"+username)
+  }
   delete(_id:string):Observable<any>{
     return this.http.post<any>(this.baseUrl+'delete',{_id})
   }

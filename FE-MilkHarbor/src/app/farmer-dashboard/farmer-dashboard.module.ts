@@ -8,6 +8,7 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
 import { ProfileComponent } from './profile/profile.component';
 import { SupplyMilkDetailsComponent } from './supply-milk-details/supply-milk-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdvanceDetailsComponent } from './advance-details/advance-details.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AccountComponent,
     PaymentDetailsComponent,
     ProfileComponent,
-    SupplyMilkDetailsComponent
+    SupplyMilkDetailsComponent,
+    AdvanceDetailsComponent
   ],
   imports: [
     CommonModule,

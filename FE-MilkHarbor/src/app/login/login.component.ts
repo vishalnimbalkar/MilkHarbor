@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
     this.isLoader = true;
     setTimeout(() => {
     const formData = { ...this.loginForm.value };
-    // formData.password=this.encrypt.encryptPassword(formData.password);
     this.adminService.login(formData).subscribe((response: any) => {
       if (response != false && response != null && response.is_active) {
         sessionStorage.setItem('m_no',response.m_no);
         sessionStorage.setItem('id',response._id)
+        sessionStorage.setItem('username',response.username)
         this.toast.success({ detail: "SUCCESS", summary: 'Login Successfully', duration: 5000, position: 'topRight' });
         this.isLoader = false;
         if (response.role == "ADMIN") {

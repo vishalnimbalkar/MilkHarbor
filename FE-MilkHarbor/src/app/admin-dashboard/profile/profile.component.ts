@@ -6,6 +6,8 @@ import { NgToastService } from 'ng-angular-popup';
 import { AdminServiceService } from 'src/app/services/admin-service';
 import { FarmerServiceService } from 'src/app/services/farmer-service';
 import { MilkCollectionServiceService } from 'src/app/services/milk-collection-service';
+import { Chart, registerables } from 'chart.js'
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-profile',
@@ -31,6 +33,7 @@ export class ProfileComponent implements OnInit {
     private toast: NgToastService,private fb:FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
+    this.RenderChart()
     if(sessionStorage.getItem("baseprice")){
       this.baseprice=sessionStorage.getItem("baseprice");
     }
@@ -110,5 +113,31 @@ export class ProfileComponent implements OnInit {
   onLogout(){
     this.router.navigate(['/login'])
     this.toast.success({ detail: "SUCCESS", summary: 'Logout successfully', duration: 5000, position: 'topRight' });
+  }
+
+  colorData = ['#f0210a','#edb35c','#e5e827','#69e344','#44e0e3','#3057d9','#bf30d9']
+  colorData2 = ['#bf30d9','#3057d9','#44e0e3','#69e344','#e5e827','#edb35c','#f0210a']
+
+  RenderChart() {
+    const myChart = new Chart('piechart', {
+      type: 'bar',
+      data: {
+        labels: [3,4,5,6,7,8,9],
+        datasets: [{
+          label: '# of Quntity',
+          data: [500, 550, 520, 570, 600, 450, 470],
+          backgroundColor: this.colorData,
+          borderColor: this.colorData,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }
 }

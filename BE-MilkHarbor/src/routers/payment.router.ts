@@ -48,5 +48,21 @@ paymentRouter.get('/get', asynceHandler(
     }
 ))
 
+paymentRouter.get('/getByUsername/:username', asynceHandler(
+    async (req, res)=>{
+        try {
+            const username=req.params.username;
+           const data= await PaymentModel.find({username})
+            // Send success response
+            res.status(200).send(data);
+        } catch (error) {
+            console.error("Error:", error);
+            // Send error response
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+))
+
+
 
 export default paymentRouter;

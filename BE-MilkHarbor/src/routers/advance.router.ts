@@ -76,6 +76,20 @@ aRouter.post('/getById', asynceHandler(
     }
 ));
 
+aRouter.get('/getByUsername/:username', asynceHandler(
+    async (req, res) => {
+        try {
+            const username  = req.params.username;
+            const data=await AdvanceModel.find({username})
+                res.status(200).json(data); 
+           
+        } catch (error) {
+            console.error("Error:", error);
+            // Send error response
+            res.status(500).json({ error: "Internal server error" });
+        }
+    }
+));
 
 aRouter.post("/delete", asynceHandler(
     async (req, res) => {

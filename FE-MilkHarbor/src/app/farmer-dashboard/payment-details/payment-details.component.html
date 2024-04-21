@@ -1,3 +1,21 @@
-<div class="payment">
-    <h2>Payment Details</h2>
+<div class="main">
+    <div class="heading">
+        <h1>Payment Details</h1>
+    </div>
+    <div class="advances row">
+        <div class="advance col-md-3" *ngFor="let payment of paymentData">
+            <div class="row1">
+                <span> {{ payment.createdAt | date:'medium' }}</span>
+            </div>
+            <div class="row1">
+                <span>Amount : {{payment.payment_amount | currency:'INR'}}</span>
+                <span>Status : <span [ngStyle]="payment.status!='PENDING' ? {'color': 'green'} : {'color': 'orange'}">{{payment.status | titlecase}}</span></span>
+            </div>
+                <div class="row1">
+                <span>Supply Milk Count : {{payment.milk_coll_id.length }}</span>
+                <span>Advances Count : {{payment.a_id.length }}</span>
+                </div>
+        </div>
+    </div>
 </div>
+

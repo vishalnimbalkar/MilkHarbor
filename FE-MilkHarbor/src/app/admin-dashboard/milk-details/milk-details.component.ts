@@ -82,6 +82,7 @@ export class MilkDetailsComponent implements OnInit {
   onPopUp() {
     this.isEdit = true;
     this.isFilter=false
+    this.isDropdownOpen2 = false;
   }
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -92,6 +93,7 @@ export class MilkDetailsComponent implements OnInit {
     this.isDropdownOpen = false;
   }
   onClose() {
+    this.isDropdownOpen = false;
     this.isEdit = false;
     this.reportForm.reset();
     this.isFilter=false
@@ -194,15 +196,20 @@ export class MilkDetailsComponent implements OnInit {
 
   onFarmer2(username:string){
     this.selectedFarmer=username
-    this.isDropdownOpen = false;
+    this.isDropdownOpen2 = false;
     this.filter()
   }
 
   filter() {
-    this.filterdMilkData = this.milkDetails.filter(data => {
-      const farmers=data.username === this.selectedFarmer
-      return farmers
-    });
+    if(this.selectedFarmer!="ALL"){
+      this.filterdMilkData = this.milkDetails.filter(data => {
+        const farmers=data.username === this.selectedFarmer
+        return farmers
+      });
+    }else{
+      this.filterdMilkData=this.milkDetails
+      this.selectedFarmer=''
+    }
   }
 
   onClear(){
